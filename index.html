@@ -3,16 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Real Estate Reels Database</title>
+    <title>Real Estate Reels SOP Library</title>
     <style>
         :root {
             --bg-color: #0f172a;
             --card-bg: #1e293b;
             --accent: #38bdf8;
+            --accent-hover: #0284c7;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --border: #334155;
             --table-header: #0f172a;
+        }
+
+        * {
+            box-sizing: border-box;
         }
 
         body {
@@ -20,7 +25,7 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             margin: 0;
-            padding: 2rem;
+            padding: 2rem 1rem;
             line-height: 1.5;
         }
 
@@ -41,19 +46,84 @@
             font-size: 1.1rem;
         }
 
-        #reels-container {
+        .container {
             max-width: 1200px;
             margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 2.5rem;
         }
 
-        .reel-card {
+        /* Nav & Action Buttons */
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: var(--card-bg);
+            color: var(--accent);
+            border: 1px solid var(--border);
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-back:hover {
+            background-color: var(--border);
+            color: #fff;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background-color: var(--accent);
+            color: var(--bg-color);
+            font-weight: 700;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+            color: #fff;
+        }
+
+        /* Main Grid (Library View) */
+        .reels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .grid-card {
             background-color: var(--card-bg);
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+            cursor: pointer;
+        }
+
+        .grid-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+        }
+
+        /* Detail View (SOP Page) */
+        #sop-detail-view {
+            display: none;
+        }
+
+        .sop-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
         }
 
@@ -71,7 +141,7 @@
         }
 
         .reel-title {
-            font-size: 1.5rem;
+            font-size: 1.75rem;
             margin: 0 0 0.5rem 0;
         }
 
@@ -80,15 +150,15 @@
             border-left: 4px solid var(--accent);
             padding: 0.75rem 1rem;
             font-style: italic;
-            margin-bottom: 1rem;
+            margin: 1rem 0;
             border-radius: 0 6px 6px 0;
         }
 
         .meta-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 1rem;
-            margin-bottom: 1.5rem;
+            margin: 1.5rem 0;
             background: rgba(255, 255, 255, 0.02);
             padding: 1rem;
             border-radius: 8px;
@@ -102,11 +172,11 @@
         }
 
         .section-title {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: var(--accent);
             border-bottom: 1px solid var(--border);
             padding-bottom: 0.25rem;
-            margin-top: 1.5rem;
+            margin-top: 2rem;
             margin-bottom: 0.75rem;
         }
 
@@ -116,7 +186,7 @@
         }
 
         li {
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.35rem;
         }
 
         table {
@@ -160,14 +230,13 @@
         }
 
         .links {
-            margin-top: 1rem;
+            margin-top: 1.5rem;
         }
 
         .links a {
             color: var(--accent);
             text-decoration: none;
             font-weight: 600;
-            font-size: 0.9rem;
         }
 
         .links a:hover {
@@ -179,10 +248,25 @@
 
     <header>
         <h1>Real Estate Reels Database</h1>
-        <p class="subtitle">Complete Script & Production Library</p>
+        <p class="subtitle">Main Video Library & Detailed SOP Playbooks</p>
     </header>
 
-    <main id="reels-container"></main>
+    <div class="container">
+        <!-- VIEW 1: MAIN LIBRARY GRID -->
+        <main id="library-view">
+            <div class="reels-grid" id="reels-grid-container">
+                <!-- Javascript populates library cards here -->
+            </div>
+        </main>
+
+        <!-- VIEW 2: SOP DETAIL PAGE -->
+        <main id="sop-detail-view">
+            <button class="btn-back" onclick="showLibrary()">← Back to Reel Library</button>
+            <div id="sop-content" class="sop-card">
+                <!-- Javascript populates selected SOP breakdown here -->
+            </div>
+        </main>
+    </div>
 
     <script>
         const reelDatabase = [
@@ -192,41 +276,37 @@
                 title: 'If Real Estate Videos Were Honest',
                 hook: "HOOK: 'It's not my listing... but I'm going to make it look like it is.'",
                 fullReelUrl: 'https://www.instagram.com/reel/DOUWDbcEj1Z/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
-                embedUrl: 'https://www.instagram.com/p/DOUWDbcEj1Z/embed/',
                 coreObjective: 'Drive top-of-funnel reach, high engagement, and client trust through radical transparency, meta-humor, and seamless loop mechanics.',
                 psychology: [
-                    'Subversive Meta-Humor: Breaks the fourth wall by admitting industry tropes (borrowing listings, performative B-roll, low sales volume). Radical self-deprecation immediately builds authenticity with viewers burned out by traditional, over-polished pitches.',
-                    'Persistent Visual Anchor: A fixed top banner (If real estate videos were honest) maintains full context for silent scrollers and fast swipers.',
-                    'Rapid Pattern Breaks: High-velocity visual switches every 3 seconds keep retention graphs flat by preventing visual fatigue.',
-                    'Infinite Audio Loop: Cutting abruptly on your name at 0:22 feeds directly into Shot 1 (0:00), tricking algorithms with a >100% Average Percentage Viewed (APV).'
+                    'Subversive Meta-Humor: Breaks the fourth wall by admitting industry tropes. Radical self-deprecation immediately builds authenticity.',
+                    'Persistent Visual Anchor: A fixed top banner maintains full context for silent scrollers.',
+                    'Rapid Pattern Breaks: High-velocity visual switches every 3 seconds prevent visual fatigue.',
+                    'Infinite Audio Loop: Cutting abruptly on your name feeds directly back to Shot 1.'
                 ],
                 setup: [
-                    'Location Strategy: A high-end property with diverse visual environments (driveway/entryway, modern kitchen, luxury bathroom mirror, porch or outdoor seating).',
-                    'Audio Requirements: Wireless lapel microphone paired to camera/phone to ensure crisp, voice-isolated audio while walking outdoors and indoors.',
-                    'Visual Styling: Fixed top banner configured in video editor: White background, black bold text, centered (If real estate videos were honest).'
+                    'Location: A high-end property with diverse visual environments.',
+                    'Audio: Wireless lapel microphone for voice-isolated audio.',
+                    'Visual Styling: Fixed top banner (If real estate videos were honest).'
                 ],
-                targetLength: '22 Seconds | Aspect Ratio: Vertical 9:16 (1080x1920)',
+                targetLength: '22 Seconds | Aspect Ratio: Vertical 9:16',
                 bannerOverlayText: 'If real estate videos were honest',
                 table: [
-                    { time: "0:00–0:03", shot: "Shot 1 (Hook): Medium-wide shot. Walking toward camera down driveway or entrance hallway with open hands.", overlay: "NOT MY LISTING", audio: "\"It's not my listing... but I'm going to make it look like it is.\"" },
-                    { time: "0:03–0:06", shot: "Shot 2 (Pivot): Medium shot. Standing in entry foyer gesturing proud, performative hand movements.", overlay: "ALL ABOUT ME", audio: "\"This video isn't about the house. It's about me—well, a version that appeals to you.\"" },
-                    { time: "0:06–0:09", shot: "Shot 3 (B-Roll 1): Extreme close-up. Hand slowly and dramatically gliding over marble countertop.", overlay: "CARESSING COUNTERTOPS", audio: "\"A version that strolls aimlessly caressing countertops...\"" },
-                    { time: "0:09–0:12", shot: "Shot 4 (B-Roll 2): Low angle shot. Kneeling in kitchen, nodding deeply while opening an oven door like an expert.", overlay: "EXPERT MODE", audio: "\"...and pretends to be knowledgeable about technical details I know nothing about.\"" },
-                    { time: "0:12–0:15", shot: "Shot 5 (B-Roll 3): Medium shot via bathroom mirror. Splashing water on face and rubbing eyes.", overlay: "NOT HUNGOVER", audio: "\"...a version that doesn't look exhausted or hungover.\"" },
-                    { time: "0:15–0:19", shot: "Shot 6 (The Stat): Medium-close shot. Sitting at kitchen island talking directly into lens with zero fluff.", overlay: "70% SOCIAL MEDIA", audio: "\"I spend 70% of my time on social media so you think I'm busy. My actual production is tiny, but you'd never know.\"" },
-                    { time: "0:19–0:22", shot: "Shot 7 (The Close): Tight close-up. Sitting on porch rocking chair, leaning in close with a deadpan expression.", overlay: "CHOICE IS CLEAR", audio: "\"So do you want an overly salesy guru, or a guru who's overly salesy? Hi, I'm [Name]—\" [Cut abruptly]" }
+                    { time: "0:00–0:03", shot: "Shot 1 (Hook): Walking down driveway with open hands.", overlay: "NOT MY LISTING", audio: "\"It's not my listing... but I'm going to make it look like it is.\"" },
+                    { time: "0:03–0:06", shot: "Shot 2 (Pivot): Standing in entryway gesturing proud movements.", overlay: "ALL ABOUT ME", audio: "\"This video isn't about the house. It's about me—well, a version that appeals to you.\"" },
+                    { time: "0:06–0:09", shot: "Shot 3 (B-Roll 1): Hand gliding over marble countertop.", overlay: "CARESSING COUNTERTOPS", audio: "\"A version that strolls aimlessly caressing countertops...\"" },
+                    { time: "0:09–0:12", shot: "Shot 4 (B-Roll 2): Kneeling in kitchen, opening oven door.", overlay: "EXPERT MODE", audio: "\"...and pretends to be knowledgeable about technical details I know nothing about.\"" },
+                    { time: "0:12–0:15", shot: "Shot 5 (B-Roll 3): Bathroom mirror shot, splashing water.", overlay: "NOT HUNGOVER", audio: "\"...a version that doesn't look exhausted or hungover.\"" },
+                    { time: "0:15–0:19", shot: "Shot 6 (The Stat): Sitting at island talking into lens.", overlay: "70% SOCIAL MEDIA", audio: "\"I spend 70% of my time on social media... My actual production is tiny.\"" },
+                    { time: "0:19–0:22", shot: "Shot 7 (The Close): Sitting in porch rocking chair.", overlay: "CHOICE IS CLEAR", audio: "\"So do you want an overly salesy guru... Hi, I'm [Name]—\" [Cut]" }
                 ],
                 postProduction: [
-                    'Tight Jump-Cuts: Trim all micro-pauses, breaths, and ambient noise between sentences to keep the vocal pace tight.',
-                    'Text Overlay Formatting: Top Banner: Fixed white box, bold black sans-serif font.',
-                    'Text Overlay Formatting: Center Captions: Animated single/double word pop-up captions (yellow/white text on key trigger words like LISTING, 70%, GURU).',
-                    'Audio Mixing: Voiceover / Direct Audio: Set at 0dB (loud, clear, and normalized).',
-                    'Audio Mixing: Background Track: Light acoustic guitar, comedy-plucked bass, or quirky jazz set at -22dB to -24dB.',
-                    'The Seamless Loop Edit: Trim Shot 7 mid-word right as you state your first name (e.g., "Hi, I\'m Mike—"). This connects straight back into Shot 1 ("...it\'s not my listing") without any drop in momentum.',
-                    'Publishing Distribution: Export in 9:16 1080p and publish across Instagram Reels, TikTok, YouTube Shorts, and Facebook Reels.'
+                    'Tight Jump-Cuts: Trim all micro-pauses between sentences.',
+                    'Captions: Animated word pop-up captions in yellow/white.',
+                    'Audio Mixing: Voiceover at 0dB, background music at -22dB.',
+                    'Seamless Loop: Trim mid-word on name to connect seamlessly into Shot 1.'
                 ],
                 pinnedComment: 'Be honest: How many real estate videos have you swiped past today? 😂👇',
-                hashtags: '#realestatehumor #realestatetips #realestateagent #realtorlife #homebuyingtips #listingagent'
+                hashtags: '#realestatehumor #realestatetips #realestateagent #realtorlife'
             },
             {
                 id: 'side-job',
@@ -234,42 +314,34 @@
                 title: 'When Your Real Estate Agent Has A Side Job',
                 hook: "HOOK: Driver: 'Hey, welcome in!' Passenger: 'Heading home.' Driver: 'You own or rent?'",
                 fullReelUrl: 'https://www.instagram.com/reel/DXE73PCka10/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
-                embedUrl: 'https://www.instagram.com/p/DXE73PCka10/embed/',
                 coreObjective: 'Captive audience dynamic inside rideshare driving engagement with high relatable satire.',
                 psychology: [
-                    'Relatable Situational Satire: Plays into the widely understood meme that "everyone and their cousin is a real estate agent" or doing real estate as a side hustle.',
-                    'The "Captive Audience" Dynamic: By framing the video inside an Uber/Lyft ride, it creates immediate comedic tension—the passenger just wants to go home, but the driver treats them like a captive sales prospect.',
-                    'POV Immersion: Filmed from the back seat looking over the driver’s shoulder, making the viewer feel like the uncomfortable passenger.',
-                    'Natural Seamless Loop: Ends with the passenger saying, "Just let me out," the car door slamming shut, and cutting directly back to 0:00 ("Hey, welcome in!").'
+                    'Relatable Satire: Plays into the meme that everyone is a real estate agent.',
+                    'Captive Audience Dynamic: Rideshare setting creates natural comedic tension.',
+                    'POV Immersion: Filmed over driver\'s shoulder for immediate passenger perspective.'
                 ],
                 setup: [
-                    'Equipment: Smartphone, dashboard/backseat headrest phone mount, and wireless lapel mic (clip mic onto driver\'s shirt collar).',
-                    'Location: Drive through a suburban neighborhood with visible real estate "For Sale" signs.',
-                    'Props Needed: Phone mounted on dash (showing a GPS app/Uber driver screen), Coffee tumbler in cup holder, Real estate flyers on the passenger seat.',
-                    'Camera Angle: Place the camera/phone in the back seat, angled over the driver\'s right shoulder (so both the driver, rearview mirror, and side window are visible).',
-                    'Audio Setup: Have a second person sit in the back seat to voice the passenger lines (or record passenger audio separately in post).',
-                    'Driving Safety: Perform this in a quiet residential neighborhood at low speeds (10–15 mph), stopping safely along the curb when pulling up to houses.'
+                    'Equipment: Smartphone, dashboard mount, lapel mic.',
+                    'Location: Drive through suburban neighborhood with For Sale signs.',
+                    'Camera Angle: Placed in back seat angled over right shoulder.'
                 ],
                 targetLength: '1 Minute 11 Seconds | Vertical 9:16',
                 bannerOverlayText: 'When you\'re a real estate agent with a side job',
                 table: [
-                    { time: "0:00–0:06", shot: "Shot 1 (The Hook): Backseat POV looking over driver's shoulder. Driver turns, taps phone mount, and pulls away.", overlay: "WHERE WE HEADED?", audio: "Driver: \"Hey, welcome in!\"\n\nPassenger: \"Heading home.\"\n\nDriver: \"You own or rent?\"" },
-                    { time: "0:06–0:14", shot: "Shot 2 (The Pitch): Driver looks back in the rearview mirror while steering with one hand, pointing toward the road.", overlay: "QUICK STOP", audio: "Passenger: \"Renting for now.\"\n\nDriver: \"Need to make a quick stop... it's on the way, don't worry.\"" },
-                    { time: "0:14–0:22", shot: "Shot 3 (Drive-By Tour 1): Camera pans out side passenger window to show a suburban home with a \"For Sale\" sign.", overlay: "3 BED / 2 BATH", audio: "Driver: \"I think you'll like this one! 3-bedroom, 2.5-bath, under 3,000 sq ft. Month-to-month right now, we can get you in 30 days.\"" },
-                    { time: "0:22–0:36", shot: "Shot 4 (The Push back): Driver looks back into lens, turning around fully at a red light/stop sign.", overlay: "INTEREST RATES?", audio: "Passenger: \"I'm just trying to go home.\"\n\nDriver: \"No problem, it's on the way! Have you been keeping up with interest rates?\"" },
-                    { time: "0:36–0:48", shot: "Shot 5 (Drive-By Tour 2): Camera pans back out the window to show a second, larger house with a sign.", overlay: "HOUSE #2", audio: "Driver: \"Look at this one right here—4 beds, 3 baths, fully updated with a hot tub!\"" },
-                    { time: "0:48–1:11", shot: "Shot 6 (The Rejection & Loop): Driver turns around to book a showing on his phone. Passenger opens door to escape.", overlay: "LET ME OUT", audio: "Driver: \"How's 10:00 AM tomorrow for a showing?\"\n\nPassenger: \"Just let me out.\"\n\n(Door slams -> Cuts to Shot 1)" }
+                    { time: "0:00–0:06", shot: "Shot 1 (Hook): Backseat POV over shoulder.", overlay: "WHERE WE HEADED?", audio: "Driver: \"Hey, welcome in!\"\nPassenger: \"Heading home.\"\nDriver: \"You own or rent?\"" },
+                    { time: "0:06–0:14", shot: "Shot 2 (The Pitch): Driver looks back in mirror.", overlay: "QUICK STOP", audio: "Passenger: \"Renting for now.\"\nDriver: \"Need to make a quick stop... it's on the way.\"" },
+                    { time: "0:14–0:22", shot: "Shot 3 (Drive-By Tour 1): Pan to suburban home.", overlay: "3 BED / 2 BATH", audio: "Driver: \"I think you'll like this one! 3-bedroom, 2.5-bath under 3,000 sq ft.\"" },
+                    { time: "0:22–0:36", shot: "Shot 4 (The Pushback): Driver turns around at stop sign.", overlay: "INTEREST RATES?", audio: "Passenger: \"I'm just trying to go home.\"\nDriver: \"Have you been keeping up with interest rates?\"" },
+                    { time: "0:36–0:48", shot: "Shot 5 (Drive-By Tour 2): Pan out window to second house.", overlay: "HOUSE #2", audio: "Driver: \"Look at this one right here—4 beds, 3 baths, fully updated!\"" },
+                    { time: "0:48–1:11", shot: "Shot 6 (Rejection & Loop): Passenger exits vehicle.", overlay: "LET ME OUT", audio: "Driver: \"How's 10:00 AM tomorrow for a showing?\"\nPassenger: \"Just let me out.\"\n(Door slams -> Cut)" }
                 ],
                 postProduction: [
-                    'Text Overlay: Fixed Top Banner: Black text inside a solid white rounded box (When you\'re a real estate agent with a side job).',
-                    'Audio Mixing: Driver voice clear and loud at 0dB.',
-                    'Audio Mixing: Passenger voice slightly muffled/panned to sound like it\'s coming from behind the camera.',
-                    'Audio Mixing: Car interior ambient hum kept low.',
-                    'Loop Point Setup: Trim the final frame immediately as the car door slams on "Just let me out."',
-                    'Loop Point Setup: Transition cleanly back to 0:00 ("Hey, welcome in!") to complete the loop.'
+                    'Text Overlay: Fixed top banner with clear black text on white.',
+                    'Audio Mixing: Driver at 0dB, passenger slightly muffled.',
+                    'Loop Point: Cut on door slam back to 0:00.'
                 ],
                 pinnedComment: 'Would you be mad or impressed if your Uber driver pulled this? 😂👇',
-                hashtags: '#realestateagent #realtorlife #uberhumor #sidehustle #homebuyer'
+                hashtags: '#realestateagent #realtorlife #uberhumor #sidehustle'
             },
             {
                 id: 'tip-culture',
@@ -277,40 +349,35 @@
                 title: 'Tip Culture Getting Out Of Hand',
                 hook: "HOOK: Buyer: 'Thanks for showing the house!' Agent: 'My pleasure! Just sign out on the screen real quick.'",
                 fullReelUrl: 'https://www.instagram.com/reel/DY7ZT8TO1U7/?utm_source=&igsh=MzRlODBiNWFlZA==ig_web_copy_link',
-                embedUrl: 'https://www.instagram.com/p/DY7ZT8TO1U7/embed/',
                 coreObjective: 'Combine tip culture fatigue with real estate high stakes to create high engagement and viral debate.',
                 psychology: [
-                    'Riding Cultural Rage Waves: "Tip Culture" is one of the most widely discussed, controversial topics online. Combining tip culture fatigue with real estate\'s high stakes creates an instant curiosity gap.',
-                    'Inner Monologue Technique: Using inner monologues for both characters (buyer vs. agent) builds rapid comedic tension and keeps retention flat throughout the middle section.',
-                    'Absurd Prop Visual: Showing a realistic Pos/iPad screen with 18% ($153,000) tip options on an $850,000 house purchase forces the viewer to pause or replay to inspect the screen (boosting average watch time).',
-                    'The "No Tip" Gag: Disabling the "No Tip" button (No tip (not an option)) drives massive comment section outrage and engagement.',
-                    'Infinite Auto-Loop: The buyer storming down the front steps at 0:25 cuts back to her opening the front door entering the house (0:00), creating a smooth loop.'
+                    'Cultural Rage Wave: Capitalizes on universal tip culture fatigue.',
+                    'Inner Monologue: Creates comedic tension and maintains flat retention.',
+                    'Absurd Prop Visual: iPad showing 18% ($153,000) tip forces pauses/replays.'
                 ],
                 setup: [
-                    'Prepare the Tablet Prop Screen: Create a simple slide on Canva or Photoshop with an iPad dimension (4:3 ratio). Title: "Add a tip? Thank you for your support!" Three tip boxes: 18% ($153,000) | 20% ($170,000) | 22% ($187,000). Bottom gray button: No tip (not an option). Purchase Total: $850,000. Open this image full screen on any real iPad/tablet.',
-                    'Location: Front doorway/porch of a residential listing or home entry.',
-                    'Audio Setup: Wireless lapel mics on both actors. Speak the "Inner Monologue" lines directly into camera with slightly echoed reverb in post, or record them as clean voiceovers.',
-                    'Lighting & Angles: Keep camera framed in portrait mode (9:16). Frame Shot 2 (iPad Close-Up) with crisp focus so the tip amounts are immediately readable within 1 second.'
+                    'Tablet Prop: Canva slide displaying 18%, 20%, 22% tip options on an $850k purchase.',
+                    'Location: Front doorway/porch of a listing.',
+                    'Audio: Reverb effect added on inner monologue dialogue.'
                 ],
-                targetLength: '25 Seconds | Format: Vertical 9:16 (1080x1920)',
+                targetLength: '25 Seconds | Vertical 9:16',
                 bannerOverlayText: 'Tip Culture is Getting Out of Hand 💳',
                 table: [
-                    { time: "0:00–0:03", shot: "Shot 1 (The Hook): Buyer walks out door thanking agent. Agent follows her with an iPad, spinning it around.", overlay: "SIGN OUT PLEASE", audio: "Buyer: \"Thanks for showing the house!\"\n\nAgent: \"My pleasure! Just sign out on the screen real quick.\"" },
-                    { time: "0:03–0:06", shot: "Shot 2 (The Screen Insert): Close-up shot of the iPad screen showing 18% ($153k), 20% ($170k), 22% ($187k) tips on an $850,000 house.", overlay: "ADD A TIP?", audio: "(Silence / Awkward beat as camera zooms slightly into screen)" },
-                    { time: "0:06–0:10", shot: "Shot 3 (Buyer Reaction): Over-the-shoulder shot of buyer staring at the iPad with a panicked, bewildered expression.", overlay: "AT AN OPEN HOUSE?!", audio: "Buyer (Inner Monologue): \"Wait a minute... tips at an open house?! This is getting out of control!\"" },
-                    { time: "0:10–0:15", shot: "Shot 4 (Agent Reaction): Agent holding iPad, looking up at the ceiling awkwardly trying not to make eye contact.", overlay: "STAY COOL", audio: "Agent (Inner Monologue): \"Oh man, she's actually thinking about doing it. Stay cool bro...\"" },
-                    { time: "0:15–0:19", shot: "Shot 5 (Buyer Dilemma): Medium shot of buyer biting her hand/lip in deep internal conflict.", overlay: "$153,000 TIP", audio: "Buyer (Inner Monologue): \"I don't want to look cheap... but 18% is $153,000! Is that not enough?!\"" },
-                    { time: "0:19–0:24", shot: "Shot 6 (The Climax): Agent avoids eye contact while buyer taps screen. Agent internally reacts in shock as she selects a option.", overlay: "NO TIP DISABLED", audio: "Agent (Inner Monologue): \"Don't make eye contact... you removed the 'no tip' button... oh my god she just tapped it!\"" },
-                    { time: "0:24–0:27", shot: "Shot 7 (The Exit & Loop): Buyer turns and quickly stomps down the front porch stairs into the driveway.", overlay: "OUTTA HERE", audio: "Buyer: \"Okay, all set!\"\n\n(Stomps down steps -> Cuts directly back to Shot 1)" }
+                    { time: "0:00–0:03", shot: "Shot 1 (Hook): Buyer exits, agent presents iPad.", overlay: "SIGN OUT PLEASE", audio: "Buyer: \"Thanks for showing the house!\"\nAgent: \"My pleasure! Just sign out real quick.\"" },
+                    { time: "0:03–0:06", shot: "Shot 2 (Screen Insert): Close up on iPad tip choices.", overlay: "ADD A TIP?", audio: "(Awkward pause as camera zooms on screen)" },
+                    { time: "0:06–0:10", shot: "Shot 3 (Buyer Reaction): Staring in disbelief.", overlay: "AT AN OPEN HOUSE?!", audio: "Buyer (Inner Monologue): \"Wait a minute... tips at an open house?!\"" },
+                    { time: "0:10–0:15", shot: "Shot 4 (Agent Reaction): Looking away nervously.", overlay: "STAY COOL", audio: "Agent (Inner Monologue): \"Oh man, she's actually thinking about doing it...\"" },
+                    { time: "0:15–0:19", shot: "Shot 5 (Buyer Dilemma): Biting lip in internal struggle.", overlay: "$153,000 TIP", audio: "Buyer (Inner Monologue): \"I don't want to look cheap... but 18% is $153,000!\"" },
+                    { time: "0:19–0:24", shot: "Shot 6 (The Climax): Tapping disabled button.", overlay: "NO TIP DISABLED", audio: "Agent (Inner Monologue): \"You removed the 'no tip' button... oh god she tapped it!\"" },
+                    { time: "0:24–0:27", shot: "Shot 7 (Exit & Loop): Stomping down porch stairs.", overlay: "OUTTA HERE", audio: "Buyer: \"Okay, all set!\"\n(Stomps down steps -> Cut)" }
                 ],
                 postProduction: [
-                    'Inner Monologue Audio Effect: Add a subtle Reverb / Echo effect on the voiceover tracks during Shots 3, 4, 5, and 6 to signal to the viewer that these are internal thoughts.',
-                    'Text Overlay Styling: Top Banner: Solid white box with bold black text (Tip Culture is Getting Out of Hand 💳).',
-                    'Text Overlay Styling: Pop-Up Captions: Large, high-contrast subtitles centered in the lower third (yellow/white highlights).',
-                    'Audio Loop Stitching: Cut Shot 7 the second the buyer\'s foot hits the bottom porch step. Stitch it to Shot 1 (0:00) so the video auto-loops continuously.'
+                    'Audio Effect: Reverb/echo on inner monologue thoughts.',
+                    'Captions: Highlighted lower-third word pop-ups.',
+                    'Loop Stitching: Cut on step impact to auto-loop continuous action.'
                 ],
                 pinnedComment: 'Be honest... if you saw \'No Tip (Not an Option)\' at an open house, what are you doing? 😂👇',
-                hashtags: '#tipculture #realestatehumor #openhouse #realtorlife #homebuying #realestateagent'
+                hashtags: '#tipculture #realestatehumor #openhouse #realtorlife'
             },
             {
                 id: 'every-opportunity',
@@ -318,49 +385,58 @@
                 title: 'Taking Advantage Of Every Opportunity',
                 hook: "HOOK: (Car horn honks) Agent: 'Keep coming! You're good, you're good! Stop!'",
                 fullReelUrl: 'https://www.instagram.com/reel/DRSP6AHkXkw/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
-                embedUrl: 'https://www.instagram.com/p/DRSP6AHkXkw/embed/',
                 coreObjective: 'Use physical comedy and hyper-local targeting to drive massive shares and brand awareness.',
                 psychology: [
-                    'The "Bait-and-Switch" Hook: Starts like a classic vehicular mishap video (driver pulling into a tricky driveway, someone guiding them with hand signals). The sudden shift from "helpful driveway guide" to "aggressive real estate pitch" creates a massive shock-value pattern break.',
-                    'Physical Slapstick Comedy: The agent enthusiastically guides the car into place, walks up to the driver\'s window, rolls down their window electronically (or slides a card through the crack), and launches straight into a pitch without breaking character.',
-                    'Hyper-Local Targeting: Mentioning a specific neighborhood ("Bluff Park," "Hoover native") grounds the joke in real-world authenticity and drives high local shares/comments.',
-                    'Seamless Visual Loop: Ending with the business card getting stuffed through the window crack as the driver backs up/restarts cuts straight back to the opening driveway horn sound (0:00).'
+                    'Bait-and-Switch Hook: Starts as driveway help, shifts to aggressive real estate pitch.',
+                    'Physical Slapstick: Hand gestures, running up to window, force-sliding business cards.',
+                    'Hyper-Local Targeting: Names specific local towns to increase local shares.'
                 ],
                 setup: [
-                    'Equipment Needed: Car, smartphone (held by driver), and physical business cards.',
-                    'Location: Driveway of a residential house or garage entry.',
-                    'Audio: Wear a wireless lapel microphone on the agent so his vocal delivery stays crisp while walking up to the moving car outdoors.',
-                    'Shot 1 (Windshield POV): Driver holds phone over the steering wheel. Agent stands 15 feet in front of the vehicle, dramatically waving arms like an airport tarmac worker guiding a plane.',
-                    'Shot 2 (Window Approach): Driver pulls up slowly, taps brake, and lowers driver\'s window. Agent quickly steps to the door, pulls a card out of his pocket, and leans into frame.',
-                    'Shot 3 (The Pitch Delivery): Deliver the pitch at 1.1x–1.2x natural speed with high energy and zero pauses.',
-                    'Shot 4 (The Card Stuff): As the driver rolls up the window, the agent slides the business card into the glass gap right before the cut.'
+                    'Equipment: Smartphone, physical business cards.',
+                    'Location: Residential driveway.',
+                    'Audio: Wireless lapel mic for clear outdoor speech.'
                 ],
-                targetLength: '18 Seconds | Format: Vertical 9:16 (1080x1920)',
+                targetLength: '18 Seconds | Vertical 9:16',
                 bannerOverlayText: 'Taking advantage at every opportunity... 🚗',
                 table: [
-                    { time: "0:00–0:03", shot: "Shot 1 (The Hook): POV from driver's seat looking through windshield. Driver honks horn. Agent frantically waves hands guiding the car down the driveway.", overlay: "COMING IN HOT 🚘", audio: "(Car horn honks)\n\nAgent: \"Keep coming! You're good, you're good! Stop!\"" },
-                    { time: "0:03–0:06", shot: "Shot 2 (The Approach): Driver rolls down window. Agent slaps the side of the car lightly, smiles, and pulls out a business card.", overlay: "MEET BLAKE 📇", audio: "Agent: \"Hey! I'm Blake Shults with ARC Realty.\"" },
-                    { time: "0:06–0:12", shot: "Shot 3 (The Rapid Pitch): Medium close-up through open window. Agent holds card up to driver's face, talking at 1.2x speed.", overlay: "HOOVER NATIVE 🏠", audio: "Agent: \"Are you looking to buy or sell a house in Bluff Park? I'm a Hoover native, been here my whole life!\"" },
-                    { time: "0:12–0:17", shot: "Shot 4 (The Card Slide & Loop): Agent tries to force the card through the window frame as the driver rolls it up or backs away.", overlay: "TAKE MY CARD 💳", audio: "Agent: \"I'd love to earn your business! If you're looking to buy or sell, here's my card—\"\n\n(Window rolls up / Car backs up -> Cuts directly back to Shot 1)" }
+                    { time: "0:00–0:03", shot: "Shot 1 (Hook): Windshield POV guiding driver.", overlay: "COMING IN HOT 🚘", audio: "(Car horn honks)\nAgent: \"Keep coming! You're good, you're good! Stop!\"" },
+                    { time: "0:03–0:06", shot: "Shot 2 (The Approach): Pulling out business card.", overlay: "MEET BLAKE 📇", audio: "Agent: \"Hey! I'm Blake Shults with ARC Realty.\"" },
+                    { time: "0:06–0:12", shot: "Shot 3 (Rapid Pitch): Talking at 1.2x speed.", overlay: "HOOVER NATIVE 🏠", audio: "Agent: \"Are you looking to buy or sell a house in Bluff Park? I'm a Hoover native!\"" },
+                    { time: "0:12–0:17", shot: "Shot 4 (Card Slide & Loop): Pushing card through window crack.", overlay: "TAKE MY CARD 💳", audio: "Agent: \"I'd love to earn your business! Here's my card—\"\n(Window rolls up -> Cut)" }
                 ],
                 postProduction: [
-                    'Audio Sound Effects: Add a sharp car horn sound at frame 0:00.',
-                    'Audio Sound Effects: Add a subtle window-rolling/mechanical sound when the window lowers at 0:03.',
-                    'Text Banner & Captions: Top Header Box: Solid white background with black text (Taking advantage at every opportunity... 🚗).',
-                    'Text Banner & Captions: Pop-Up Captions: Lower-third single-word pop-ups (BUY, SELL, BLUFF PARK).',
-                    'Loop Stitch: Cut the video mid-sentence right as the card gets shoved through the window crack so it loops straight back into the opening driveway honk.'
+                    'SFX: Car horn at 0:00 and mechanical window sound.',
+                    'Captions: Rapid pop-up keywords.',
+                    'Loop Stitch: Cut mid-sentence right as card pushes into window gap.'
                 ],
                 pinnedComment: 'If I guided you into a tight parking spot, would you let me list your house? 😂👇',
-                hashtags: '#realestatehumor #realtorlife #listingagent #homebuyingtips #realestateagent #realtormemes'
+                hashtags: '#realestatehumor #realtorlife #listingagent #realestateagent'
             }
         ];
 
-        const container = document.getElementById('reels-container');
+        // Render Main Library Grid
+        function renderLibrary() {
+            const gridContainer = document.getElementById('reels-grid-container');
+            gridContainer.innerHTML = reelDatabase.map(reel => `
+                <div class="grid-card" onclick="openSOP('${reel.id}')">
+                    <div>
+                        <span class="category-badge">${reel.category}</span>
+                        <h2 style="font-size: 1.3rem; margin: 0.5rem 0;">${reel.title}</h2>
+                        <div class="hook-box" style="font-size: 0.9rem;">${reel.hook}</div>
+                    </div>
+                    <div style="margin-top: 1rem;">
+                        <button class="btn-primary" style="width: 100%;">View SOP Playbook →</button>
+                    </div>
+                </div>
+            `).join('');
+        }
 
-        reelDatabase.forEach(reel => {
-            const card = document.createElement('article');
-            card.className = 'reel-card';
-            card.id = reel.id;
+        // Open Selected SOP Page
+        function openSOP(reelId) {
+            const reel = reelDatabase.find(item => item.id === reelId);
+            if (!reel) return;
+
+            const sopContainer = document.getElementById('sop-content');
 
             const tableRows = reel.table ? reel.table.map(row => `
                 <tr>
@@ -371,7 +447,7 @@
                 </tr>
             `).join('') : '';
 
-            card.innerHTML = `
+            sopContainer.innerHTML = `
                 <span class="category-badge">${reel.category}</span>
                 <h2 class="reel-title">${reel.title}</h2>
                 
@@ -406,8 +482,8 @@
                 <table>
                     <thead>
                         <tr>
-                            <th style="width: 10%;">Time</th>
-                            <th style="width: 30%;">Shot & Action</th>
+                            <th style="width: 12%;">Time</th>
+                            <th style="width: 28%;">Shot & Action</th>
                             <th style="width: 20%;">Overlay / Text</th>
                             <th style="width: 40%;">Audio / Dialogue</th>
                         </tr>
@@ -422,7 +498,7 @@
                     ${reel.postProduction.map(item => `<li>${item}</li>`).join('')}
                 </ul>
 
-                <div class="meta-grid" style="margin-top: 1rem; margin-bottom: 0;">
+                <div class="meta-grid" style="margin-top: 1.5rem;">
                     <div class="meta-item">
                         <strong>Pinned Comment Strategy</strong>
                         ${reel.pinnedComment}
@@ -438,8 +514,20 @@
                 </div>
             `;
 
-            container.appendChild(card);
-        });
+            document.getElementById('library-view').style.display = 'none';
+            document.getElementById('sop-detail-view').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Return to Main Library View
+        function showLibrary() {
+            document.getElementById('sop-detail-view').style.display = 'none';
+            document.getElementById('library-view').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Initializing page
+        renderLibrary();
     </script>
 </body>
 </html>
