@@ -3,25 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reels & SOP Operating System</title>
+    <title>REELS & SOP OPERATING SYSTEM</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
             --bg-dark: #07090e;
             --bg-card: #111827;
+            --accent-gradient: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
             --accent-purple: #a78bfa;
             --text-main: #ffffff;
             --text-muted: #9ca3af;
             --border-color: rgba(255, 255, 255, 0.12);
+            --editable-bg: rgba(167, 139, 250, 0.1);
+            --editable-border: rgba(167, 139, 250, 0.4);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
         body {
             background-color: var(--bg-dark);
             color: var(--text-main);
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
             padding: 30px 20px;
-            margin: 0;
+        }
+
+        header {
+            max-width: 1400px;
+            margin: 0 auto 24px auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+            background: var(--accent-gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+        }
+
+        .brand h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        .reel-control-bar {
+            max-width: 1400px;
+            margin: 0 auto 30px auto;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 16px 20px;
+            border-radius: 16px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .input-field {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 12px 16px;
+            border-radius: 10px;
+            outline: none;
+            font-size: 0.88rem;
+        }
+
+        .input-field:focus {
+            border-color: var(--accent-purple);
+        }
+
+        .btn-main {
+            background: var(--accent-gradient);
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.88rem;
         }
 
         .reels-grid {
@@ -35,93 +119,515 @@
 
         .phone-card {
             width: 320px;
+            height: 520px;
             background: #000;
-            border-radius: 24px;
-            border: 2px solid var(--border-color);
+            border-radius: 28px;
+            border: 3px solid #1f2937;
+            position: relative;
             overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+            transition: all 0.3s ease;
+            cursor: pointer;
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
         }
 
-        .iframe-container {
-            width: 100%;
-            height: 480px;
+        .phone-card:hover {
+            transform: translateY(-6px);
+            border-color: #ec4899;
+            box-shadow: 0 20px 40px rgba(236, 72, 153, 0.25);
+        }
+
+        .phone-notch {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 75px;
+            height: 16px;
             background: #000;
-            position: relative;
+            border-radius: 10px;
+            z-index: 5;
         }
 
-        .iframe-container iframe {
+        .phone-video-preview {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            border: none;
+            object-fit: cover;
+            opacity: 0.8;
         }
 
-        .phone-footer {
-            padding: 16px;
-            background: var(--bg-card);
-            border-top: 1px solid var(--border-color);
+        .phone-overlay {
+            position: relative;
+            z-index: 3;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px 16px;
+            background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.92) 100%);
         }
 
-        .btn-launch {
-            display: inline-flex;
+        .category-badge {
+            margin-top: 10px;
+            align-self: flex-start;
+            background: rgba(236, 72, 153, 0.25);
+            color: #ec4899;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .phone-title {
+            font-size: 1rem;
+            font-weight: 700;
+            line-height: 1.3;
+            color: #fff;
+        }
+
+        .phone-hook {
+            font-size: 0.78rem;
+            color: #ec4899;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        .open-details-btn {
+            margin-top: 12px;
+            background: rgba(167, 139, 250, 0.15);
+            color: var(--accent-purple);
+            border: 1px solid rgba(167, 139, 250, 0.4);
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: flex;
             align-items: center;
             justify-content: center;
             gap: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .open-details-btn:hover {
+            background: var(--accent-purple);
+            color: #000;
+        }
+
+        /* Modal Player Overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.94);
+            backdrop-filter: blur(12px);
+            z-index: 100;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-body {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
             width: 100%;
-            padding: 10px;
-            background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            max-width: 1150px;
+            height: 90vh;
+            border-radius: 24px;
+            display: flex;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .modal-phone-view {
+            width: 380px;
+            background: #000;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-right: 1px solid var(--border-color);
+            flex-shrink: 0;
+            padding: 20px;
+        }
+
+        .modal-video-player {
+            width: 100%;
+            height: 85%;
+            object-fit: cover;
+            border-radius: 16px;
+        }
+
+        .modal-sop-details {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+
+        .close-modal-btn {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
             color: #fff;
-            text-decoration: none;
-            border-radius: 8px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .sop-heading {
+            font-size: 1rem;
             font-weight: 700;
-            font-size: 0.8rem;
-            margin-top: 10px;
+            color: var(--accent-purple);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        [contenteditable="true"] {
+            outline: none;
+            border-radius: 4px;
+            padding: 2px 6px;
+            transition: all 0.2s ease;
+        }
+
+        [contenteditable="true"]:hover {
+            background: var(--editable-bg);
+            box-shadow: inset 0 0 0 1px var(--editable-border);
+        }
+
+        [contenteditable="true"]:focus {
+            background: rgba(167, 139, 250, 0.2);
+            box-shadow: inset 0 0 0 1px var(--accent-purple);
+        }
+
+        .script-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.82rem;
+            margin-top: 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .script-table th {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px;
+            text-align: left;
+            color: var(--text-muted);
+        }
+
+        .script-table td {
+            padding: 10px;
+            border-top: 1px solid var(--border-color);
+            vertical-align: top;
+        }
+
+        .sop-list {
+            padding-left: 18px;
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            line-height: 1.6;
+        }
+
+        .sop-list li {
+            margin-bottom: 6px;
+        }
+
+        .btn-ui {
+            background: var(--accent-gradient);
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--accent-gradient);
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 700;
+            display: none;
+            z-index: 200;
         }
     </style>
 </head>
 <body>
 
+    <header>
+        <div class="brand">
+            <div class="brand-icon"><i data-lucide="video"></i></div>
+            <h1>REELS & SOP OPERATING SYSTEM</h1>
+        </div>
+    </header>
+
+    <div class="reel-control-bar">
+        <input type="text" id="addUrl" class="input-field" placeholder="Paste Instagram Reel Link (e.g. https://www.instagram.com/reel/DOUWDbcEj1Z/)...">
+        <button class="btn-main" onclick="addReelFromLink()"><i data-lucide="plus"></i> Add Reel</button>
+    </div>
+
     <div class="reels-grid" id="reelsGrid"></div>
 
+    <div class="modal-overlay" id="reelModal">
+        <div class="modal-body">
+            <button class="close-modal-btn" onclick="closeReelModal()"><i data-lucide="x"></i></button>
+
+            <!-- Video Player Area -->
+            <div class="modal-phone-view">
+                <video id="modalVideoPlayer" class="modal-video-player" controls autoplay loop muted playsinline poster="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=600&q=80">
+                    <source src="https://assets.mixkit.co/videos/preview/mixkit-real-estate-agent-showing-a-house-41566-large.mp4" type="video/mp4">
+                </video>
+                <a id="modalExternalLink" href="#" target="_blank" class="btn-ui" style="margin-top: 16px; font-size: 0.78rem; width: 100%; justify-content: center;">
+                    <i data-lucide="external-link" size="14"></i> Open Direct on Instagram
+                </a>
+            </div>
+
+            <!-- Full SOP Details Area -->
+            <div class="modal-sop-details" id="modalSopDetails"></div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">SOP Data Copied to Clipboard!</div>
+
     <script>
-        const reels = [
+        lucide.createIcons();
+
+        // Database Containing ALL Data from Document
+        let reelDatabase = [
             {
-                title: "If Real Estate Videos Were Honest",
-                reelUrl: "https://www.instagram.com/reel/DOUWDBcEj1Z/"
+                id: 'honest-reels',
+                category: 'SATIRE & META',
+                title: 'If Real Estate Videos Were Honest',
+                hook: "HOOK: 'It's not my listing... but I'm going to make it look like it is.'",
+                reelUrl: 'https://www.instagram.com/reel/DOUWDbcEj1Z/',
+                videoSrc: 'https://assets.mixkit.co/videos/preview/mixkit-real-estate-agent-showing-a-house-41566-large.mp4',
+                poster: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=600&q=80',
+                coreObjective: 'Drive top-of-funnel reach, high engagement, and client trust through radical transparency, meta-humor, and seamless loop mechanics.',
+                psychology: [
+                    'Subversive Meta-Humor: Breaks the fourth wall by admitting industry tropes (borrowing listings, performative B-roll, low sales volume). Radical self-deprecation immediately builds authenticity with viewers burned out by traditional, over-polished pitches.',
+                    'Persistent Visual Anchor: A fixed top banner ("If real estate videos were honest") maintains full context for silent scrollers and fast swipers.',
+                    'Rapid Pattern Breaks: High-velocity visual switches every 3 seconds keep retention graphs flat by preventing visual fatigue.',
+                    'Infinite Audio Loop: Cutting abruptly on your name at 0:22 feeds directly into Shot 1 (0:00), tricking algorithms with a >100% Average Percentage Viewed (APV).'
+                ],
+                setup: [
+                    'Location Strategy: A high-end property with diverse visual environments (driveway/entryway, modern kitchen, luxury bathroom mirror, porch or outdoor seating).',
+                    'Audio Requirements: Wireless lapel microphone paired to camera/phone to ensure crisp, voice-isolated audio while walking outdoors and indoors.',
+                    'Visual Styling: Fixed top banner configured in video editor: White background, black bold text, centered ("If real estate videos were honest").'
+                ],
+                targetLength: '22 Seconds | Aspect Ratio: Vertical 9:16 (1080x1920)',
+                bannerOverlayText: 'If real estate videos were honest (On-screen from 0:00 to end)',
+                table: [
+                    { time: "0:00–0:03", shot: "Shot 1 (Hook): Medium-wide shot. Walking toward camera down driveway or entrance hallway with open hands.", overlay: "NOT MY LISTING", audio: "It's not my listing... but I'm going to make it look like it is." },
+                    { time: "0:03–0:06", shot: "Shot 2 (Pivot): Medium shot. Standing in entry foyer gesturing proud, performative hand movements.", overlay: "ALL ABOUT ME", audio: "This video isn't about the house. It's about me—well, a version that appeals to you." },
+                    { time: "0:06–0:09", shot: "Shot 3 (B-Roll 1): Extreme close-up. Hand slowly and dramatically gliding over marble countertop.", overlay: "CARESSING COUNTERTOPS", audio: "A version that strolls aimlessly caressing countertops..." },
+                    { time: "0:09–0:12", shot: "Shot 4 (B-Roll 2): Low angle shot. Kneeling in kitchen, nodding deeply while opening an oven door like an expert.", overlay: "EXPERT MODE", audio: "...and pretends to be knowledgeable about technical details I know nothing about." },
+                    { time: "0:12–0:15", shot: "Shot 5 (B-Roll 3): Medium shot via bathroom mirror. Splashing water on face and rubbing eyes.", overlay: "NOT HUNGOVER", audio: "...a version that doesn't look exhausted or hungover." },
+                    { time: "0:15–0:19", shot: "Shot 6 (The Stat): Medium-close shot. Sitting at kitchen island talking directly into lens with zero fluff.", overlay: "70% SOCIAL MEDIA", audio: "I spend 70% of my time on social media so you think I'm busy. My actual production is tiny, but you'd never know." },
+                    { time: "0:19–0:22", shot: "Shot 7 (The Close): Tight close-up. Sitting on porch rocking chair, leaning in close with a deadpan expression.", overlay: "CHOICE IS CLEAR", audio: "So do you want an overly salesy guru, or a guru who's overly salesy? Hi, I'm [Name]— [Cut abruptly]" }
+                ],
+                postProduction: [
+                    'Tight Jump-Cuts: Trim all micro-pauses, breaths, and ambient noise between sentences to keep the vocal pace tight.',
+                    'Text Overlay Formatting: Top Banner (Fixed white box, bold black sans-serif font). Center Captions (Animated single/double word pop-up captions in yellow/white text on key trigger words like LISTING, 70%, GURU).',
+                    'Audio Mixing: Voiceover / Direct Audio set at 0dB (loud, clear, normalized). Background Track (Light acoustic guitar, comedy-plucked bass, or quirky jazz set at -22dB to -24dB).',
+                    'The Seamless Loop Edit: Trim Shot 7 mid-word right as you state your first name (e.g., "Hi, I\'m Mike—"). This connects straight back into Shot 1 ("...it\'s not my listing") without any drop in momentum.',
+                    'Publishing Distribution: Export in 9:16 1080p and publish across Instagram Reels, TikTok, YouTube Shorts, and Facebook Reels.'
+                ],
+                pinnedComment: 'Be honest: How many real estate videos have you swiped past today? 😂👇',
+                hashtags: '#realestatehumor #realestatetips #realestateagent #realtorlife #homebuyingtips #listingagent'
             }
         ];
-
-        function getInstagramEmbedUrl(url) {
-            // Extract post ID and format clean embed link
-            const match = url.match(/(?:reel|p)\/([^/?#&]+)/);
-            if (match && match[1]) {
-                return `https://www.instagram.com/p/${match[1]}/embed/captioned/`;
-            }
-            return url;
-        }
 
         function renderGrid() {
             const grid = document.getElementById('reelsGrid');
             grid.innerHTML = '';
 
-            reels.forEach(reel => {
-                const embedUrl = getInstagramEmbedUrl(reel.reelUrl);
+            reelDatabase.forEach((reel, index) => {
                 const card = document.createElement('div');
                 card.className = 'phone-card';
+                card.onclick = () => openReelModal(index);
 
                 card.innerHTML = `
-                    <div class="iframe-container">
-                        <iframe src="${embedUrl}" loading="lazy" allowfullscreen frameborder="0"></iframe>
-                    </div>
-                    <div class="phone-footer">
-                        <h3 style="margin:0; font-size: 0.95rem;">${reel.title}</h3>
-                        <a href="${reel.reelUrl}" target="_blank" class="btn-launch">
-                            Open Direct in Instagram
-                        </a>
+                    <div class="phone-notch"></div>
+                    <img src="${reel.poster}" class="phone-video-preview" alt="Thumbnail">
+                    <div class="phone-overlay">
+                        <span class="category-badge">${reel.category}</span>
+                        <div>
+                            <h3 class="phone-title">${reel.title}</h3>
+                            <p class="phone-hook">${reel.hook}</p>
+                            <button class="open-details-btn">
+                                <i data-lucide="sliders" size="14"></i> Open Full SOP Script
+                            </button>
+                        </div>
                     </div>
                 `;
                 grid.appendChild(card);
             });
+            lucide.createIcons();
+        }
+
+        function openReelModal(index) {
+            const reel = reelDatabase[index];
+
+            document.getElementById('modalExternalLink').href = reel.reelUrl;
+
+            // Render Table Rows
+            let rows = reel.table.map((r, rIdx) => `
+                <tr>
+                    <td contenteditable="true" onblur="updateTable(${index}, ${rIdx}, 'time', this.innerText)"><b>${r.time}</b></td>
+                    <td contenteditable="true" onblur="updateTable(${index}, ${rIdx}, 'shot', this.innerText)">${r.shot}</td>
+                    <td><span contenteditable="true" onblur="updateTable(${index}, ${rIdx}, 'overlay', this.innerText)" style="background: rgba(236, 72, 153, 0.2); color: #ec4899; padding: 2px 6px; border-radius: 4px; font-weight: 700;">${r.overlay}</span></td>
+                    <td contenteditable="true" onblur="updateTable(${index}, ${rIdx}, 'audio', this.innerText)">${r.audio}</td>
+                </tr>
+            `).join('');
+
+            // Render Psychology List
+            let psychList = reel.psychology.map(p => `<li>${p}</li>`).join('');
+            
+            // Render Setup List
+            let setupList = reel.setup.map(s => `<li>${s}</li>`).join('');
+
+            // Render Post-Production List
+            let postList = reel.postProduction.map(pp => `<li>${pp}</li>`).join('');
+
+            document.getElementById('modalSopDetails').innerHTML = `
+                <div>
+                    <span style="color: var(--accent-purple); font-size: 0.8rem; font-weight: 700; text-transform: uppercase;">${reel.category}</span>
+                    <h2 contenteditable="true" onblur="updateField(${index}, 'title', this.innerText)" style="font-size: 1.5rem; font-weight: 800; margin-top: 4px;">${reel.title}</h2>
+                </div>
+
+                <div>
+                    <div class="sop-heading"><i data-lucide="target" size="18"></i> Core Objective</div>
+                    <p contenteditable="true" onblur="updateField(${index}, 'coreObjective', this.innerText)" style="color: var(--text-muted); font-size: 0.88rem;">${reel.coreObjective}</p>
+                </div>
+
+                <div>
+                    <div class="sop-heading"><i data-lucide="brain" size="18"></i> 1. Algorithmic & Psychological Breakdown</div>
+                    <ul class="sop-list">${psychList}</ul>
+                </div>
+
+                <div>
+                    <div class="sop-heading"><i data-lucide="camera" size="18"></i> 2. Pre-Production & Setup</div>
+                    <ul class="sop-list">${setupList}</ul>
+                </div>
+
+                <div>
+                    <div class="sop-heading"><i data-lucide="film" size="18"></i> 3. Master Filming & Editing Table</div>
+                    <p style="font-size: 0.8rem; color: #ec4899; margin-bottom: 6px;"><b>Specs:</b> ${reel.targetLength} | <b>Banner:</b> ${reel.bannerOverlayText}</p>
+                    <table class="script-table">
+                        <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Camera & Visual Action</th>
+                                <th>On-Screen Captions</th>
+                                <th>Spoken Dialogue</th>
+                            </tr>
+                        </thead>
+                        <tbody>${rows}</tbody>
+                    </table>
+                </div>
+
+                <div>
+                    <div class="sop-heading"><i data-lucide="sliders" size="18"></i> 4. Post-Production & Publishing Protocol</div>
+                    <ol class="sop-list" style="padding-left: 20px;">${postList}</ol>
+                </div>
+
+                <div>
+                    <div class="sop-heading"><i data-lucide="share-2" size="18"></i> Distribution Checklist</div>
+                    <p style="color: var(--text-muted); font-size: 0.88rem;"><b>Pinned Comment Strategy:</b> <span contenteditable="true" onblur="updateField(${index}, 'pinnedComment', this.innerText)">${reel.pinnedComment}</span></p>
+                    <p style="color: var(--text-muted); font-size: 0.88rem; margin-top: 4px;"><b>Recommended Hashtags:</b> <span contenteditable="true" onblur="updateField(${index}, 'hashtags', this.innerText)">${reel.hashtags}</span></p>
+                </div>
+
+                <div style="margin-top: 10px;">
+                    <button onclick="copySopScript(${index})" class="btn-ui"><i data-lucide="copy" size="16"></i> Copy Complete SOP Script</button>
+                </div>
+            `;
+
+            document.getElementById('reelModal').style.display = 'flex';
+            lucide.createIcons();
+        }
+
+        function closeReelModal() {
+            document.getElementById('reelModal').style.display = 'none';
+        }
+
+        function updateField(idx, key, val) {
+            reelDatabase[idx][key] = val;
+        }
+
+        function updateTable(reelIdx, rowIdx, key, val) {
+            reelDatabase[reelIdx].table[rowIdx][key] = val;
+        }
+
+        function addReelFromLink() {
+            const url = document.getElementById('addUrl').value.trim();
+            if(!url) return alert('Please enter an Instagram Reel link!');
+
+            reelDatabase.unshift({
+                id: `reel-${Date.now()}`,
+                category: 'CUSTOM REEL',
+                title: 'New Reel Strategy',
+                hook: 'HOOK: Pattern Break Concept',
+                reelUrl: url,
+                videoSrc: 'https://assets.mixkit.co/videos/preview/mixkit-real-estate-agent-showing-a-house-41566-large.mp4',
+                poster: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=600&q=80',
+                coreObjective: 'Custom objective details...',
+                psychology: ['Custom strategy point...'],
+                setup: ['Custom setup requirements...'],
+                targetLength: '22 Seconds | 9:16 Vertical',
+                bannerOverlayText: 'Custom Top Banner Text',
+                table: [
+                    { time: "0:00–0:03", shot: "Opening Hook Shot", overlay: "HOOK", audio: "Opening Dialogue" }
+                ],
+                postProduction: ['Custom post production step...'],
+                pinnedComment: 'Comment strategy...',
+                hashtags: '#realestate #reels'
+            });
+
+            renderGrid();
+            document.getElementById('addUrl').value = '';
+        }
+
+        function copySopScript(index) {
+            const reel = reelDatabase[index];
+            const text = `SOP: ${reel.title}\nREEL LINK: ${reel.reelUrl}\n\nCORE OBJECTIVE:\n${reel.coreObjective}\n\nPINNED COMMENT:\n${reel.pinnedComment}\n\nHASHTAGS:\n${reel.hashtags}`;
+            navigator.clipboard.writeText(text);
+
+            const toast = document.getElementById('toast');
+            toast.style.display = 'block';
+            setTimeout(() => toast.style.display = 'none', 2500);
         }
 
         renderGrid();
