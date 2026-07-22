@@ -3,531 +3,549 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Real Estate Reels SOP Library</title>
+    <title>REELS & SOP OPERATING SYSTEM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --accent: #38bdf8;
-            --accent-hover: #0284c7;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --border: #334155;
-            --table-header: #0f172a;
+            --bg-dark: #07090e;
+            --bg-card: #111827;
+            --accent-gradient: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            --accent-purple: #a78bfa;
+            --text-main: #ffffff;
+            --text-muted: #9ca3af;
+            --border-color: rgba(255, 255, 255, 0.12);
         }
 
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background-color: var(--bg-dark); color: var(--text-main); min-height: 100vh; padding: 30px 20px; }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            margin: 0;
-            padding: 2rem 1rem;
-            line-height: 1.5;
-        }
+        header { max-width: 1400px; margin: 0 auto 24px auto; display: flex; align-items: center; gap: 12px; }
+        .brand-icon { width: 42px; height: 42px; background: var(--accent-gradient); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #fff; }
+        .brand h1 { font-size: 1.5rem; font-weight: 800; }
 
-        header {
-            max-width: 1200px;
-            margin: 0 auto 2rem auto;
-            text-align: center;
-        }
+        .reel-control-bar { max-width: 1400px; margin: 0 auto 30px auto; background: var(--bg-card); border: 1px solid var(--border-color); padding: 16px; border-radius: 16px; display: flex; gap: 12px; }
+        .input-field { flex: 1; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color); color: var(--text-main); padding: 12px 16px; border-radius: 10px; outline: none; font-size: 0.88rem; }
+        .btn-main { background: var(--accent-gradient); color: #fff; border: none; padding: 12px 24px; border-radius: 10px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; }
 
-        h1 {
-            color: var(--accent);
-            font-size: 2.25rem;
-            margin-bottom: 0.5rem;
-        }
+        .reels-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 32px; justify-items: center; }
+        
+        /* Clean Playable Video Card */
+        .phone-card { width: 340px; background: #000; border-radius: 20px; border: 2px solid #1f2937; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 10px 25px rgba(0,0,0,0.5); transition: border-color 0.3s ease; }
+        .phone-card:hover { border-color: #ec4899; }
+        .card-header { padding: 12px 16px; background: var(--bg-card); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); }
+        .category-badge { background: rgba(236, 72, 153, 0.25); color: #ec4899; padding: 4px 10px; border-radius: 12px; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; }
+        
+        /* Cropped Video Container - Edge-to-edge video display */
+        .video-crop-container { width: 100%; height: 460px; position: relative; overflow: hidden; background: #000; }
+        .clean-iframe { position: absolute; top: -58px; left: -5%; width: 110%; height: 580px; border: none; background: #000; }
 
-        .subtitle {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-        }
+        /* Modal Phone View Container */
+        .modal-video-crop-container { width: 100%; height: 580px; position: relative; overflow: hidden; background: #000; border-radius: 12px; }
+        .modal-clean-iframe { position: absolute; top: -60px; left: -5%; width: 110%; height: 710px; border: none; background: #000; }
+        
+        .card-footer { padding: 14px 16px; background: var(--bg-card); border-top: 1px solid var(--border-color); }
+        .card-title { font-size: 1.05rem; font-weight: 700; color: #fff; }
+        .open-details-btn { margin-top: 12px; background: rgba(167, 139, 250, 0.15); color: var(--accent-purple); border: 1px solid rgba(167, 139, 250, 0.4); width: 100%; padding: 11px; border-radius: 10px; font-size: 0.82rem; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: all 0.2s ease; }
+        .open-details-btn:hover { background: var(--accent-purple); color: #000; }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+        /* Modal Player Overlay */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.94); backdrop-filter: blur(12px); z-index: 100; display: none; justify-content: center; align-items: center; padding: 20px; }
+        .modal-body { background: var(--bg-card); border: 1px solid var(--border-color); width: 100%; max-width: 1150px; height: 90vh; border-radius: 24px; display: flex; overflow: hidden; position: relative; }
+        .modal-phone-view { width: 400px; background: #000; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; border-right: 1px solid var(--border-color); flex-shrink: 0; padding: 16px; overflow-y: auto; }
+        .modal-sop-details { flex: 1; padding: 30px; overflow-y: auto; display: flex; flex-direction: column; gap: 20px; }
+        .close-modal-btn { position: absolute; top: 16px; right: 16px; background: rgba(255, 255, 255, 0.1); border: none; color: #fff; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; }
 
-        /* Nav & Action Buttons */
-        .btn-back {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background-color: var(--card-bg);
-            color: var(--accent);
-            border: 1px solid var(--border);
-            padding: 0.6rem 1.2rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            transition: all 0.2s ease;
-        }
+        .sop-heading { font-size: 1rem; font-weight: 700; color: var(--accent-purple); display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+        .link-box { background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border-color); padding: 12px 16px; border-radius: 12px; display: flex; flex-direction: column; gap: 4px; overflow: hidden; }
+        .link-box a { color: #60a5fa; font-size: 0.82rem; word-break: break-all; text-decoration: underline; font-weight: 600; line-height: 1.4; }
 
-        .btn-back:hover {
-            background-color: var(--border);
-            color: #fff;
-        }
+        .script-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; margin-top: 8px; border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden; }
+        .script-table th { background: rgba(255, 255, 255, 0.05); padding: 10px; text-align: left; color: var(--text-muted); }
+        .script-table td { padding: 10px; border-top: 1px solid var(--border-color); vertical-align: top; }
+        .sop-list { padding-left: 18px; color: var(--text-muted); font-size: 0.88rem; line-height: 1.6; }
 
-        .btn-primary {
-            display: inline-block;
-            background-color: var(--accent);
-            color: var(--bg-color);
-            font-weight: 700;
-            padding: 0.6rem 1.2rem;
-            border-radius: 6px;
-            border: none;
-            cursor: pointer;
-            text-decoration: none;
-            transition: background-color 0.2s ease;
-        }
-
-        .btn-primary:hover {
-            background-color: var(--accent-hover);
-            color: #fff;
-        }
-
-        /* Main Grid (Library View) */
-        .reels-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .grid-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: transform 0.2s ease, border-color 0.2s ease;
-            cursor: pointer;
-        }
-
-        .grid-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--accent);
-        }
-
-        /* Detail View (SOP Page) */
-        #sop-detail-view {
-            display: none;
-        }
-
-        .sop-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-        }
-
-        .category-badge {
-            display: inline-block;
-            background-color: rgba(56, 189, 248, 0.1);
-            color: var(--accent);
-            font-size: 0.8rem;
-            font-weight: 700;
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 0.5rem;
-        }
-
-        .reel-title {
-            font-size: 1.75rem;
-            margin: 0 0 0.5rem 0;
-        }
-
-        .hook-box {
-            background-color: rgba(0, 0, 0, 0.2);
-            border-left: 4px solid var(--accent);
-            padding: 0.75rem 1rem;
-            font-style: italic;
-            margin: 1rem 0;
-            border-radius: 0 6px 6px 0;
-        }
-
-        .meta-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-            margin: 1.5rem 0;
-            background: rgba(255, 255, 255, 0.02);
-            padding: 1rem;
-            border-radius: 8px;
-        }
-
-        .meta-item strong {
-            color: var(--accent);
-            display: block;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-        }
-
-        .section-title {
-            font-size: 1.2rem;
-            color: var(--accent);
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 0.25rem;
-            margin-top: 2rem;
-            margin-bottom: 0.75rem;
-        }
-
-        ul {
-            padding-left: 1.25rem;
-            margin: 0 0 1rem 0;
-        }
-
-        li {
-            margin-bottom: 0.35rem;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1rem 0;
-            font-size: 0.9rem;
-        }
-
-        th, td {
-            border: 1px solid var(--border);
-            padding: 0.75rem;
-            text-align: left;
-            vertical-align: top;
-        }
-
-        th {
-            background-color: var(--table-header);
-            color: var(--accent);
-            font-weight: 600;
-        }
-
-        tr:nth-child(even) {
-            background-color: rgba(255, 255, 255, 0.02);
-        }
-
-        .audio-cell {
-            white-space: pre-line;
-        }
-
-        .tags-container {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            margin-top: 1rem;
-        }
-
-        .hashtag {
-            color: var(--accent);
-            font-size: 0.85rem;
-        }
-
-        .links {
-            margin-top: 1.5rem;
-        }
-
-        .links a {
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .links a:hover {
-            text-decoration: underline;
-        }
+        .btn-ui { background: var(--accent-gradient); color: #fff; border: none; padding: 12px 20px; border-radius: 20px; font-weight: 700; font-size: 0.85rem; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; text-decoration: none; }
+        .toast { position: fixed; bottom: 24px; right: 24px; background: var(--accent-gradient); color: #fff; padding: 12px 24px; border-radius: 30px; font-weight: 700; display: none; z-index: 200; }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Real Estate Reels Database</h1>
-        <p class="subtitle">Main Video Library & Detailed SOP Playbooks</p>
+        <div class="brand-icon"><i data-lucide="video"></i></div>
+        <div class="brand"><h1>REELS & SOP OPERATING SYSTEM</h1></div>
     </header>
 
-    <div class="container">
-        <!-- VIEW 1: MAIN LIBRARY GRID -->
-        <main id="library-view">
-            <div class="reels-grid" id="reels-grid-container">
-                <!-- Javascript populates library cards here -->
-            </div>
-        </main>
-
-        <!-- VIEW 2: SOP DETAIL PAGE -->
-        <main id="sop-detail-view">
-            <button class="btn-back" onclick="showLibrary()">← Back to Reel Library</button>
-            <div id="sop-content" class="sop-card">
-                <!-- Javascript populates selected SOP breakdown here -->
-            </div>
-        </main>
+    <div class="reel-control-bar">
+        <input type="text" id="addUrl" class="input-field" placeholder="Paste Full Instagram Reel Link...">
+        <button class="btn-main" onclick="addReelFromLink()"><i data-lucide="plus"></i> Add Reel</button>
     </div>
 
+    <div class="reels-grid" id="reelsGrid"></div>
+
+    <div class="modal-overlay" id="reelModal">
+        <div class="modal-body">
+            <button class="close-modal-btn" onclick="closeReelModal()"><i data-lucide="x"></i></button>
+
+            <!-- Cropped Live Embed inside Modal -->
+            <div class="modal-phone-view">
+                <div class="modal-video-crop-container">
+                    <iframe id="modalEmbedIframe" class="modal-clean-iframe" src="" loading="lazy" allowfullscreen frameborder="0"></iframe>
+                </div>
+                <a id="modalExternalLink" href="#" target="_blank" class="btn-ui" style="margin-top: 12px; font-size: 0.78rem; width: 100%; justify-content: center;">
+                    <i data-lucide="external-link" size="14"></i> Open Direct on Instagram
+                </a>
+            </div>
+
+            <!-- SOP Details Area -->
+            <div class="modal-sop-details" id="modalSopDetails"></div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">SOP Copied to Clipboard!</div>
+
     <script>
-        const reelDatabase = [
+        // Database
+        let reelDatabase = [
             {
-                id: 'honest-video',
-                category: 'HONEST REAL ESTATE VIDEO',
+                id: 'honest-reels',
+                category: 'SATIRE & META',
                 title: 'If Real Estate Videos Were Honest',
                 hook: "HOOK: 'It's not my listing... but I'm going to make it look like it is.'",
                 fullReelUrl: 'https://www.instagram.com/reel/DOUWDbcEj1Z/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+                embedUrl: 'https://www.instagram.com/p/DOUWDbcEj1Z/embed/',
                 coreObjective: 'Drive top-of-funnel reach, high engagement, and client trust through radical transparency, meta-humor, and seamless loop mechanics.',
                 psychology: [
-                    'Subversive Meta-Humor: Breaks the fourth wall by admitting industry tropes. Radical self-deprecation immediately builds authenticity.',
-                    'Persistent Visual Anchor: A fixed top banner maintains full context for silent scrollers.',
-                    'Rapid Pattern Breaks: High-velocity visual switches every 3 seconds prevent visual fatigue.',
-                    'Infinite Audio Loop: Cutting abruptly on your name feeds directly back to Shot 1.'
+                    'Subversive Meta-Humor: Breaks the fourth wall by admitting industry tropes (borrowing listings, performative B-roll, low sales volume).',
+                    'Persistent Visual Anchor: Fixed top banner maintains context for silent scrollers.',
+                    'Rapid Pattern Breaks: Visual switches every 3 seconds prevent viewer fatigue.',
+                    'Infinite Audio Loop: Cutting abruptly on your name at 0:22 feeds directly into Shot 1.'
                 ],
                 setup: [
-                    'Location: A high-end property with diverse visual environments.',
-                    'Audio: Wireless lapel microphone for voice-isolated audio.',
-                    'Visual Styling: Fixed top banner (If real estate videos were honest).'
+                    'Location Strategy: High-end property with diverse visual areas.',
+                    'Audio Requirements: Wireless lapel microphone for voice-isolated audio.',
+                    'Visual Styling: Top banner (White box, black bold text: "If real estate videos were honest").'
                 ],
-                targetLength: '22 Seconds | Aspect Ratio: Vertical 9:16',
-                bannerOverlayText: 'If real estate videos were honest',
+                targetLength: '22 Seconds | Aspect Ratio: 9:16 Vertical (1080x1920)',
+                bannerOverlayText: 'If real estate videos were honest (On-screen 0:00 to end)',
                 table: [
-                    { time: "0:00–0:03", shot: "Shot 1 (Hook): Walking down driveway with open hands.", overlay: "NOT MY LISTING", audio: "\"It's not my listing... but I'm going to make it look like it is.\"" },
-                    { time: "0:03–0:06", shot: "Shot 2 (Pivot): Standing in entryway gesturing proud movements.", overlay: "ALL ABOUT ME", audio: "\"This video isn't about the house. It's about me—well, a version that appeals to you.\"" },
-                    { time: "0:06–0:09", shot: "Shot 3 (B-Roll 1): Hand gliding over marble countertop.", overlay: "CARESSING COUNTERTOPS", audio: "\"A version that strolls aimlessly caressing countertops...\"" },
-                    { time: "0:09–0:12", shot: "Shot 4 (B-Roll 2): Kneeling in kitchen, opening oven door.", overlay: "EXPERT MODE", audio: "\"...and pretends to be knowledgeable about technical details I know nothing about.\"" },
-                    { time: "0:12–0:15", shot: "Shot 5 (B-Roll 3): Bathroom mirror shot, splashing water.", overlay: "NOT HUNGOVER", audio: "\"...a version that doesn't look exhausted or hungover.\"" },
-                    { time: "0:15–0:19", shot: "Shot 6 (The Stat): Sitting at island talking into lens.", overlay: "70% SOCIAL MEDIA", audio: "\"I spend 70% of my time on social media... My actual production is tiny.\"" },
-                    { time: "0:19–0:22", shot: "Shot 7 (The Close): Sitting in porch rocking chair.", overlay: "CHOICE IS CLEAR", audio: "\"So do you want an overly salesy guru... Hi, I'm [Name]—\" [Cut]" }
+                    { time: "0:00–0:03", shot: "Shot 1 (Hook): Medium-wide shot walking down driveway.", overlay: "NOT MY LISTING", audio: "It's not my listing... but I'm going to make it look like it is." },
+                    { time: "0:03–0:06", shot: "Shot 2 (Pivot): Standing in foyer gesturing proud.", overlay: "ALL ABOUT ME", audio: "This video isn't about the house. It's about me—well, a version that appeals to you." },
+                    { time: "0:06–0:09", shot: "Shot 3 (B-Roll 1): Hand slowly gliding over countertop.", overlay: "CARESSING COUNTERTOPS", audio: "A version that strolls aimlessly caressing countertops..." },
+                    { time: "0:09–0:12", shot: "Shot 4 (B-Roll 2): Kneeling in kitchen opening oven door.", overlay: "EXPERT MODE", audio: "...and pretends to be knowledgeable about technical details I know nothing about." },
+                    { time: "0:12–0:15", shot: "Shot 5 (B-Roll 3): Mirror shot. Splashing water on face.", overlay: "NOT HUNGOVER", audio: "...a version that doesn't look exhausted or hungover." },
+                    { time: "0:15–0:19", shot: "Shot 6 (The Stat): Sitting at island talking into lens.", overlay: "70% SOCIAL MEDIA", audio: "I spend 70% of my time on social media so you think I'm busy. My actual production is tiny..." },
+                    { time: "0:19–0:22", shot: "Shot 7 (The Close): Sitting on porch chair leaning in.", overlay: "CHOICE IS CLEAR", audio: "So do you want an overly salesy guru, or a guru who's overly salesy? Hi, I'm [Name]— [Cut]" }
                 ],
-                postProduction: [
-                    'Tight Jump-Cuts: Trim all micro-pauses between sentences.',
-                    'Captions: Animated word pop-up captions in yellow/white.',
-                    'Audio Mixing: Voiceover at 0dB, background music at -22dB.',
-                    'Seamless Loop: Trim mid-word on name to connect seamlessly into Shot 1.'
-                ],
+                postProduction: ['Tight Jump-Cuts', 'Text Overlay Formatting', 'Audio Mixing at -22dB', 'Seamless Loop Edit'],
                 pinnedComment: 'Be honest: How many real estate videos have you swiped past today? 😂👇',
-                hashtags: '#realestatehumor #realestatetips #realestateagent #realtorlife'
+                hashtags: '#realestatehumor #realestatetips #realestateagent #realtorlife #homebuyingtips'
             },
             {
                 id: 'side-job',
                 category: 'SITUATIONAL SATIRE',
                 title: 'When Your Real Estate Agent Has A Side Job',
-                hook: "HOOK: Driver: 'Hey, welcome in!' Passenger: 'Heading home.' Driver: 'You own or rent?'",
+                hook: "HOOK: Rideshare driver treating passenger as a captive real estate prospect.",
                 fullReelUrl: 'https://www.instagram.com/reel/DXE73PCka10/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+                embedUrl: 'https://www.instagram.com/p/DXE73PCka10/embed/',
                 coreObjective: 'Captive audience dynamic inside rideshare driving engagement with high relatable satire.',
-                psychology: [
-                    'Relatable Satire: Plays into the meme that everyone is a real estate agent.',
-                    'Captive Audience Dynamic: Rideshare setting creates natural comedic tension.',
-                    'POV Immersion: Filmed over driver\'s shoulder for immediate passenger perspective.'
-                ],
-                setup: [
-                    'Equipment: Smartphone, dashboard mount, lapel mic.',
-                    'Location: Drive through suburban neighborhood with For Sale signs.',
-                    'Camera Angle: Placed in back seat angled over right shoulder.'
-                ],
+                psychology: ['Captive Audience Dynamic', 'POV Immersion', 'Natural Seamless Loop'],
+                setup: ['Phone mounted on dash', 'Wireless lapel mic on driver', 'Suburban neighborhood setting'],
                 targetLength: '1 Minute 11 Seconds | Vertical 9:16',
                 bannerOverlayText: 'When you\'re a real estate agent with a side job',
                 table: [
-                    { time: "0:00–0:06", shot: "Shot 1 (Hook): Backseat POV over shoulder.", overlay: "WHERE WE HEADED?", audio: "Driver: \"Hey, welcome in!\"\nPassenger: \"Heading home.\"\nDriver: \"You own or rent?\"" },
-                    { time: "0:06–0:14", shot: "Shot 2 (The Pitch): Driver looks back in mirror.", overlay: "QUICK STOP", audio: "Passenger: \"Renting for now.\"\nDriver: \"Need to make a quick stop... it's on the way.\"" },
-                    { time: "0:14–0:22", shot: "Shot 3 (Drive-By Tour 1): Pan to suburban home.", overlay: "3 BED / 2 BATH", audio: "Driver: \"I think you'll like this one! 3-bedroom, 2.5-bath under 3,000 sq ft.\"" },
-                    { time: "0:22–0:36", shot: "Shot 4 (The Pushback): Driver turns around at stop sign.", overlay: "INTEREST RATES?", audio: "Passenger: \"I'm just trying to go home.\"\nDriver: \"Have you been keeping up with interest rates?\"" },
-                    { time: "0:36–0:48", shot: "Shot 5 (Drive-By Tour 2): Pan out window to second house.", overlay: "HOUSE #2", audio: "Driver: \"Look at this one right here—4 beds, 3 baths, fully updated!\"" },
-                    { time: "0:48–1:11", shot: "Shot 6 (Rejection & Loop): Passenger exits vehicle.", overlay: "LET ME OUT", audio: "Driver: \"How's 10:00 AM tomorrow for a showing?\"\nPassenger: \"Just let me out.\"\n(Door slams -> Cut)" }
+                    { time: "0:00–0:06", shot: "Shot 1 (Hook): Backseat POV over driver's shoulder.", overlay: "WHERE WE HEADED?", audio: "Driver: 'Hey, welcome in!' Passenger: 'Heading home.' Driver: 'You own or rent?'" },
+                    { time: "0:06–0:14", shot: "Shot 2 (The Pitch): Driver looks back in mirror while pointing.", overlay: "QUICK STOP", audio: "Passenger: 'Renting for now.' Driver: 'Need to make a quick stop... on the way!'" },
+                    { time: "0:14–0:22", shot: "Shot 3 (Drive-By Tour 1): Camera pans out window to For Sale sign.", overlay: "3 BED / 2 BATH", audio: "Driver: 'I think you'll like this one! 3-bedroom, 2.5-bath...'" },
+                    { time: "0:22–0:36", shot: "Shot 4 (The Push back): Driver turns around at red light.", overlay: "INTEREST RATES?", audio: "Passenger: 'I'm just trying to go home.' Driver: 'Have you kept up with interest rates?'" },
+                    { time: "0:36–0:48", shot: "Shot 5 (Drive-By Tour 2): Camera pans to second larger house.", overlay: "HOUSE #2", audio: "Driver: 'Look at this one right here—4 beds, 3 baths, fully updated!'" },
+                    { time: "0:48–1:11", shot: "Shot 6 (Rejection & Loop): Passenger opens door to escape.", overlay: "LET ME OUT", audio: "Driver: 'How's 10:00 AM for a showing?' Passenger: 'Just let me out!' [Door Slams]" }
                 ],
-                postProduction: [
-                    'Text Overlay: Fixed top banner with clear black text on white.',
-                    'Audio Mixing: Driver at 0dB, passenger slightly muffled.',
-                    'Loop Point: Cut on door slam back to 0:00.'
-                ],
+                postProduction: ['Trim car door slam on loop', 'Driver voice 0dB, passenger panned'],
                 pinnedComment: 'Would you be mad or impressed if your Uber driver pulled this? 😂👇',
-                hashtags: '#realestateagent #realtorlife #uberhumor #sidehustle'
+                hashtags: '#realestateagent #realtorlife #uberhumor #sidehustle #homebuyer'
             },
             {
                 id: 'tip-culture',
-                category: 'TRENDING SATIRE',
+                category: 'TREND & SATIRE',
                 title: 'Tip Culture Getting Out Of Hand',
-                hook: "HOOK: Buyer: 'Thanks for showing the house!' Agent: 'My pleasure! Just sign out on the screen real quick.'",
-                fullReelUrl: 'https://www.instagram.com/reel/DY7ZT8TO1U7/?utm_source=&igsh=MzRlODBiNWFlZA==ig_web_copy_link',
-                coreObjective: 'Combine tip culture fatigue with real estate high stakes to create high engagement and viral debate.',
-                psychology: [
-                    'Cultural Rage Wave: Capitalizes on universal tip culture fatigue.',
-                    'Inner Monologue: Creates comedic tension and maintains flat retention.',
-                    'Absurd Prop Visual: iPad showing 18% ($153,000) tip forces pauses/replays.'
-                ],
-                setup: [
-                    'Tablet Prop: Canva slide displaying 18%, 20%, 22% tip options on an $850k purchase.',
-                    'Location: Front doorway/porch of a listing.',
-                    'Audio: Reverb effect added on inner monologue dialogue.'
-                ],
-                targetLength: '25 Seconds | Vertical 9:16',
+                hook: "HOOK: POS terminal asking for 18% tip at an open house purchase.",
+                fullReelUrl: 'https://www.instagram.com/reel/DY7ZT8TO1U7/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+                embedUrl: 'https://www.instagram.com/p/DY7ZT8TO1U7/embed/',
+                coreObjective: 'Riding viral tip culture rage topic combined with absurd real estate high stakes.',
+                psychology: ['Riding Cultural Rage Waves', 'Inner Monologue Technique', 'Absurd Prop Visual'],
+                setup: ['Prepare tablet prop screen (Canva)', 'Wireless mics on actors', 'Front entryway setting'],
+                targetLength: '27 Seconds | Vertical 9:16',
                 bannerOverlayText: 'Tip Culture is Getting Out of Hand 💳',
                 table: [
-                    { time: "0:00–0:03", shot: "Shot 1 (Hook): Buyer exits, agent presents iPad.", overlay: "SIGN OUT PLEASE", audio: "Buyer: \"Thanks for showing the house!\"\nAgent: \"My pleasure! Just sign out real quick.\"" },
-                    { time: "0:03–0:06", shot: "Shot 2 (Screen Insert): Close up on iPad tip choices.", overlay: "ADD A TIP?", audio: "(Awkward pause as camera zooms on screen)" },
-                    { time: "0:06–0:10", shot: "Shot 3 (Buyer Reaction): Staring in disbelief.", overlay: "AT AN OPEN HOUSE?!", audio: "Buyer (Inner Monologue): \"Wait a minute... tips at an open house?!\"" },
-                    { time: "0:10–0:15", shot: "Shot 4 (Agent Reaction): Looking away nervously.", overlay: "STAY COOL", audio: "Agent (Inner Monologue): \"Oh man, she's actually thinking about doing it...\"" },
-                    { time: "0:15–0:19", shot: "Shot 5 (Buyer Dilemma): Biting lip in internal struggle.", overlay: "$153,000 TIP", audio: "Buyer (Inner Monologue): \"I don't want to look cheap... but 18% is $153,000!\"" },
-                    { time: "0:19–0:24", shot: "Shot 6 (The Climax): Tapping disabled button.", overlay: "NO TIP DISABLED", audio: "Agent (Inner Monologue): \"You removed the 'no tip' button... oh god she tapped it!\"" },
-                    { time: "0:24–0:27", shot: "Shot 7 (Exit & Loop): Stomping down porch stairs.", overlay: "OUTTA HERE", audio: "Buyer: \"Okay, all set!\"\n(Stomps down steps -> Cut)" }
+                    { time: "0:00–0:03", shot: "Shot 1 (Hook): Buyer walks out door; agent spins iPad.", overlay: "SIGN OUT PLEASE", audio: "Buyer: 'Thanks for showing the house!' Agent: 'Just sign out real quick.'" },
+                    { time: "0:03–0:06", shot: "Shot 2 (Screen Insert): iPad close-up with 18% ($153k) tip option.", overlay: "ADD A TIP?", audio: "(Awkward silence beat)" },
+                    { time: "0:06–0:10", shot: "Shot 3 (Buyer Reaction): Over-shoulder staring at iPad.", overlay: "AT AN OPEN HOUSE?!", audio: "Buyer (Inner Monologue): 'Wait... tips at an open house?!'" },
+                    { time: "0:10–0:15", shot: "Shot 4 (Agent Reaction): Agent looking up at ceiling awkwardly.", overlay: "STAY COOL", audio: "Agent (Inner Monologue): 'Oh man, she's actually thinking about doing it...'" },
+                    { time: "0:15–0:19", shot: "Shot 5 (Buyer Dilemma): Medium shot of buyer in internal conflict.", overlay: "$153,000 TIP", audio: "Buyer (Inner Monologue): 'I don't want to look cheap... but 18% is $153,000!'" },
+                    { time: "0:19–0:24", shot: "Shot 6 (Climax): Agent avoids eye contact as buyer taps.", overlay: "NO TIP DISABLED", audio: "Agent (Inner Monologue): 'You removed the no tip button... she just tapped it!'" },
+                    { time: "0:24–0:27", shot: "Shot 7 (Exit & Loop): Buyer stomps down porch stairs.", overlay: "OUTTA HERE", audio: "Buyer: 'Okay, all set!' [Stomps down steps -> Loop]" }
                 ],
-                postProduction: [
-                    'Audio Effect: Reverb/echo on inner monologue thoughts.',
-                    'Captions: Highlighted lower-third word pop-ups.',
-                    'Loop Stitching: Cut on step impact to auto-loop continuous action.'
-                ],
-                pinnedComment: 'Be honest... if you saw \'No Tip (Not an Option)\' at an open house, what are you doing? 😂👇',
-                hashtags: '#tipculture #realestatehumor #openhouse #realtorlife'
+                postProduction: ['Reverb effect on inner monologue', 'Fast loop stitch'],
+                pinnedComment: 'Be honest... if you saw "No Tip (Not an Option)" at an open house, what are you doing? 😂👇',
+                hashtags: '#tipculture #realestatehumor #openhouse #realtorlife #homebuying'
             },
             {
                 id: 'every-opportunity',
-                category: 'SITUATIONAL SATIRE',
+                category: 'SKIT & HUMOR',
                 title: 'Taking Advantage Of Every Opportunity',
-                hook: "HOOK: (Car horn honks) Agent: 'Keep coming! You're good, you're good! Stop!'",
+                hook: "HOOK: Guiding a car into a driveway then launching straight into a listing pitch.",
                 fullReelUrl: 'https://www.instagram.com/reel/DRSP6AHkXkw/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
-                coreObjective: 'Use physical comedy and hyper-local targeting to drive massive shares and brand awareness.',
-                psychology: [
-                    'Bait-and-Switch Hook: Starts as driveway help, shifts to aggressive real estate pitch.',
-                    'Physical Slapstick: Hand gestures, running up to window, force-sliding business cards.',
-                    'Hyper-Local Targeting: Names specific local towns to increase local shares.'
-                ],
-                setup: [
-                    'Equipment: Smartphone, physical business cards.',
-                    'Location: Residential driveway.',
-                    'Audio: Wireless lapel mic for clear outdoor speech.'
-                ],
+                embedUrl: 'https://www.instagram.com/p/DRSP6AHkXkw/embed/',
+                coreObjective: 'Bait-and-switch hook combined with rapid hyper-local pitch delivery.',
+                psychology: ['Bait-and-Switch Hook', 'Physical Slapstick Comedy', 'Hyper-Local Targeting'],
+                setup: ['Smartphone in driver seat', 'Business cards prop', 'Driveway setting'],
                 targetLength: '18 Seconds | Vertical 9:16',
                 bannerOverlayText: 'Taking advantage at every opportunity... 🚗',
                 table: [
-                    { time: "0:00–0:03", shot: "Shot 1 (Hook): Windshield POV guiding driver.", overlay: "COMING IN HOT 🚘", audio: "(Car horn honks)\nAgent: \"Keep coming! You're good, you're good! Stop!\"" },
-                    { time: "0:03–0:06", shot: "Shot 2 (The Approach): Pulling out business card.", overlay: "MEET BLAKE 📇", audio: "Agent: \"Hey! I'm Blake Shults with ARC Realty.\"" },
-                    { time: "0:06–0:12", shot: "Shot 3 (Rapid Pitch): Talking at 1.2x speed.", overlay: "HOOVER NATIVE 🏠", audio: "Agent: \"Are you looking to buy or sell a house in Bluff Park? I'm a Hoover native!\"" },
-                    { time: "0:12–0:17", shot: "Shot 4 (Card Slide & Loop): Pushing card through window crack.", overlay: "TAKE MY CARD 💳", audio: "Agent: \"I'd love to earn your business! Here's my card—\"\n(Window rolls up -> Cut)" }
+                    { time: "0:00–0:03", shot: "Shot 1 (Hook): Windshield POV; agent guiding car down driveway.", overlay: "COMING IN HOT 🚘", audio: "(Car horn) Agent: 'You're good, you're good! Stop!'" },
+                    { time: "0:03–0:06", shot: "Shot 2 (Approach): Window rolls down; agent pulls business card.", overlay: "MEET BLAKE 📇", audio: "Agent: 'Hey! I'm Blake Shults with ARC Realty.'" },
+                    { time: "0:06–0:12", shot: "Shot 3 (Rapid Pitch): Agent holding card to driver's face.", overlay: "HOOVER NATIVE 🏠", audio: "Agent: 'Are you looking to buy or sell in Bluff Park? I'm a Hoover native!'" },
+                    { time: "0:12–0:17", shot: "Shot 4 (Card Slide & Loop): Agent forces card through glass gap.", overlay: "TAKE MY CARD 💳", audio: "Agent: 'I'd love to earn your business... here's my card—' [Window rolls up]" }
                 ],
-                postProduction: [
-                    'SFX: Car horn at 0:00 and mechanical window sound.',
-                    'Captions: Rapid pop-up keywords.',
-                    'Loop Stitch: Cut mid-sentence right as card pushes into window gap.'
-                ],
+                postProduction: ['Car horn sound effect at frame 0', 'Rapid cut to loop'],
                 pinnedComment: 'If I guided you into a tight parking spot, would you let me list your house? 😂👇',
-                hashtags: '#realestatehumor #realtorlife #listingagent #realestateagent'
+                hashtags: '#realestatehumor #realtorlife #listingagent #homebuyingtips'
+            },
+            {
+                id: 'open-house-robbery',
+                category: 'PARODY & NEWS',
+                title: 'Open House Robbery',
+                hook: "HOOK: Fake security camera footage of an open house robbery turning into a signed contract.",
+                fullReelUrl: 'https://www.instagram.com/reel/DT018crEYKb/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+                embedUrl: 'https://www.instagram.com/p/DT018crEYKb/embed/',
+                coreObjective: 'Media parody framing using B&W security footage and news lower thirds.',
+                psychology: ['Media Parody Framing', 'Hustle Over Safety Joke', 'Format Cut Pattern'],
+                setup: ['Mount camera high on truck/ladder', 'B&W filter', 'AI news voiceover'],
+                targetLength: '35-40 Seconds | Vertical 9:16',
+                bannerOverlayText: 'BREAKING NEWS / ALABAMA REALTOR',
+                table: [
+                    { time: "0:00–0:16", shot: "Shot 1 (Security POV): B&W high-angle footage of robber and agent.", overlay: "BREAKING NEWS", audio: "News Anchor AI: 'Footage emerged showing a robbery taking an unexpected turn...'" },
+                    { time: "0:17–0:26", shot: "Shot 2 (News Interview): Full color eye-level interview.", overlay: "ALABAMA REALTOR", audio: "Agent: 'He demanded everything I had... so I offered this 3-bedroom!'" },
+                    { time: "0:26–0:38", shot: "Shot 3 (B-Roll Security): Robber signing contract on clipboard.", overlay: "CONTRACT SIGNED", audio: "Agent VO: 'We took a tour inside and put it under contract right then!'" },
+                    { time: "0:38–0:42", shot: "Shot 4 (Outro & Loop): Audio transitions back to anchor voiceover.", overlay: "BREAKING NEWS", audio: "News Anchor: 'Footage emerged out of Bluff Park this week showing...'" }
+                ],
+                postProduction: ['Color grading split', 'AI Voiceover synthesis'],
+                pinnedComment: 'If you come to my open house, you are leaving under contract! 😂',
+                hashtags: '#realestatehumor #realtorlife #openhouse #breakingnews'
+            },
+            {
+                id: 'docusign-coach',
+                category: 'RELATABLE HUMOR',
+                title: 'POV: Coaching Elderly Client Through DocuSign',
+                hook: "HOOK: Lying upside down on the office floor exhausted on speakerphone.",
+                fullReelUrl: 'https://www.instagram.com/reel/DaRPJx1AfmL/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+                embedUrl: 'https://www.instagram.com/p/DaRPJx1AfmL/embed/',
+                coreObjective: 'Visualizing workplace exhaustion contrasting calm phone dialogue.',
+                psychology: ['Relatability & Physical Comedy', 'Audio Contrast', 'Loop Engine'],
+                setup: ['Tripod at floor level', 'Home office setup', 'Laptop/phone'],
+                targetLength: '13 Seconds | Vertical 9:16',
+                bannerOverlayText: 'POV: Trying to coach my 81 year old client through the DocuSign',
+                table: [
+                    { time: "0:00–0:03", shot: "Shot 1 (Hook): Creator lying on back with legs propped on desk.", overlay: "DOCUSIGN COACHING", audio: "Agent: 'Are you on the computer?'" },
+                    { time: "0:03–0:09", shot: "Shot 2 (Meat): Subtle body adjustments showing defeated patience.", overlay: "DOCUSIGN COACHING", audio: "Client: 'Yes, but I had a computer for 10 years and enjoyed it, but it died...'" },
+                    { time: "0:09–0:13", shot: "Shot 3 (Loop): Dialogue loops back to opening question.", overlay: "DOCUSIGN COACHING", audio: "Agent: 'Are you on the computer?' Client: 'Yes I am...'" }
+                ],
+                postProduction: ['Audio loop stitch on repeating sentence'],
+                pinnedComment: 'How many times have you had to explain "click the yellow box"? 😂👇',
+                hashtags: '#realestateagent #docusign #realtorlife #clientproblems'
+            },
+            {
+                id: 'laugh-more',
+                category: 'SKIT',
+                title: 'POV: When They Say I Need To Laugh More',
+                hook: "HOOK: Telling agent to laugh more right before a client reveals sad news.",
+                fullReelUrl: 'https://www.instagram.com/reel/DYdsRLzM5Jx/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+                embedUrl: 'https://www.instagram.com/p/DYdsRLzM5Jx/embed/',
+                coreObjective: 'Juxtaposition of advice to smile more with inappropriate real-life disclosure.',
+                psychology: ['Relatable Professional Awkwardness', 'Fast Pattern Break', 'Dark Humor Subversion'],
+                setup: ['Sunglasses, flyers', 'Exterior and interior house locations'],
+                targetLength: '11 Seconds | Vertical 9:16',
+                bannerOverlayText: 'POV: WHEN THEY SAY I NEED TO LAUGH MORE',
+                table: [
+                    { time: "0:00–0:05", shot: "Shot 1 (Hook): Exterior shot listening off-camera, points & winks.", overlay: "LAUGH MORE", audio: "Voice: 'Loosen up, laugh a little.' Agent: 'I got you.'" },
+                    { time: "0:05–0:08", shot: "Shot 2 (Setup): Interior showing doorway.", overlay: "FIRST HOUSE?", audio: "Agent: 'So is this your first house?'" },
+                    { time: "0:08–0:10", shot: "Shot 3 (Punchline): Client sharing news casually.", overlay: "RECENT DIVORCE", audio: "Client: 'No, I recently got a divorce.'" },
+                    { time: "0:10–0:11", shot: "Shot 4 (Reaction/Loop): Fast jump cut back to exterior frozen deadpan.", overlay: "LOOSEN UP...", audio: "(Awkward silence / Audio cuts to loop start)" }
+                ],
+                postProduction: ['Fast jump cut editing without gaps'],
+                pinnedComment: 'What is the most awkward thing a client has ever told you at a showing? 😅',
+                hashtags: '#realtorlife #realestatehumor #awkwardmoments #showings'
+            },
+            {
+                id: 'leads-be-like',
+                category: 'SPLIT-SCREEN SATIRE',
+                title: 'Some Leads Be Like',
+                hook: "HOOK: Split-screen top video morphing from lot to mansion then dropping to mobile home.",
+                fullReelUrl: 'https://www.instagram.com/reel/DbBXfVkspQP/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+                embedUrl: 'https://www.instagram.com/p/DbBXfVkspQP/embed/',
+                coreObjective: 'Visual escalation vs financial reality breakdown using vertical split-screen.',
+                psychology: ['Visual Escalation & De-escalation', 'Relatable Industry Pain Point', 'Split-Screen Reaction Format'],
+                setup: ['50/50 split template', 'Voiceover recording', 'Desk setup'],
+                targetLength: '33 Seconds | Vertical 9:16',
+                bannerOverlayText: 'Some of the leads I get',
+                table: [
+                    { time: "0:00–0:17", shot: "Top morphs lot -> mansion. Bottom: Agent listening on speakerphone.", overlay: "LEADS EXPECTATIONS", audio: "Client: 'Looking for a simple 5 bed, lake view, pool...'" },
+                    { time: "0:17–0:32", shot: "Top downgrades mansion -> mobile home. Bottom: Agent disbelief.", overlay: "BUDGET REALITY", audio: "Client: 'Max budget $150k, 100% financing, make $2k/mo...'" },
+                    { time: "0:32–0:33", shot: "Visual snaps back to empty lot as loop restarts.", overlay: "FIND IT FOR ME", audio: "Client: 'Let me know what you find...' [Loop]" }
+                ],
+                postProduction: ['Match image cuts to audio keywords'],
+                pinnedComment: 'Mansion expectations on a mobile home budget... who relates? 😂👇',
+                hashtags: '#realestateleads #realtorlife #mortgagebroker #realestatememes'
+            },
+            {
+                id: 'open-house-bouncers',
+                category: 'SKIT & PARODY',
+                title: 'If Open Houses Had Bouncers',
+                hook: "HOOK: Bouncers checking pre-approval letters like club IDs at open house door.",
+                fullReelUrl: 'https://www.instagram.com/reel/DaqAvmuR4Wo/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+                embedUrl: 'https://www.instagram.com/p/DaqAvmuR4Wo/embed/',
+                coreObjective: 'Analogy subversion treating open house like exclusive nightclub door.',
+                psychology: ['Analogy Subversion', 'Relatable Agent In-Joke', 'Physical Comedy'],
+                setup: ['3 actors', 'Folded paper pre-approval letter prop', 'Sunglasses'],
+                targetLength: '29 Seconds | Vertical 9:16',
+                bannerOverlayText: 'If Open Houses Had Bouncers 😭',
+                table: [
+                    { time: "0:00–0:05", shot: "Shot 1 (Hook): Bouncers standing guard at porch door.", overlay: "BOUNCER CHECK", audio: "Bouncer 1: 'Whoa, whoa, whoa. What are you here for?'" },
+                    { time: "0:05–0:14", shot: "Shot 2 (ID Check): Bouncer inspects paper pre-approval.", overlay: "PRE-APPROVAL?", audio: "Buyer: 'Trying to see the house.' Bouncer: 'Are you pre-approved?'" },
+                    { time: "0:14–0:21", shot: "Shot 3 (Interrogation): Asking vetting questions briskly.", overlay: "HOW MUCH?", audio: "Bouncer: 'Approved for how much?' Buyer: '400k.' Bouncer: 'Closing days?'" },
+                    { time: "0:21–0:28", shot: "Shot 4 (Punchline): Buyer reveals she has an agent; escorted off.", overlay: "REALTOR DETECTED", audio: "Buyer: 'I have a realtor.' Bouncer: 'Get her out of here!' [Escorted]" }
+                ],
+                postProduction: ['Fast audio edit on paper throw'],
+                pinnedComment: 'Unrepresented buyers only! 😂 Have you ever wanted bouncers at your open house?',
+                hashtags: '#openhouse #realtorlife #realestatehumor #bouncers'
+            },
+            {
+                id: 'buying-2026',
+                category: 'SATIRE & MARKET',
+                title: 'Buying A House In 2026',
+                hook: "HOOK: Pitching a 910 sq ft house with outhouses for $2.5 million.",
+                fullReelUrl: 'https://www.instagram.com/reel/DVZA_y_D8RQ/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+                embedUrl: 'https://www.instagram.com/p/DVZA_y_D8RQ/embed/',
+                coreObjective: 'Exaggerating housing market trends and high-pressure sales tactics.',
+                psychology: ['Exaggerated Real-Estate Satire', 'Pacing & Rapid Fire Defects', 'Relatable Buyer Frustration'],
+                setup: ['Presentation folder', 'Clipboard', 'Interior home walkthrough'],
+                targetLength: '58 Seconds | Vertical 9:16',
+                bannerOverlayText: 'Buying A House In 2026',
+                table: [
+                    { time: "0:00–0:09", shot: "Shot 1 (Price): Opening front door with folder.", overlay: "910 SQ FT / $2.5M", audio: "'910 sq ft, asking $2.5M. Offer $3M to get it!'" },
+                    { time: "0:09–0:20", shot: "Shot 2 (Baths): Utility room. Gesturing wildly.", overlay: "OUTHOUSES", audio: "'2.5 baths... both outhouses, rustic charm!'" },
+                    { time: "0:20–0:25", shot: "Shot 3 (Competition): Walking down hallway.", overlay: "7 OFFERS IN", audio: "'7 offers already, most over asking.'" },
+                    { time: "0:25–0:35", shot: "Shot 4 (Stairs): Base of staircase.", overlay: "HARRY POTTER BEDROOM", audio: "'4 bedrooms, one under stairs for Harry Potter fantasy!'" },
+                    { time: "0:35–0:47", shot: "Shot 5 (Disclosures): Flipping paperwork.", overlay: "FLOODING & RADON", audio: "'Basement flooding, radon, leaking roof!'" },
+                    { time: "0:47–0:58", shot: "Shot 6 (Rush): Pushing clipboard to camera.", overlay: "HIGHEST & BEST", audio: "'Highest and best in 15 mins... they taking doorknobs!'" }
+                ],
+                postProduction: ['Dynamic handheld tracking shots'],
+                pinnedComment: 'Accurate prediction for 2026 housing market? 😭👇',
+                hashtags: '#housingmarket2026 #realestatehumor #realtorlife #homebuying'
+            },
+            {
+                id: 'agent-undercut',
+                category: 'OFFICE HUMOR',
+                title: 'Agent Undercut',
+                hook: "HOOK: Lead agent vaulting over desk to steal lead from coworker on speakerphone.",
+                fullReelUrl: 'https://www.instagram.com/reel/DF44585v-5A/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+                embedUrl: 'https://www.instagram.com/p/DF44585v-5A/embed/',
+                coreObjective: 'Visualizing ruthless internal brokerage competition over hot buyer leads.',
+                psychology: ['Physical Comedy Slapstick', 'High Stakes Escalation', 'Relatable Office Dynamics'],
+                setup: ['Brokerage desk setup', 'Phone prop', 'Action vault space'],
+                targetLength: '24 Seconds | Vertical 9:16',
+                bannerOverlayText: 'When a $2M lead calls the office phone',
+                table: [
+                    { time: "0:00–0:06", shot: "Shot 1 (Hook): Coworker answering office phone.", overlay: "OFFICE CALL", audio: "Agent 1: 'ABC Realty... yes, a $2M cash buyer?'" },
+                    { time: "0:06–0:14", shot: "Shot 2 (Action): Lead agent diving over desk in background.", overlay: "LEAD POUNCE", audio: "Agent 2: 'I can help with that!' [Desk slide sound]" },
+                    { time: "0:14–0:20", shot: "Shot 3 (Takeover): Snatching headset mid-conversation.", overlay: "HIJACKED", audio: "Agent 2: 'Hi, this is top producer Blake, don't listen to him!'" },
+                    { time: "0:20–0:24", shot: "Shot 4 (Outro/Loop): Scuffle ensues as phone disconnects.", overlay: "CALL DISCONNECTED", audio: "(Scuffle noises / Line drops -> Loop)" }
+                ],
+                postProduction: ['Fast motion cuts & slapstick sound effects'],
+                pinnedComment: 'Who is the most competitive agent in your office? Tag them! 😂',
+                hashtags: '#brokeragelife #realtorhumor #realestateagent #officecompetition'
             }
         ];
 
-        // Render Main Library Grid
-        function renderLibrary() {
-            const gridContainer = document.getElementById('reels-grid-container');
-            gridContainer.innerHTML = reelDatabase.map(reel => `
-                <div class="grid-card" onclick="openSOP('${reel.id}')">
-                    <div>
+        // Init Lucide
+        lucide.createIcons();
+
+        // Render Cards
+        function renderCards() {
+            const grid = document.getElementById('reelsGrid');
+            grid.innerHTML = reelDatabase.map(reel => `
+                <div class="phone-card">
+                    <div class="card-header">
                         <span class="category-badge">${reel.category}</span>
-                        <h2 style="font-size: 1.3rem; margin: 0.5rem 0;">${reel.title}</h2>
-                        <div class="hook-box" style="font-size: 0.9rem;">${reel.hook}</div>
                     </div>
-                    <div style="margin-top: 1rem;">
-                        <button class="btn-primary" style="width: 100%;">View SOP Playbook →</button>
+                    <div class="video-crop-container">
+                        <iframe class="clean-iframe" src="${reel.embedUrl}" loading="lazy" allowfullscreen frameborder="0"></iframe>
+                    </div>
+                    <div class="card-footer">
+                        <div class="card-title">${reel.title}</div>
+                        <button class="open-details-btn" onclick="openReelModal('${reel.id}')">
+                            <i data-lucide="file-text" size="16"></i> Open Full SOP Breakdown
+                        </button>
                     </div>
                 </div>
             `).join('');
+            lucide.createIcons();
         }
 
-        // Open Selected SOP Page
-        function openSOP(reelId) {
-            const reel = reelDatabase.find(item => item.id === reelId);
+        // Open Modal Breakdown
+        function openReelModal(id) {
+            const reel = reelDatabase.find(r => r.id === id);
             if (!reel) return;
 
-            const sopContainer = document.getElementById('sop-content');
+            document.getElementById('modalEmbedIframe').src = reel.embedUrl;
+            document.getElementById('modalExternalLink').href = reel.fullReelUrl;
 
             const tableRows = reel.table ? reel.table.map(row => `
                 <tr>
                     <td><strong>${row.time}</strong></td>
                     <td>${row.shot}</td>
                     <td><code>${row.overlay}</code></td>
-                    <td class="audio-cell">${row.audio}</td>
+                    <td>${row.audio}</td>
                 </tr>
             `).join('') : '';
 
-            sopContainer.innerHTML = `
-                <span class="category-badge">${reel.category}</span>
-                <h2 class="reel-title">${reel.title}</h2>
-                
-                <div class="hook-box">${reel.hook}</div>
-
-                <div class="meta-grid">
-                    <div class="meta-item">
-                        <strong>Target Length & Format</strong>
-                        ${reel.targetLength}
-                    </div>
-                    <div class="meta-item">
-                        <strong>Banner Overlay Text</strong>
-                        ${reel.bannerOverlayText}
-                    </div>
-                    <div class="meta-item">
-                        <strong>Core Objective</strong>
-                        ${reel.coreObjective}
-                    </div>
+            const sopHTML = `
+                <div>
+                    <span class="category-badge">${reel.category}</span>
+                    <h2 style="font-size: 1.6rem; margin-top: 4px; font-weight: 800;">${reel.title}</h2>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 4px;">${reel.hook}</p>
                 </div>
 
-                <div class="section-title">Psychology & Mechanics</div>
-                <ul>
-                    ${reel.psychology.map(item => `<li>${item}</li>`).join('')}
-                </ul>
-
-                <div class="section-title">Setup Requirements</div>
-                <ul>
-                    ${reel.setup.map(item => `<li>${item}</li>`).join('')}
-                </ul>
-
-                <div class="section-title">Shot Breakdown</div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th style="width: 12%;">Time</th>
-                            <th style="width: 28%;">Shot & Action</th>
-                            <th style="width: 20%;">Overlay / Text</th>
-                            <th style="width: 40%;">Audio / Dialogue</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${tableRows}
-                    </tbody>
-                </table>
-
-                <div class="section-title">Post-Production Notes</div>
-                <ul>
-                    ${reel.postProduction.map(item => `<li>${item}</li>`).join('')}
-                </ul>
-
-                <div class="meta-grid" style="margin-top: 1.5rem;">
-                    <div class="meta-item">
-                        <strong>Pinned Comment Strategy</strong>
-                        ${reel.pinnedComment}
-                    </div>
+                <div class="link-box">
+                    <span style="font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700;">Direct Reel Link</span>
+                    <a href="${reel.fullReelUrl}" target="_blank">${reel.fullReelUrl}</a>
                 </div>
 
-                <div class="tags-container">
-                    <span class="hashtag">${reel.hashtags}</span>
+                <div>
+                    <div class="sop-heading"><i data-lucide="target" size="16"></i> Core Strategic Objective</div>
+                    <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.5;">${reel.coreObjective}</p>
                 </div>
 
-                <div class="links">
-                    <a href="${reel.fullReelUrl}" target="_blank" rel="noopener noreferrer">View Original Reel ↗</a>
+                <div>
+                    <div class="sop-heading"><i data-lucide="brain" size="16"></i> Psychology & Hook Mechanics</div>
+                    <ul class="sop-list">
+                        ${reel.psychology.map(p => `<li>${p}</li>`).join('')}
+                    </ul>
+                </div>
+
+                <div>
+                    <div class="sop-heading"><i data-lucide="sliders" size="16"></i> On-Site Setup & Specs</div>
+                    <p style="font-size: 0.82rem; color: var(--accent-purple); font-weight: 700; margin-bottom: 6px;">Format: ${reel.targetLength}</p>
+                    <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 8px;"><strong>Fixed Banner:</strong> ${reel.bannerOverlayText}</p>
+                    <ul class="sop-list">
+                        ${reel.setup.map(s => `<li>${s}</li>`).join('')}
+                    </ul>
+                </div>
+
+                <div>
+                    <div class="sop-heading"><i data-lucide="list" size="16"></i> Scene-by-Scene Script Breakdown</div>
+                    <table class="script-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 15%;">Time</th>
+                                <th style="width: 30%;">Shot / Action</th>
+                                <th style="width: 20%;">Overlay Text</th>
+                                <th style="width: 35%;">Audio / Voice</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${tableRows}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div>
+                    <div class="sop-heading"><i data-lucide="scissors" size="16"></i> Post-Production & Loop Notes</div>
+                    <ul class="sop-list">
+                        ${reel.postProduction.map(p => `<li>${p}</li>`).join('')}
+                    </ul>
+                </div>
+
+                <div>
+                    <div class="sop-heading"><i data-lucide="message-square" size="16"></i> Engagement Strategy</div>
+                    <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 6px;"><strong>Pinned Comment:</strong> ${reel.pinnedComment}</p>
+                    <p style="font-size: 0.82rem; color: var(--accent-purple);">${reel.hashtags}</p>
+                </div>
+
+                <div style="margin-top: 10px;">
+                    <button class="btn-main" style="width: 100%; justify-content: center;" onclick="copySOPToClipboard('${reel.id}')">
+                        <i data-lucide="copy" size="16"></i> Copy SOP to Clipboard
+                    </button>
                 </div>
             `;
 
-            document.getElementById('library-view').style.display = 'none';
-            document.getElementById('sop-detail-view').style.display = 'block';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            document.getElementById('modalSopDetails').innerHTML = sopHTML;
+            document.getElementById('reelModal').style.display = 'flex';
+            lucide.createIcons();
         }
 
-        // Return to Main Library View
-        function showLibrary() {
-            document.getElementById('sop-detail-view').style.display = 'none';
-            document.getElementById('library-view').style.display = 'block';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Close Modal
+        function closeReelModal() {
+            document.getElementById('reelModal').style.display = 'none';
+            document.getElementById('modalEmbedIframe').src = '';
         }
 
-        // Initializing page
-        renderLibrary();
+        // Copy SOP Content
+        function copySOPToClipboard(id) {
+            const reel = reelDatabase.find(r => r.id === id);
+            if (!reel) return;
+
+            const text = `SOP: ${reel.title}\nCategory: ${reel.category}\nLink: ${reel.fullReelUrl}\n\nObjective: ${reel.coreObjective}\n\nFormat: ${reel.targetLength}\nBanner: ${reel.bannerOverlayText}\n\nPinned Comment: ${reel.pinnedComment}\nHashtags: ${reel.hashtags}`;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.display = 'block';
+                setTimeout(() => { toast.style.display = 'none'; }, 2500);
+            });
+        }
+
+        // Add Reel via Link Input
+        function addReelFromLink() {
+            const input = document.getElementById('addUrl');
+            const url = input.value.trim();
+            if (!url) return;
+
+            const match = url.match(/reel\/([A-Za-z0-9_-]+)/) || url.match(/p\/([A-Za-z0-9_-]+)/);
+            const shortcode = match ? match[1] : null;
+
+            if (!shortcode) {
+                alert('Please enter a valid Instagram Reel URL.');
+                return;
+            }
+
+            const newReel = {
+                id: 'custom-' + Date.now(),
+                category: 'CUSTOM REEL',
+                title: 'Custom Imported Reel',
+                hook: 'HOOK: Newly added custom Instagram reel.',
+                fullReelUrl: url,
+                embedUrl: `https://www.instagram.com/p/${shortcode}/embed/`,
+                coreObjective: 'Custom reel imported for strategy analysis and breakdown.',
+                psychology: ['Custom strategy analysis needed.'],
+                setup: ['Standard smartphone 9:16 vertical video recording setup.'],
+                targetLength: 'Vertical 9:16',
+                bannerOverlayText: 'Custom Reel Banner',
+                table: [
+                    { time: '0:00-End', shot: 'Full Scene', overlay: 'CUSTOM', audio: 'Original Audio' }
+                ],
+                postProduction: ['Standard jump cuts', 'Audio normalization'],
+                pinnedComment: 'What do you think of this video? 👇',
+                hashtags: '#realestate #realtorlife #realestateagent'
+            };
+
+            reelDatabase.unshift(newReel);
+            renderCards();
+            input.value = '';
+        }
+
+        // Initial Page Render
+        renderCards();
     </script>
 </body>
 </html>
