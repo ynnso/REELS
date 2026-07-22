@@ -28,20 +28,21 @@
         .input-field { flex: 1; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color); color: var(--text-main); padding: 12px 16px; border-radius: 10px; outline: none; font-size: 0.88rem; }
         .btn-main { background: var(--accent-gradient); color: #fff; border: none; padding: 12px 24px; border-radius: 10px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; }
 
-        .reels-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 32px; justify-items: center; }
+        .reels-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 32px; justify-items: center; }
         
-        /* Main Library Playable Cards */
-        .phone-card { width: 360px; background: #000; border-radius: 20px; border: 2px solid #1f2937; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 10px 25px rgba(0,0,0,0.5); transition: border-color 0.3s ease; }
+        /* Clean Playable Video Card */
+        .phone-card { width: 340px; background: #000; border-radius: 20px; border: 2px solid #1f2937; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 10px 25px rgba(0,0,0,0.5); transition: border-color 0.3s ease; }
         .phone-card:hover { border-color: #ec4899; }
         .card-header { padding: 12px 16px; background: var(--bg-card); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); }
         .category-badge { background: rgba(236, 72, 153, 0.25); color: #ec4899; padding: 4px 10px; border-radius: 12px; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; }
         
-        .main-card-iframe { width: 100%; height: 500px; border: none; background: #000; }
+        /* Cropped Frame Container to hide Instagram profile borders */
+        .video-crop-container { width: 100%; height: 480px; position: relative; overflow: hidden; background: #000; }
+        .clean-iframe { position: absolute; top: -56px; left: 0; width: 100%; height: calc(100% + 110px); border: none; background: #000; }
         
         .card-footer { padding: 14px 16px; background: var(--bg-card); border-top: 1px solid var(--border-color); }
-        .card-title { font-size: 1rem; font-weight: 700; color: #fff; }
-        .card-hook { font-size: 0.78rem; color: #ec4899; font-weight: 600; margin-top: 4px; }
-        .open-details-btn { margin-top: 12px; background: rgba(167, 139, 250, 0.15); color: var(--accent-purple); border: 1px solid rgba(167, 139, 250, 0.4); width: 100%; padding: 10px; border-radius: 8px; font-size: 0.8rem; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer; transition: all 0.2s ease; }
+        .card-title { font-size: 1.05rem; font-weight: 700; color: #fff; }
+        .open-details-btn { margin-top: 12px; background: rgba(167, 139, 250, 0.15); color: var(--accent-purple); border: 1px solid rgba(167, 139, 250, 0.4); width: 100%; padding: 11px; border-radius: 10px; font-size: 0.82rem; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: all 0.2s ease; }
         .open-details-btn:hover { background: var(--accent-purple); color: #000; }
 
         /* Modal Player Overlay */
@@ -50,9 +51,6 @@
         .modal-phone-view { width: 400px; background: #000; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; border-right: 1px solid var(--border-color); flex-shrink: 0; padding: 16px; overflow-y: auto; }
         .modal-sop-details { flex: 1; padding: 30px; overflow-y: auto; display: flex; flex-direction: column; gap: 20px; }
         .close-modal-btn { position: absolute; top: 16px; right: 16px; background: rgba(255, 255, 255, 0.1); border: none; color: #fff; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; }
-
-        /* Embed Frame */
-        .instagram-frame { width: 100%; height: 600px; border: none; border-radius: 12px; background: #000; }
 
         .sop-heading { font-size: 1rem; font-weight: 700; color: var(--accent-purple); display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
         .link-box { background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border-color); padding: 12px 16px; border-radius: 12px; display: flex; flex-direction: column; gap: 4px; overflow: hidden; }
@@ -85,9 +83,11 @@
         <div class="modal-body">
             <button class="close-modal-btn" onclick="closeReelModal()"><i data-lucide="x"></i></button>
 
-            <!-- Instagram Live Embed Frame Viewport inside Modal -->
+            <!-- Instagram Embed Viewport inside Modal -->
             <div class="modal-phone-view">
-                <iframe id="modalEmbedIframe" class="instagram-frame" src="" loading="lazy" allowfullscreen frameborder="0"></iframe>
+                <div class="video-crop-container" style="height: 580px;">
+                    <iframe id="modalEmbedIframe" class="clean-iframe" src="" loading="lazy" allowfullscreen frameborder="0"></iframe>
+                </div>
                 <a id="modalExternalLink" href="#" target="_blank" class="btn-ui" style="margin-top: 12px; font-size: 0.78rem; width: 100%; justify-content: center;">
                     <i data-lucide="external-link" size="14"></i> Open Direct on Instagram
                 </a>
@@ -103,7 +103,7 @@
     <script>
         lucide.createIcons();
 
-        // Complete Database
+        // Database
         let reelDatabase = [
             {
                 id: 'honest-reels',
@@ -111,7 +111,7 @@
                 title: 'If Real Estate Videos Were Honest',
                 hook: "HOOK: 'It's not my listing... but I'm going to make it look like it is.'",
                 fullReelUrl: 'https://www.instagram.com/reel/DOUWDbcEj1Z/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
-                embedUrl: 'https://www.instagram.com/p/DOUWDbcEj1Z/embed/captioned/',
+                embedUrl: 'https://www.instagram.com/p/DOUWDbcEj1Z/embed/',
                 coreObjective: 'Drive top-of-funnel reach, high engagement, and client trust through radical transparency, meta-humor, and seamless loop mechanics.',
                 psychology: [
                     'Subversive Meta-Humor: Breaks the fourth wall by admitting industry tropes (borrowing listings, performative B-roll, low sales volume). Radical self-deprecation immediately builds authenticity.',
@@ -163,12 +163,13 @@
                         </a>
                     </div>
                     
-                    <!-- Directly Playable Reel in Main Library -->
-                    <iframe class="main-card-iframe" src="${reel.embedUrl}" loading="lazy" allowfullscreen frameborder="0"></iframe>
+                    <!-- Cropped Frame Container hiding top/bottom Instagram profiles/menus -->
+                    <div class="video-crop-container">
+                        <iframe class="clean-iframe" src="${reel.embedUrl}" loading="lazy" allowfullscreen frameborder="0"></iframe>
+                    </div>
 
                     <div class="card-footer">
                         <h3 class="card-title">${reel.title}</h3>
-                        <p class="card-hook">${reel.hook}</p>
                         <button class="open-details-btn" onclick="openReelModal(${index})">
                             <i data-lucide="sliders" size="14"></i> Open SOP Script Details
                         </button>
@@ -273,7 +274,7 @@
 
             const match = url.match(/(?:reel|p)\/([^/?#&]+)/);
             const id = match ? match[1] : '';
-            const embed = id ? `https://www.instagram.com/p/${id}/embed/captioned/` : url;
+            const embed = id ? `https://www.instagram.com/p/${id}/embed/` : url;
 
             reelDatabase.unshift({
                 id: `reel-${Date.now()}`,
