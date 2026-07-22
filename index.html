@@ -28,14 +28,21 @@
         .input-field { flex: 1; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color); color: var(--text-main); padding: 12px 16px; border-radius: 10px; outline: none; font-size: 0.88rem; }
         .btn-main { background: var(--accent-gradient); color: #fff; border: none; padding: 12px 24px; border-radius: 10px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; }
 
-        .reels-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 32px; }
-        .phone-card { width: 320px; height: 520px; background: #000; border-radius: 28px; border: 3px solid #1f2937; position: relative; overflow: hidden; cursor: pointer; display: flex; flex-direction: column; justify-content: space-between; }
+        .reels-grid { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 32px; justify-items: center; }
+        
+        /* Main Library Playable Cards */
+        .phone-card { width: 360px; background: #000; border-radius: 20px; border: 2px solid #1f2937; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 10px 25px rgba(0,0,0,0.5); transition: border-color 0.3s ease; }
         .phone-card:hover { border-color: #ec4899; }
-        .phone-notch { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); width: 75px; height: 16px; background: #000; border-radius: 10px; z-index: 5; }
-        .phone-video-preview { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
-        .phone-overlay { position: relative; z-index: 3; height: 100%; display: flex; flex-direction: column; justify-content: space-between; padding: 20px 16px; background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.92) 100%); }
-        .category-badge { margin-top: 10px; align-self: flex-start; background: rgba(236, 72, 153, 0.25); color: #ec4899; padding: 4px 10px; border-radius: 12px; font-size: 0.68rem; font-weight: 700; }
-        .open-details-btn { margin-top: 12px; background: rgba(167, 139, 250, 0.15); color: var(--accent-purple); border: 1px solid rgba(167, 139, 250, 0.4); width: 100%; padding: 10px; border-radius: 8px; font-size: 0.8rem; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer; }
+        .card-header { padding: 12px 16px; background: var(--bg-card); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); }
+        .category-badge { background: rgba(236, 72, 153, 0.25); color: #ec4899; padding: 4px 10px; border-radius: 12px; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; }
+        
+        .main-card-iframe { width: 100%; height: 500px; border: none; background: #000; }
+        
+        .card-footer { padding: 14px 16px; background: var(--bg-card); border-top: 1px solid var(--border-color); }
+        .card-title { font-size: 1rem; font-weight: 700; color: #fff; }
+        .card-hook { font-size: 0.78rem; color: #ec4899; font-weight: 600; margin-top: 4px; }
+        .open-details-btn { margin-top: 12px; background: rgba(167, 139, 250, 0.15); color: var(--accent-purple); border: 1px solid rgba(167, 139, 250, 0.4); width: 100%; padding: 10px; border-radius: 8px; font-size: 0.8rem; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer; transition: all 0.2s ease; }
+        .open-details-btn:hover { background: var(--accent-purple); color: #000; }
 
         /* Modal Player Overlay */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.94); backdrop-filter: blur(12px); z-index: 100; display: none; justify-content: center; align-items: center; padding: 20px; }
@@ -48,7 +55,7 @@
         .instagram-frame { width: 100%; height: 600px; border: none; border-radius: 12px; background: #000; }
 
         .sop-heading { font-size: 1rem; font-weight: 700; color: var(--accent-purple); display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
-        .link-box { background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border-color); padding: 12px 16px; border-radius: 12px; display: flex; flex-direction: column; gap: 4px; overflow-hidden; }
+        .link-box { background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border-color); padding: 12px 16px; border-radius: 12px; display: flex; flex-direction: column; gap: 4px; overflow: hidden; }
         .link-box a { color: #60a5fa; font-size: 0.82rem; word-break: break-all; text-decoration: underline; font-weight: 600; line-height: 1.4; }
 
         .script-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; margin-top: 8px; border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden; }
@@ -78,7 +85,7 @@
         <div class="modal-body">
             <button class="close-modal-btn" onclick="closeReelModal()"><i data-lucide="x"></i></button>
 
-            <!-- Instagram Live Embed Frame Viewport -->
+            <!-- Instagram Live Embed Frame Viewport inside Modal -->
             <div class="modal-phone-view">
                 <iframe id="modalEmbedIframe" class="instagram-frame" src="" loading="lazy" allowfullscreen frameborder="0"></iframe>
                 <a id="modalExternalLink" href="#" target="_blank" class="btn-ui" style="margin-top: 12px; font-size: 0.78rem; width: 100%; justify-content: center;">
@@ -96,7 +103,7 @@
     <script>
         lucide.createIcons();
 
-        // Database
+        // Complete Database
         let reelDatabase = [
             {
                 id: 'honest-reels',
@@ -105,7 +112,6 @@
                 hook: "HOOK: 'It's not my listing... but I'm going to make it look like it is.'",
                 fullReelUrl: 'https://www.instagram.com/reel/DOUWDbcEj1Z/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
                 embedUrl: 'https://www.instagram.com/p/DOUWDbcEj1Z/embed/captioned/',
-                poster: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=600&q=80',
                 coreObjective: 'Drive top-of-funnel reach, high engagement, and client trust through radical transparency, meta-humor, and seamless loop mechanics.',
                 psychology: [
                     'Subversive Meta-Humor: Breaks the fourth wall by admitting industry tropes (borrowing listings, performative B-roll, low sales volume). Radical self-deprecation immediately builds authenticity.',
@@ -148,20 +154,24 @@
             reelDatabase.forEach((reel, index) => {
                 const card = document.createElement('div');
                 card.className = 'phone-card';
-                card.onclick = () => openReelModal(index);
 
                 card.innerHTML = `
-                    <div class="phone-notch"></div>
-                    <img src="${reel.poster}" class="phone-video-preview" alt="Thumbnail">
-                    <div class="phone-overlay">
+                    <div class="card-header">
                         <span class="category-badge">${reel.category}</span>
-                        <div>
-                            <h3 style="font-size: 1rem;">${reel.title}</h3>
-                            <p style="font-size: 0.78rem; color: #ec4899; font-weight: 600; margin-top: 4px;">${reel.hook}</p>
-                            <button class="open-details-btn">
-                                <i data-lucide="sliders" size="14"></i> Open Full SOP Script
-                            </button>
-                        </div>
+                        <a href="${reel.fullReelUrl}" target="_blank" style="color: var(--text-muted); font-size: 0.75rem; display: flex; align-items: center; gap: 4px; text-decoration: none;">
+                            <i data-lucide="external-link" size="12"></i> Instagram
+                        </a>
+                    </div>
+                    
+                    <!-- Directly Playable Reel in Main Library -->
+                    <iframe class="main-card-iframe" src="${reel.embedUrl}" loading="lazy" allowfullscreen frameborder="0"></iframe>
+
+                    <div class="card-footer">
+                        <h3 class="card-title">${reel.title}</h3>
+                        <p class="card-hook">${reel.hook}</p>
+                        <button class="open-details-btn" onclick="openReelModal(${index})">
+                            <i data-lucide="sliders" size="14"></i> Open SOP Script Details
+                        </button>
                     </div>
                 `;
                 grid.appendChild(card);
@@ -172,7 +182,6 @@
         function openReelModal(index) {
             const reel = reelDatabase[index];
 
-            // Set Instagram Captioned Embed Iframe Source
             document.getElementById('modalEmbedIframe').src = reel.embedUrl;
             document.getElementById('modalExternalLink').href = reel.fullReelUrl;
 
@@ -195,7 +204,6 @@
                     <h2 style="font-size: 1.5rem; font-weight: 800; margin-top: 4px;">${reel.title}</h2>
                 </div>
 
-                <!-- Complete Full Link Display -->
                 <div class="link-box">
                     <span style="font-size: 0.75rem; color: var(--accent-purple); font-weight: 700; display: flex; align-items: center; gap: 6px;">
                         <i data-lucide="link" size="14"></i> Full Reel URL
@@ -263,7 +271,6 @@
             const url = document.getElementById('addUrl').value.trim();
             if(!url) return alert('Please paste a Reel link!');
 
-            // Extract reel ID for embed
             const match = url.match(/(?:reel|p)\/([^/?#&]+)/);
             const id = match ? match[1] : '';
             const embed = id ? `https://www.instagram.com/p/${id}/embed/captioned/` : url;
@@ -275,7 +282,6 @@
                 hook: 'HOOK: Custom Concept',
                 fullReelUrl: url,
                 embedUrl: embed,
-                poster: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=600&q=80',
                 coreObjective: 'Custom objective details...',
                 psychology: ['Custom strategy point...'],
                 setup: ['Custom setup requirements...'],
