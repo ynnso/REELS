@@ -36,7 +36,7 @@
         .card-header { padding: 12px 16px; background: var(--bg-card); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); }
         .category-badge { background: rgba(236, 72, 153, 0.25); color: #ec4899; padding: 4px 10px; border-radius: 12px; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; }
         
-        /* Cropped Video Container - Removes Instagram top profile bar & bottom white footer */
+        /* Cropped Video Container - Edge-to-edge video display */
         .video-crop-container { width: 100%; height: 460px; position: relative; overflow: hidden; background: #000; }
         .clean-iframe { position: absolute; top: -58px; left: -5%; width: 110%; height: 580px; border: none; background: #000; }
 
@@ -107,7 +107,7 @@
     <script>
         lucide.createIcons();
 
-        // Database
+        // Comprehensive Database (All 29 Reels Included)
         let reelDatabase = [
             {
                 id: 'honest-reels',
@@ -118,36 +118,687 @@
                 embedUrl: 'https://www.instagram.com/p/DOUWDbcEj1Z/embed/',
                 coreObjective: 'Drive top-of-funnel reach, high engagement, and client trust through radical transparency, meta-humor, and seamless loop mechanics.',
                 psychology: [
-                    'Subversive Meta-Humor: Breaks the fourth wall by admitting industry tropes (borrowing listings, performative B-roll, low sales volume). Radical self-deprecation immediately builds authenticity.',
-                    'Persistent Visual Anchor: Fixed top banner ("If real estate videos were honest") maintains context for silent scrollers.',
+                    'Subversive Meta-Humor: Breaks the fourth wall by admitting industry tropes (borrowing listings, performative B-roll, low sales volume).',
+                    'Persistent Visual Anchor: Fixed top banner maintains context for silent scrollers.',
                     'Rapid Pattern Breaks: Visual switches every 3 seconds prevent viewer fatigue.',
-                    'Infinite Audio Loop: Cutting abruptly on your name at 0:22 feeds directly into Shot 1 (0:00).'
+                    'Infinite Audio Loop: Cutting abruptly on your name at 0:22 feeds directly into Shot 1.'
                 ],
                 setup: [
-                    'Location Strategy: High-end property with diverse visual areas (driveway, foyer, kitchen, bathroom mirror, porch).',
+                    'Location Strategy: High-end property with diverse visual areas.',
                     'Audio Requirements: Wireless lapel microphone for voice-isolated audio.',
                     'Visual Styling: Top banner (White box, black bold text: "If real estate videos were honest").'
                 ],
                 targetLength: '22 Seconds | Aspect Ratio: 9:16 Vertical (1080x1920)',
                 bannerOverlayText: 'If real estate videos were honest (On-screen 0:00 to end)',
                 table: [
-                    { time: "0:00–0:03", shot: "Shot 1 (Hook): Medium-wide shot. Walking toward camera down driveway with open hands.", overlay: "NOT MY LISTING", audio: "It's not my listing... but I'm going to make it look like it is." },
-                    { time: "0:03–0:06", shot: "Shot 2 (Pivot): Medium shot. Standing in foyer gesturing proud.", overlay: "ALL ABOUT ME", audio: "This video isn't about the house. It's about me—well, a version that appeals to you." },
-                    { time: "0:06–0:09", shot: "Shot 3 (B-Roll 1): Extreme close-up. Hand slowly gliding over countertop.", overlay: "CARESSING COUNTERTOPS", audio: "A version that strolls aimlessly caressing countertops..." },
-                    { time: "0:09–0:12", shot: "Shot 4 (B-Roll 2): Kneeling in kitchen, nodding deeply while opening oven door.", overlay: "EXPERT MODE", audio: "...and pretends to be knowledgeable about technical details I know nothing about." },
-                    { time: "0:12–0:15", shot: "Shot 5 (B-Roll 3): Medium shot via bathroom mirror. Splashing water on face.", overlay: "NOT HUNGOVER", audio: "...a version that doesn't look exhausted or hungover." },
-                    { time: "0:15–0:19", shot: "Shot 6 (The Stat): Sitting at kitchen island talking directly into lens.", overlay: "70% SOCIAL MEDIA", audio: "I spend 70% of my time on social media so you think I'm busy. My actual production is tiny..." },
-                    { time: "0:19–0:22", shot: "Shot 7 (The Close): Sitting on porch chair, leaning in with deadpan expression.", overlay: "CHOICE IS CLEAR", audio: "So do you want an overly salesy guru, or a guru who's overly salesy? Hi, I'm [Name]— [Cut abruptly]" }
+                    { time: "0:00–0:03", shot: "Shot 1 (Hook): Medium-wide shot walking down driveway.", overlay: "NOT MY LISTING", audio: "It's not my listing... but I'm going to make it look like it is." },
+                    { time: "0:03–0:06", shot: "Shot 2 (Pivot): Standing in foyer gesturing proud.", overlay: "ALL ABOUT ME", audio: "This video isn't about the house. It's about me—well, a version that appeals to you." },
+                    { time: "0:06–0:09", shot: "Shot 3 (B-Roll 1): Hand slowly gliding over countertop.", overlay: "CARESSING COUNTERTOPS", audio: "A version that strolls aimlessly caressing countertops..." },
+                    { time: "0:09–0:12", shot: "Shot 4 (B-Roll 2): Kneeling in kitchen opening oven door.", overlay: "EXPERT MODE", audio: "...and pretends to be knowledgeable about technical details I know nothing about." },
+                    { time: "0:12–0:15", shot: "Shot 5 (B-Roll 3): Mirror shot. Splashing water on face.", overlay: "NOT HUNGOVER", audio: "...a version that doesn't look exhausted or hungover." },
+                    { time: "0:15–0:19", shot: "Shot 6 (The Stat): Sitting at island talking into lens.", overlay: "70% SOCIAL MEDIA", audio: "I spend 70% of my time on social media so you think I'm busy. My actual production is tiny..." },
+                    { time: "0:19–0:22", shot: "Shot 7 (The Close): Sitting on porch chair leaning in.", overlay: "CHOICE IS CLEAR", audio: "So do you want an overly salesy guru, or a guru who's overly salesy? Hi, I'm [Name]— [Cut]" }
                 ],
-                postProduction: [
-                    'Tight Jump-Cuts: Trim micro-pauses between sentences.',
-                    'Text Overlay Formatting: Fixed top white banner; single/double word animated captions.',
-                    'Audio Mixing: Direct Audio at 0dB; Acoustic/Jazz background track at -22dB to -24dB.',
-                    'Seamless Loop Edit: Trim Shot 7 mid-word ("Hi, I\'m Mike—") connecting straight back to Shot 1.',
-                    'Distribution: Publish across Instagram Reels, TikTok, YouTube Shorts, and Facebook Reels.'
-                ],
+                postProduction: ['Tight Jump-Cuts', 'Text Overlay Formatting', 'Audio Mixing at -22dB', 'Seamless Loop Edit'],
                 pinnedComment: 'Be honest: How many real estate videos have you swiped past today? 😂👇',
-                hashtags: '#realestatehumor #realestatetips #realestateagent #realtorlife #homebuyingtips #listingagent'
+                hashtags: '#realestatehumor #realestatetips #realestateagent #realtorlife #homebuyingtips'
+            },
+            {
+                id: 'side-job',
+                category: 'SITUATIONAL SATIRE',
+                title: 'When Your Real Estate Agent Has A Side Job',
+                hook: "HOOK: Rideshare driver treating passenger as a captive real estate prospect.",
+                fullReelUrl: 'https://www.instagram.com/reel/DXE73PCka10/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+                embedUrl: 'https://www.instagram.com/p/DXE73PCka10/embed/',
+                coreObjective: 'Captive audience dynamic inside rideshare driving engagement with high relatable satire.',
+                psychology: ['Captive Audience Dynamic', 'POV Immersion', 'Natural Seamless Loop'],
+                setup: ['Phone mounted on dash', 'Wireless lapel mic on driver', 'Suburban neighborhood setting'],
+                targetLength: '1 Minute 11 Seconds | Vertical 9:16',
+                bannerOverlayText: 'When you\'re a real estate agent with a side job',
+                table: [
+                    { time: "0:00–0:06", shot: "Shot 1 (Hook): Backseat POV over driver's shoulder.", overlay: "WHERE WE HEADED?", audio: "Driver: 'Hey, welcome in!' Passenger: 'Heading home.' Driver: 'You own or rent?'" },
+                    { time: "0:06–0:14", shot: "Shot 2 (The Pitch): Driver looks back in mirror while pointing.", overlay: "QUICK STOP", audio: "Passenger: 'Renting for now.' Driver: 'Need to make a quick stop... on the way!'" },
+                    { time: "0:14–0:22", shot: "Shot 3 (Drive-By Tour 1): Camera pans out window to For Sale sign.", overlay: "3 BED / 2 BATH", audio: "Driver: 'I think you'll like this one! 3-bedroom, 2.5-bath...'" },
+                    { time: "0:22–0:36", shot: "Shot 4 (The Push back): Driver turns around at red light.", overlay: "INTEREST RATES?", audio: "Passenger: 'I'm just trying to go home.' Driver: 'Have you kept up with interest rates?'" },
+                    { time: "0:36–0:48", shot: "Shot 5 (Drive-By Tour 2): Camera pans to second larger house.", overlay: "HOUSE #2", audio: "Driver: 'Look at this one right here—4 beds, 3 baths, fully updated!'" },
+                    { time: "0:48–1:11", shot: "Shot 6 (Rejection & Loop): Passenger opens door to escape.", overlay: "LET ME OUT", audio: "Driver: 'How's 10:00 AM for a showing?' Passenger: 'Just let me out!' [Door Slams]" }
+                ],
+                postProduction: ['Trim car door slam on loop', 'Driver voice 0dB, passenger panned'],
+                pinnedComment: 'Would you be mad or impressed if your Uber driver pulled this? 😂👇',
+                hashtags: '#realestateagent #realtorlife #uberhumor #sidehustle #homebuyer'
+            },
+            {
+                id: 'tip-culture',
+                category: 'TREND & SATIRE',
+                title: 'Tip Culture Getting Out Of Hand',
+                hook: "HOOK: POS terminal asking for 18% tip at an open house purchase.",
+                fullReelUrl: 'https://www.instagram.com/reel/DY7ZT8TO1U7/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+                embedUrl: 'https://www.instagram.com/p/DY7ZT8TO1U7/embed/',
+                coreObjective: 'Riding viral tip culture rage topic combined with absurd real estate high stakes.',
+                psychology: ['Riding Cultural Rage Waves', 'Inner Monologue Technique', 'Absurd Prop Visual'],
+                setup: ['Prepare tablet prop screen (Canva)', 'Wireless mics on actors', 'Front entryway setting'],
+                targetLength: '27 Seconds | Vertical 9:16',
+                bannerOverlayText: 'Tip Culture is Getting Out of Hand 💳',
+                table: [
+                    { time: "0:00–0:03", shot: "Shot 1 (Hook): Buyer walks out door; agent spins iPad.", overlay: "SIGN OUT PLEASE", audio: "Buyer: 'Thanks for showing the house!' Agent: 'Just sign out real quick.'" },
+                    { time: "0:03–0:06", shot: "Shot 2 (Screen Insert): iPad close-up with 18% ($153k) tip option.", overlay: "ADD A TIP?", audio: "(Awkward silence beat)" },
+                    { time: "0:06–0:10", shot: "Shot 3 (Buyer Reaction): Over-shoulder staring at iPad.", overlay: "AT AN OPEN HOUSE?!", audio: "Buyer (Inner Monologue): 'Wait... tips at an open house?!'" },
+                    { time: "0:10–0:15", shot: "Shot 4 (Agent Reaction): Agent looking up at ceiling awkwardly.", overlay: "STAY COOL", audio: "Agent (Inner Monologue): 'Oh man, she's actually thinking about doing it...'" },
+                    { time: "0:15–0:19", shot: "Shot 5 (Buyer Dilemma): Medium shot of buyer in internal conflict.", overlay: "$153,000 TIP", audio: "Buyer (Inner Monologue): 'I don't want to look cheap... but 18% is $153,000!'" },
+                    { time: "0:19–0:24", shot: "Shot 6 (Climax): Agent avoids eye contact as buyer taps.", overlay: "NO TIP DISABLED", audio: "Agent (Inner Monologue): 'You removed the no tip button... she just tapped it!'" },
+                    { time: "0:24–0:27", shot: "Shot 7 (Exit & Loop): Buyer stomps down porch stairs.", overlay: "OUTTA HERE", audio: "Buyer: 'Okay, all set!' [Stomps down steps -> Loop]" }
+                ],
+                postProduction: ['Reverb effect on inner monologue', 'Fast loop stitch'],
+                pinnedComment: 'Be honest... if you saw "No Tip (Not an Option)" at an open house, what are you doing? 😂👇',
+                hashtags: '#tipculture #realestatehumor #openhouse #realtorlife #homebuying'
+            },
+            {
+                id: 'every-opportunity',
+                category: 'SKIT & HUMOR',
+                title: 'Taking Advantage Of Every Opportunity',
+                hook: "HOOK: Guiding a car into a driveway then launching straight into a listing pitch.",
+                fullReelUrl: 'https://www.instagram.com/reel/DRSP6AHkXkw/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+                embedUrl: 'https://www.instagram.com/p/DRSP6AHkXkw/embed/',
+                coreObjective: 'Bait-and-switch hook combined with rapid hyper-local pitch delivery.',
+                psychology: ['Bait-and-Switch Hook', 'Physical Slapstick Comedy', 'Hyper-Local Targeting'],
+                setup: ['Smartphone in driver seat', 'Business cards prop', 'Driveway setting'],
+                targetLength: '18 Seconds | Vertical 9:16',
+                bannerOverlayText: 'Taking advantage at every opportunity... 🚗',
+                table: [
+                    { time: "0:00–0:03", shot: "Shot 1 (Hook): Windshield POV; agent guiding car down driveway.", overlay: "COMING IN HOT 🚘", audio: "(Car horn) Agent: 'You're good, you're good! Stop!'" },
+                    { time: "0:03–0:06", shot: "Shot 2 (Approach): Window rolls down; agent pulls business card.", overlay: "MEET BLAKE 📇", audio: "Agent: 'Hey! I'm Blake Shults with ARC Realty.'" },
+                    { time: "0:06–0:12", shot: "Shot 3 (Rapid Pitch): Agent holding card to driver's face.", overlay: "HOOVER NATIVE 🏠", audio: "Agent: 'Are you looking to buy or sell in Bluff Park? I'm a Hoover native!'" },
+                    { time: "0:12–0:17", shot: "Shot 4 (Card Slide & Loop): Agent forces card through glass gap.", overlay: "TAKE MY CARD 💳", audio: "Agent: 'I'd love to earn your business... here's my card—' [Window rolls up]" }
+                ],
+                postProduction: ['Car horn sound effect at frame 0', 'Rapid cut to loop'],
+                pinnedComment: 'If I guided you into a tight parking spot, would you let me list your house? 😂👇',
+                hashtags: '#realestatehumor #realtorlife #listingagent #homebuyingtips'
+            },
+            {
+                id: 'open-house-robbery',
+                category: 'PARODY & NEWS',
+                title: 'Open House Robbery',
+                hook: "HOOK: Fake security camera footage of an open house robbery turning into a signed contract.",
+                fullReelUrl: 'https://www.instagram.com/reel/DT018crEYKb/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+                embedUrl: 'https://www.instagram.com/p/DT018crEYKb/embed/',
+                coreObjective: 'Media parody framing using B&W security footage and news lower thirds.',
+                psychology: ['Media Parody Framing', 'Hustle Over Safety Joke', 'Format Cut Pattern'],
+                setup: ['Mount camera high on truck/ladder', 'B&W filter', 'AI news voiceover'],
+                targetLength: '35-40 Seconds | Vertical 9:16',
+                bannerOverlayText: 'BREAKING NEWS / ALABAMA REALTOR',
+                table: [
+                    { time: "0:00–0:16", shot: "Shot 1 (Security POV): B&W high-angle footage of robber and agent.", overlay: "BREAKING NEWS", audio: "News Anchor AI: 'Footage emerged showing a robbery taking an unexpected turn...'" },
+                    { time: "0:17–0:26", shot: "Shot 2 (News Interview): Full color eye-level interview.", overlay: "ALABAMA REALTOR", audio: "Agent: 'He demanded everything I had... so I offered this 3-bedroom!'" },
+                    { time: "0:26–0:38", shot: "Shot 3 (B-Roll Security): Robber signing contract on clipboard.", overlay: "CONTRACT SIGNED", audio: "Agent VO: 'We took a tour inside and put it under contract right then!'" },
+                    { time: "0:38–0:42", shot: "Shot 4 (Outro & Loop): Audio transitions back to anchor voiceover.", overlay: "BREAKING NEWS", audio: "News Anchor: 'Footage emerged out of Bluff Park this week showing...'" }
+                ],
+                postProduction: ['Color grading split', 'AI Voiceover synthesis'],
+                pinnedComment: 'If you come to my open house, you are leaving under contract! 😂',
+                hashtags: '#realestatehumor #realtorlife #openhouse #breakingnews'
+            },
+            {
+                id: 'docusign-coach',
+                category: 'RELATABLE HUMOR',
+                title: 'POV: Coaching Elderly Client Through DocuSign',
+                hook: "HOOK: Lying upside down on the office floor exhausted on speakerphone.",
+                fullReelUrl: 'https://www.instagram.com/reel/DaRPJx1AfmL/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+                embedUrl: 'https://www.instagram.com/p/DaRPJx1AfmL/embed/',
+                coreObjective: 'Visualizing workplace exhaustion contrasting calm phone dialogue.',
+                psychology: ['Relatability & Physical Comedy', 'Audio Contrast', 'Loop Engine'],
+                setup: ['Tripod at floor level', 'Home office setup', 'Laptop/phone'],
+                targetLength: '13 Seconds | Vertical 9:16',
+                bannerOverlayText: 'POV: Trying to coach my 81 year old client through the DocuSign',
+                table: [
+                    { time: "0:00–0:03", shot: "Shot 1 (Hook): Creator lying on back with legs propped on desk.", overlay: "DOCUSIGN COACHING", audio: "Agent: 'Are you on the computer?'" },
+                    { time: "0:03–0:09", shot: "Shot 2 (Meat): Subtle body adjustments showing defeated patience.", overlay: "DOCUSIGN COACHING", audio: "Client: 'Yes, but I had a computer for 10 years and enjoyed it, but it died...'" },
+                    { time: "0:09–0:13", shot: "Shot 3 (Loop): Dialogue loops back to opening question.", overlay: "DOCUSIGN COACHING", audio: "Agent: 'Are you on the computer?' Client: 'Yes I am...'" }
+                ],
+                postProduction: ['Audio loop stitch on repeating sentence'],
+                pinnedComment: 'How many times have you had to explain "click the yellow box"? 😂👇',
+                hashtags: '#realestateagent #docusign #realtorlife #clientproblems'
+            },
+            {
+                id: 'laugh-more',
+                category: 'SKIT',
+                title: 'POV: When They Say I Need To Laugh More',
+                hook: "HOOK: Telling agent to laugh more right before a client reveals sad news.",
+                fullReelUrl: 'https://www.instagram.com/reel/DYdsRLzM5Jx/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+                embedUrl: 'https://www.instagram.com/p/DYdsRLzM5Jx/embed/',
+                coreObjective: 'Juxtaposition of advice to smile more with inappropriate real-life disclosure.',
+                psychology: ['Relatable Professional Awkwardness', 'Fast Pattern Break', 'Dark Humor Subversion'],
+                setup: ['Sunglasses, flyers', 'Exterior and interior house locations'],
+                targetLength: '11 Seconds | Vertical 9:16',
+                bannerOverlayText: 'POV: WHEN THEY SAY I NEED TO LAUGH MORE',
+                table: [
+                    { time: "0:00–0:05", shot: "Shot 1 (Hook): Exterior shot listening off-camera, points & winks.", overlay: "LAUGH MORE", audio: "Voice: 'Loosen up, laugh a little.' Agent: 'I got you.'" },
+                    { time: "0:05–0:08", shot: "Shot 2 (Setup): Interior showing doorway.", overlay: "FIRST HOUSE?", audio: "Agent: 'So is this your first house?'" },
+                    { time: "0:08–0:10", shot: "Shot 3 (Punchline): Client sharing news casually.", overlay: "RECENT DIVORCE", audio: "Client: 'No, I recently got a divorce.'" },
+                    { time: "0:10–0:11", shot: "Shot 4 (Reaction/Loop): Fast jump cut back to exterior frozen deadpan.", overlay: "LOOSEN UP...", audio: "(Awkward silence / Audio cuts to loop start)" }
+                ],
+                postProduction: ['Fast jump cut editing without gaps'],
+                pinnedComment: 'What is the most awkward thing a client has ever told you at a showing? 😅',
+                hashtags: '#realtorlife #realestatehumor #awkwardmoments #showings'
+            },
+            {
+                id: 'leads-be-like',
+                category: 'SPLIT-SCREEN SATIRE',
+                title: 'Some Leads Be Like',
+                hook: "HOOK: Split-screen top video morphing from lot to mansion then dropping to mobile home.",
+                fullReelUrl: 'https://www.instagram.com/reel/DbBXfVkspQP/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+                embedUrl: 'https://www.instagram.com/p/DbBXfVkspQP/embed/',
+                coreObjective: 'Visual escalation vs financial reality breakdown using vertical split-screen.',
+                psychology: ['Visual Escalation & De-escalation', 'Relatable Industry Pain Point', 'Split-Screen Reaction Format'],
+                setup: ['50/50 split template', 'Voiceover recording', 'Desk setup'],
+                targetLength: '33 Seconds | Vertical 9:16',
+                bannerOverlayText: 'Some of the leads I get',
+                table: [
+                    { time: "0:00–0:17", shot: "Top morphs lot -> mansion. Bottom: Agent listening on speakerphone.", overlay: "LEADS EXPECTATIONS", audio: "Client: 'Looking for a simple 5 bed, lake view, pool...'" },
+                    { time: "0:17–0:32", shot: "Top downgrades mansion -> mobile home. Bottom: Agent disbelief.", overlay: "BUDGET REALITY", audio: "Client: 'Max budget $150k, 100% financing, make $2k/mo...'" },
+                    { time: "0:32–0:33", shot: "Visual snaps back to empty lot as loop restarts.", overlay: "FIND IT FOR ME", audio: "Client: 'Let me know what you find...' [Loop]" }
+                ],
+                postProduction: ['Match image cuts to audio keywords'],
+                pinnedComment: 'Mansion expectations on a mobile home budget... who relates? 😂👇',
+                hashtags: '#realestateleads #realtorlife #mortgagebroker #realestatememes'
+            },
+            {
+                id: 'open-house-bouncers',
+                category: 'SKIT & PARODY',
+                title: 'If Open Houses Had Bouncers',
+                hook: "HOOK: Bouncers checking pre-approval letters like club IDs at open house door.",
+                fullReelUrl: 'https://www.instagram.com/reel/DaqAvmuR4Wo/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+                embedUrl: 'https://www.instagram.com/p/DaqAvmuR4Wo/embed/',
+                coreObjective: 'Analogy subversion treating open house like exclusive nightclub door.',
+                psychology: ['Analogy Subversion', 'Relatable Agent In-Joke', 'Physical Comedy'],
+                setup: ['3 actors', 'Folded paper pre-approval letter prop', 'Sunglasses'],
+                targetLength: '29 Seconds | Vertical 9:16',
+                bannerOverlayText: 'If Open Houses Had Bouncers 😭',
+                table: [
+                    { time: "0:00–0:05", shot: "Shot 1 (Hook): Bouncers standing guard at porch door.", overlay: "BOUNCER CHECK", audio: "Bouncer 1: 'Whoa, whoa, whoa. What are you here for?'" },
+                    { time: "0:05–0:14", shot: "Shot 2 (ID Check): Bouncer inspects paper pre-approval.", overlay: "PRE-APPROVAL?", audio: "Buyer: 'Trying to see the house.' Bouncer: 'Are you pre-approved?'" },
+                    { time: "0:14–0:21", shot: "Shot 3 (Interrogation): Asking vetting questions briskly.", overlay: "HOW MUCH?", audio: "Bouncer: 'Approved for how much?' Buyer: '400k.' Bouncer: 'Closing days?'" },
+                    { time: "0:21–0:28", shot: "Shot 4 (Punchline): Buyer reveals she has an agent; escorted off.", overlay: "REALTOR DETECTED", audio: "Buyer: 'I have a realtor.' Bouncer: 'Get her out of here!' [Escorted]" }
+                ],
+                postProduction: ['Fast audio edit on paper throw'],
+                pinnedComment: 'Unrepresented buyers only! 😂 Have you ever wanted bouncers at your open house?',
+                hashtags: '#openhouse #realtorlife #realestatehumor #bouncers'
+            },
+            {
+                id: 'buying-2026',
+                category: 'SATIRE & MARKET',
+                title: 'Buying A House In 2026',
+                hook: "HOOK: Pitching a 910 sq ft house with outhouses for $2.5 million.",
+                fullReelUrl: 'https://www.instagram.com/reel/DVZA_y_D8RQ/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+                embedUrl: 'https://www.instagram.com/p/DVZA_y_D8RQ/embed/',
+                coreObjective: 'Exaggerating housing market trends and high-pressure sales tactics.',
+                psychology: ['Exaggerated Real-Estate Satire', 'Pacing & Rapid Fire Defects', 'Relatable Buyer Frustration'],
+                setup: ['Presentation folder', 'Clipboard', 'Interior home walkthrough'],
+                targetLength: '58 Seconds | Vertical 9:16',
+                bannerOverlayText: 'Buying A House In 2026',
+                table: [
+                    { time: "0:00–0:09", shot: "Shot 1 (Price): Opening front door with folder.", overlay: "910 SQ FT / $2.5M", audio: "'910 sq ft, asking $2.5M. Offer $3M to get it!'" },
+                    { time: "0:09–0:20", shot: "Shot 2 (Baths): Utility room. Gesturing wildly.", overlay: "OUTHOUSES", audio: "'2.5 baths... both outhouses, rustic charm!'" },
+                    { time: "0:20–0:25", shot: "Shot 3 (Competition): Walking down hallway.", overlay: "7 OFFERS IN", audio: "'7 offers already, most over asking.'" },
+                    { time: "0:25–0:35", shot: "Shot 4 (Stairs): Base of staircase.", overlay: "HARRY POTTER BEDROOM", audio: "'4 bedrooms, one under stairs for Harry Potter fantasy!'" },
+                    { time: "0:35–0:47", shot: "Shot 5 (Disclosures): Flipping paperwork.", overlay: "FLOODING & RADON", audio: "'Basement flooding, radon, leaking roof!'" },
+                    { time: "0:47–0:58", shot: "Shot 6 (Rush): Pushing clipboard to camera.", overlay: "HIGHEST & BEST", audio: "'Highest and best in 15 mins... they taking doorknobs!'" }
+                ],
+                postProduction: ['Dynamic handheld tracking shots'],
+                pinnedComment: 'Accurate prediction for 2026 housing market? 😭👇',
+                hashtags: '#housingmarket2026 #realestatehumor #realtorlife #homebuying'
+            },
+            {
+                id: 'agent-undercut',
+                category: 'OFFICE HUMOR',
+                title: 'Agent Undercut',
+                hook: "HOOK: Lead agent vaulting over desk to tackle competitor who undercut commission.",
+                fullReelUrl: 'https://www.instagram.com/reel/DUotOe0DOky/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+                embedUrl: 'https://www.instagram.com/p/DUotOe0DOky/embed/',
+                coreObjective: 'Addressing seller commission negotiations with physical comedic twist.',
+                psychology: ['Relatable Negotiation Friction', 'Plot Twist & Physical Comedy', 'High Shareability'],
+                setup: ['Office desk setup', '4 actors', 'Clear area for safe tackle'],
+                targetLength: '17 Seconds | Vertical 9:16',
+                bannerOverlayText: 'AGENT UNDERCUT',
+                table: [
+                    { time: "0:00–0:03", shot: "Shot 1 (Proposal): Seller asks commission; agent says 8%.", overlay: "8% COMMISSION", audio: "Seller: 'How much?' Agent: '8% for you guys.'" },
+                    { time: "0:03–0:08", shot: "Shot 2 (Pushback): Seller claims competitor offered 5%.", overlay: "5% DOWN STREET", audio: "Seller: 'Down the street said 5%!' Agent: 'Go down the street then.'" },
+                    { time: "0:08–0:12", shot: "Shot 3 (Suspicion): Agent spots woman in doorway.", overlay: "WHO ARE YOU?", audio: "Agent: 'Who are you?'" },
+                    { time: "0:12–0:17", shot: "Shot 4 (Reveal & Chase): Competitor dances in; agent leaps over desk.", overlay: "REALTOR DOWN STREET", audio: "Competitor: 'I'm the realtor down the street!' [Desk Tackle]" }
+                ],
+                postProduction: ['Trim mid-jump on desk vault'],
+                pinnedComment: 'Protect your commission! 😂 Who relates to defending listing fees?',
+                hashtags: '#realestatecommission #realtorlife #listingagent #officehumor'
+            },
+            {
+                id: 'drive-2-hours',
+                category: 'RELATABLE SKIT',
+                title: 'When You Drive 2 Hours To Show A House',
+                hook: "HOOK: Driving 2 hours for a $4.5M mansion showing only to discover buyer thought it was $450k.",
+                fullReelUrl: 'https://www.instagram.com/reel/DYkRDzxKE4C/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+                embedUrl: 'https://www.instagram.com/p/DYkRDzxKE4C/embed/',
+                coreObjective: 'Exposing lack of client qualification prior to long showings.',
+                psychology: ['Relatable Qualification Pain Point', 'Zillo-Estimate Satire', 'High Comment Velocity'],
+                setup: ['Luxury mansion driveway', '2 actors', 'Business casual attire'],
+                targetLength: '26 Seconds | Vertical 9:16',
+                bannerOverlayText: 'When you drive 2 hours to show a house 🤣',
+                table: [
+                    { time: "0:00–0:04", shot: "Shot 1 (Arrival): Walking on mansion driveway.", overlay: "MANSION ARRIVAL", audio: "Agent: 'What do you think?' Buyer: 'How much was this again?'" },
+                    { time: "0:04–0:10", shot: "Shot 2 (Misunderstanding): Stating price.", overlay: "4.5 MILLION", audio: "Agent: '4.5.' Buyer: '450k?' Agent: 'No, 4.5 MILLION.'" },
+                    { time: "0:10–0:17", shot: "Shot 3 (Reality Check): Agent calling out income.", overlay: "YOU WORK AT WALMART", audio: "Agent: 'Bro you work at Walmart!' Buyer: 'Zillow said $2,000/mo!'" },
+                    { time: "0:17–0:26", shot: "Shot 4 (Walk-Off): Agent face-palming walking away.", overlay: "I DROVE 2 HOURS", audio: "Agent: 'I drove 2 hours for this!' Buyer: 'I can get a co-signer!'" }
+                ],
+                postProduction: ['Fast loop edit on co-signer line'],
+                pinnedComment: 'Always pre-qualify your buyers before long drives! 😅 Who has been here?',
+                hashtags: '#realestateagent #realtorlife #showings #clientqualification'
+            },
+            {
+                id: 'open-house-realtor',
+                category: 'OPEN HOUSE SKIT',
+                title: 'POV: When Someone At Open House Has A Realtor',
+                hook: "HOOK: Host offering cheesecake and water then snatching it back when guest says they have a realtor.",
+                fullReelUrl: 'https://www.instagram.com/reel/DVmUbqGDF5Z/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+                embedUrl: 'https://www.instagram.com/p/DVmUbqGDF5Z/embed/',
+                coreObjective: 'Instant transition from welcoming host to rejection upon representation reveal.',
+                psychology: ['Relatable Open House Reality', 'Physical Comedy & Sudden Reversal', 'High Shareability'],
+                setup: ['Water bottle, cheesecake cup prop', 'Clipboard', 'Foyer setting'],
+                targetLength: '12 Seconds | Vertical 9:16',
+                bannerOverlayText: 'POV: WHEN SOMEONE AT THE OPEN HOUSE HAS A REALTOR',
+                table: [
+                    { time: "0:00–0:04", shot: "Shot 1 (Welcome): Greeting visitor with food & water.", overlay: "HAVE CHEESECAKE!", audio: "Host: 'Yes! Have some cheesecake!' Visitor: 'Thank you!'" },
+                    { time: "0:04–0:06", shot: "Shot 2 (Sign-In): Step up with clipboard.", overlay: "SIGN IN HERE", audio: "Host 2: 'Sign in right here...'" },
+                    { time: "0:06–0:08", shot: "Shot 3 (Twist): Visitor reveals status.", overlay: "WORKING WITH AGENT", audio: "Visitor: 'I'm actually working with an agent.'" },
+                    { time: "0:08–0:12", shot: "Shot 4 (Snatch): Snatching food back & walking away.", overlay: "OKAY BYE!", audio: "Host: 'Aww no... okay bye!' [Snatches cheesecake]" }
+                ],
+                postProduction: ['Instant visual cut on food snatch'],
+                pinnedComment: 'Unrepresented leads only! 😂 Tag an agent who needs this energy.',
+                hashtags: '#openhouse #realtorlife #realestatehumor #leadgen'
+            },
+            {
+                id: 'supra-install',
+                category: 'PARODY & COMPARISON',
+                title: 'Normal Realtor vs Influencer Supra Install',
+                hook: "HOOK: Comparing 3-second normal lockbox install with elaborate influencer vlog fit check.",
+                fullReelUrl: 'https://www.instagram.com/reel/DYVMn0ov31n/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+                embedUrl: 'https://www.instagram.com/p/DYVMn0ov31n/embed/',
+                coreObjective: 'Contrasting normal work routine with social media content creator tropes.',
+                psychology: ['Relatable Industry Parody', 'Multi-Format Satire', 'High Shareability'],
+                setup: ['Blue Supra lockbox', 'Key prop', 'Porch and driveway setting'],
+                targetLength: '54 Seconds | Vertical 9:16',
+                bannerOverlayText: 'NORMAL REALTOR VS INFLUENCER PUTTING ON A SUPRA ✨',
+                table: [
+                    { time: "0:00–0:05", shot: "Shot 1 (Normal): Silent quick Supra placement on door.", overlay: "NORMAL", audio: "(Calm background music)" },
+                    { time: "0:05–0:16", shot: "Shot 2 (Influencer Intro): Energetic intro in driveway.", overlay: "INFLUENCER ✨", audio: "'Hey besties, putting a Supra box on today!'" },
+                    { time: "0:16–0:24", shot: "Shot 3 (Fit Check): Step back full body check.", overlay: "FIT CHECK ✅", audio: "'Tommy Bahama jeans, Puma kicks... come along!'" },
+                    { time: "0:24–0:32", shot: "Shot 4 (ASMR Routine): Close-up tapping lockbox tray.", overlay: "ASMR ✨", audio: "(Rhythmic lockbox tapping SFX)" },
+                    { time: "0:32–0:43", shot: "Shot 5 (Vlog Install): Walking to door with flourish.", overlay: "STAY WITH ME", audio: "'Come here, stay with me, almost there!'" },
+                    { time: "0:43–0:54", shot: "Shot 6 (Outro): App test and winking.", overlay: "AI CAN'T DO THIS", audio: "'It works! I don't think AI can do that!'" }
+                ],
+                postProduction: ['ASMR audio amplification on tapping'],
+                pinnedComment: 'Which one are you: Normal Realtor or Influencer Realtor? 😂✨',
+                hashtags: '#supralockbox #realtorlife #realestatecontent #influencerparody'
+            },
+            {
+                id: 'honest-showings',
+                category: 'BRUTAL HONESTY',
+                title: 'If Realtors Were Honest At Showings',
+                hook: "HOOK: Listing agent judging buyer car pulled up and admitting house is overpriced.",
+                fullReelUrl: 'https://www.instagram.com/reel/DPJoeXXkYUi/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+                embedUrl: 'https://www.instagram.com/p/DPJoeXXkYUi/embed/',
+                coreObjective: 'Unfiltered internal monologue expressed on luxury house tour.',
+                psychology: ['Brutal Honesty Trope', 'Fast-Paced Montage', 'High Engagement Potential'],
+                setup: ['Liquor glass prop', 'Luxury home interior', 'Tracking shots'],
+                targetLength: '46 Seconds | Vertical 9:16',
+                bannerOverlayText: 'If realtors were honest at showings',
+                table: [
+                    { time: "0:00–0:05", shot: "Shot 1 (Entrance): Opening door judging car.", overlay: "CAR JUDGMENT", audio: "'Based on the car, not sure you can afford this.'" },
+                    { time: "0:05–0:09", shot: "Shot 2 (First Time): Turning around in living area.", overlay: "WASTE OF TIME", audio: "'Just starting? Complete waste of my time.'" },
+                    { time: "0:09–0:13", shot: "Shot 3 (Neighbor): Pointing out window.", overlay: "BAD NEIGHBOR", audio: "'Great neighborhood except that guy... an a**hole.'" },
+                    { time: "0:13–0:18", shot: "Shot 4 (Overpriced): Leaning on kitchen island.", overlay: "OVERPRICED LISTING", audio: "'Significantly overpriced, didn't want to lose listing.'" },
+                    { time: "0:18–0:24", shot: "Shot 5 (Drinking): Drinking rum in hallway.", overlay: "SCORPIONS", audio: "'Riddled with scorpions. Always drinking.'" },
+                    { time: "0:24–0:28", shot: "Shot 6 (Sq Ft): Relaxing on sofa.", overlay: "6,000 SQ FT?", audio: "'Square footage? Let's just say 6,000.'" },
+                    { time: "0:28–0:33", shot: "Shot 7 (Bedrooms): Peeking out bathroom door.", overlay: "WHY ARE YOU HERE", audio: "'Need one more bed? Why come see house dummy?'" },
+                    { time: "0:33–0:40", shot: "Shot 8 (Car Lease): Displaying bottle.", overlay: "CAR IS LEASED", audio: "'Luxury car out front is on lease.'" },
+                    { time: "0:40–0:46", shot: "Shot 9 (Outro): Final plea at glass door.", overlay: "BUY THIS HOUSE", audio: "'Having a shitty year, please buy this house.'" }
+                ],
+                postProduction: ['Handheld tracking movement', 'Deadpan vocal normalization'],
+                pinnedComment: 'What is something you wish you could say out loud at a showing? 🤫',
+                hashtags: '#honestrealtor #realestatehumor #showings #luxuryrealestate'
+            },
+            {
+                id: 'honest-listing-appointments',
+                category: 'BRUTAL HONESTY',
+                title: 'If Agents Were Honest At Listing Appointments',
+                hook: "HOOK: Admitting to having $600 left in bank account during seller presentation.",
+                fullReelUrl: 'https://www.instagram.com/reel/DPkPnU_Abxg/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+                embedUrl: 'https://www.instagram.com/p/DPkPnU_Abxg/embed/',
+                coreObjective: 'Exposing presentation contrast with actual listing agent thoughts.',
+                psychology: ['Unfiltered Representation', 'Rapid Question & Answer Format', 'High Engagement'],
+                setup: ['Black presentation folder', 'Printed chart papers', 'Conference desk'],
+                targetLength: '1 Minute 04 Seconds | Vertical 9:16',
+                bannerOverlayText: 'If agents were honest at listing appointments',
+                table: [
+                    { time: "0:00–0:05", shot: "Shot 1 (Greeting): Opening portfolio at table.", overlay: "$600 IN ACCOUNT", audio: "'Only have $600 in my account, perfect timing!'" },
+                    { time: "0:05–0:13", shot: "Shot 2 (Marketing): Pulling out chart papers.", overlay: "MLS & FORGET IT", audio: "'Show confusing charts then throw on MLS and forget it.'" },
+                    { time: "0:13–0:20", shot: "Shot 3 (Home Value): Gesturing with hands.", overlay: "SECURE LISTING", audio: "'High enough to secure listing, low enough to get paid.'" },
+                    { time: "0:20–0:29", shot: "Shot 4 (Commission): Leaning forward on hands.", overlay: "COMMISSION TIER", audio: "'2.5% if cool, 4% if pain in the ass.'" },
+                    { time: "0:29–0:37", shot: "Shot 5 (Priority): Shaking head.", overlay: "WAIT TILL UPSET", audio: "'Wait till you get upset then put in actual work.'" },
+                    { time: "0:37–0:48", shot: "Shot 6 (Open Houses): Leaning back comfortable.", overlay: "FOOTBALL SEASON", audio: "'Tell you I will open house, but football season so won't.'" },
+                    { time: "0:48–0:55", shot: "Shot 7 (Timeline): Shrugging shoulder.", overlay: "4 TO 6 MONTHS", audio: "'Chances are you won't listen, so 4 to 6 months.'" },
+                    { time: "0:55–1:04", shot: "Shot 8 (Handshake): Extending hand across desk.", overlay: "NEED THE MONEY", audio: "'Need the money, let's do this!' [Handshake loop]" }
+                ],
+                postProduction: ['Static medium close-up angle'],
+                pinnedComment: 'Sellers... would you hire an agent if they were this honest? 😂👇',
+                hashtags: '#listingappointment #realtorlife #listingagent #honestrealtor'
+            },
+            {
+                id: 'ghosting-buyers',
+                category: 'RELATABLE SKIT',
+                title: 'Buyers The Day Before They Ghost You',
+                hook: "HOOK: Buyer claiming 'Don't show this house to anyone else, it's mine' right before vanishing.",
+                fullReelUrl: 'https://www.instagram.com/reel/DPsXJxKkRQ8/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+                embedUrl: 'https://www.instagram.com/p/DPsXJxKkRQ8/embed/',
+                coreObjective: 'Highlighting extreme buyer enthusiasm immediately prior to complete ghosting.',
+                psychology: ['Painfully Relatable Real Estate Trope', 'Rapid Mounting Excitement', 'High Shareability'],
+                setup: ['Luxury kitchen and entryway', '1 actor'],
+                targetLength: '29 Seconds | Vertical 9:16',
+                bannerOverlayText: 'Buyers the day before they completely ghost you',
+                table: [
+                    { time: "0:00–0:04", shot: "Shot 1 (In Love): Admiring kitchen in awe.", overlay: "IN LOVE", audio: "'Don't usually fall in love this quickly!'" },
+                    { time: "0:04–0:08", shot: "Shot 2 (Details): Pointing to wine cellar.", overlay: "WINE CELLAR", audio: "'Microwave AND steam oven? Wine cellar!'" },
+                    { time: "0:08–0:13", shot: "Shot 3 (The Claim): Extreme close-up whisper.", overlay: "THIS ONE IS MINE", audio: "'Don't show to anyone else. This one's mine.'" },
+                    { time: "0:13–0:19", shot: "Shot 4 (Decor): Decor planning in living room.", overlay: "DECOR PLANNING", audio: "'TV here, coffee table there... awesome!'" },
+                    { time: "0:19–0:23", shot: "Shot 5 (Offer): Turning to camera in hallway.", overlay: "WRITING OFFER", audio: "'Checks all boxes! Writing an offer!'" },
+                    { time: "0:23–0:29", shot: "Shot 6 (Final Lie): Exiting front door pointing.", overlay: "SITTING BY EMAIL", audio: "'Send contract, sitting by email ready! [Slam door]'" }
+                ],
+                postProduction: ['Door slam audio cut directly to loop'],
+                pinnedComment: 'Why is it ALWAYS the buyers who say "this is the one" that ghost? 😭',
+                hashtags: '#buyerghosting #realtorproblems #realestatehumor #realtorlife'
+            },
+            {
+                id: 'perfume-ad',
+                category: 'CINEMATIC PARODY',
+                title: 'Selling My Listing Like It\'s A Perfume Ad',
+                hook: "HOOK: B&W dramatic slow-motion poetry commercial for a property listing.",
+                fullReelUrl: 'https://www.instagram.com/reel/DP9CMtZETZW/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+                embedUrl: 'https://www.instagram.com/p/DP9CMtZETZW/embed/',
+                coreObjective: 'Melodramatic parody applying luxury cologne aesthetics to listing tours.',
+                psychology: ['Melodramatic Style Parody', 'Relatable Real Estate Humour', 'High Shareability'],
+                setup: ['Black & White contrast filter', 'Moody piano music', 'Whispered close-mic audio'],
+                targetLength: '30 Seconds | Vertical 9:16',
+                bannerOverlayText: 'Selling my listing like it’s a perfume ad',
+                table: [
+                    { time: "0:00–0:05", shot: "Shot 1 (Hand Grab): Pulling camera into archway.", overlay: "DREAM OF HOMEOWNERSHIP", audio: "'For those who dream of homeownership...'" },
+                    { time: "0:05–0:08", shot: "Shot 2 (Pensive): Hand on chin gazing away.", overlay: "MARKET CRASH", audio: "'For those waiting for market to crash...'" },
+                    { time: "0:08–0:11", shot: "Shot 3 (Invitation): Leaning through leaves.", overlay: "TAKE A CHANCE", audio: "'Take a chance. Come see my new listing...'" },
+                    { time: "0:11–0:15", shot: "Shot 4 (Promenade): Walking in backyard close-up.", overlay: "PIECE OF SCOTTSDALE", audio: "'Own a piece of Scottsdale. Buy a home...'" },
+                    { time: "0:15–0:21", shot: "Shot 5 (Reflection): Hallway tracking shot.", overlay: "REGRET", audio: "'Regret isn't just a five-letter word...'" },
+                    { time: "0:21–0:25", shot: "Shot 6 (Silhouette): Opening arms wide in sun.", overlay: "CAN'T BUY LOVE", audio: "'Can't buy love... but can buy real estate.'" },
+                    { time: "0:25–0:30", shot: "Shot 7 (Logo Outro): Shushing behind tree branch.", overlay: "GAIL BY MICHAEL", audio: "'Gail... by Michael D'Elena.' [Loop]" }
+                ],
+                postProduction: ['High contrast B&W grading', 'Faux cologne script logo font'],
+                pinnedComment: 'Would you let me market your home like a Chanel commercial? 🌹🏠',
+                hashtags: '#realestatemarketing #perfumeadparody #scottsdalerealestate #cinematic'
+            },
+            {
+                id: 'honest-open-houses',
+                category: 'BRUTAL HONESTY',
+                title: 'If Realtors Were Honest At Open Houses',
+                hook: "HOOK: Setting roadside open house sign calling it 'the most humiliating part of my job'.",
+                fullReelUrl: 'https://www.instagram.com/reel/DRK9Z2GEqML/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+                embedUrl: 'https://www.instagram.com/p/DRK9Z2GEqML/embed/',
+                coreObjective: 'Exposing unfiltered open house thoughts across quick vignettes.',
+                psychology: ['Relatable Open House Reality', 'Fast-Paced Vignettes', 'High Engagement'],
+                setup: ['A-frame sign prop', 'Work bag', 'Curb and patio settings'],
+                targetLength: '22 Seconds | Vertical 9:16',
+                bannerOverlayText: 'If realtors were honest at open houses',
+                table: [
+                    { time: "0:00–0:02", shot: "Shot 1 (Signs): Placing curb sign.", overlay: "HUMILIATING PART", audio: "'Most humiliating part of my job.'" },
+                    { time: "0:02–0:05", shot: "Shot 2 (Goal): Opening front gate.", overlay: "HERE FOR LEADS", audio: "'Don't care if house sells, here for leads.'" },
+                    { time: "0:05–0:08", shot: "Shot 3 (Kids): Kitchen with kids.", overlay: "CHAIN KIDS UP", audio: "'Brought kids? Chain 'em up out back.'" },
+                    { time: "0:08–0:13", shot: "Shot 4 (Rapport): Patio reaching out hands.", overlay: "SPORTS CONNECT", audio: "'You like sports too? Give contact info!'" },
+                    { time: "0:13–0:17", shot: "Shot 5 (Neighbor): Peeking front door.", overlay: "NOSY NEIGHBOR", audio: "'Nosy neighbor? Get the f*** out of here.'" },
+                    { time: "0:17–0:22", shot: "Shot 6 (Latecomer): Sarcastic smile at window.", overlay: "5 MINS BEFORE CLOSE", audio: "'Late for son's football game!' [Sign reset]" }
+                ],
+                postProduction: ['Bleep swear audio for platform guidelines'],
+                pinnedComment: 'Open house hosts: What is the truest statement here? 😂👇',
+                hashtags: '#openhouse #honestrealtor #realtorlife #leadgeneration'
+            },
+            {
+                id: 'open-house-neighbors',
+                category: 'CHARACTER PARODY',
+                title: 'Open House Neighbors Be Like',
+                hook: "HOOK: Mustache and glasses neighbor admitting 'Oh no, we're just nosy neighbors!'",
+                fullReelUrl: 'https://www.instagram.com/reel/DSm9t_vgpf1/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+                embedUrl: 'https://www.instagram.com/p/DSm9t_vgpf1/embed/',
+                coreObjective: 'Stereotypical neighbor parody delivering unsolicited neighborhood gossip.',
+                psychology: ['Stereotypical Character Parody', 'Relatable Dialogue Montage', 'High Comment Engagement'],
+                setup: ['Fake mustache', 'Wire-frame glasses', 'Tucked polo outfit'],
+                targetLength: '37 Seconds | Vertical 9:16',
+                bannerOverlayText: 'Neighbors in open houses be like..',
+                table: [
+                    { time: "0:00–0:03", shot: "Shot 1 (Confession): Waving off flyer.", overlay: "JUST NOSY", audio: "'Oh no, we're just nosy neighbors!'" },
+                    { time: "0:03–0:08", shot: "Shot 2 (Price): Peering over glasses.", overlay: "PRICE SO LOW?", audio: "'So nice! Why is the price so low?'" },
+                    { time: "0:08–0:11", shot: "Shot 3 (Fact): Close-up peering dramatically.", overlay: "FORMER PRISON", audio: "'Did you know this used to be a prison?'" },
+                    { time: "0:11–0:14", shot: "Shot 4 (Family): Hands on hips in kitchen.", overlay: "NICE FAMILY", audio: "'Hope a nice family buys it.'" },
+                    { time: "0:14–0:20", shot: "Shot 5 (Shouting): Pointing to stone wall.", overlay: "ACCENT WALL", audio: "'Honey! Did you see the accent wall?'" },
+                    { time: "0:20–0:24", shot: "Shot 6 (Demographics): Smiling into camera.", overlay: "8 AND 10 YEAR OLD", audio: "'Hope new owners have 8 & 10 year old kids.'" },
+                    { time: "0:24–0:28", shot: "Shot 7 (Expertise): Analyzing price.", overlay: "SELL QUICKLY", audio: "'Can't believe low price! Sell quickly.'" },
+                    { time: "0:28–0:33", shot: "Shot 8 (Renovation): Touching glass door.", overlay: "WHERE CABINETS FROM", audio: "'Ask sellers where they got cabinets?'" },
+                    { time: "0:33–0:37", shot: "Shot 9 (Gossip): Creepy mischievous smile.", overlay: "OLD SWINGERS", audio: "'Family that lived here... swingers.' [Loop]" }
+                ],
+                postProduction: ['Exaggerated close-up cut edits'],
+                pinnedComment: 'Every open house has at least ONE of these neighbors! 😂',
+                hashtags: '#nosyneighbors #openhouse #realtorlife #realestatehumor'
+            },
+            {
+                id: 'just-browsing',
+                category: 'SKIT',
+                title: 'Just Browsing',
+                hook: "HOOK: Escorting a 'just browsing' visitor out into the street to point at houses from asphalt.",
+                fullReelUrl: 'https://www.instagram.com/reel/DU_XdZIgdZo/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+                embedUrl: 'https://www.instagram.com/p/DU_XdZIgdZo/embed/',
+                coreObjective: 'Absurd real estate escalation dismissing house-tourists.',
+                psychology: ['Relatable Qualification Humour', 'Absurd Real-Estate Escalation', 'High Engagement'],
+                setup: ['2 actors', 'Luxury entry foyer and street cul-de-sac'],
+                targetLength: '20 Seconds | Vertical 9:16',
+                bannerOverlayText: 'JUST BROWSING',
+                table: [
+                    { time: "0:00–0:08", shot: "Shot 1 (Qualification): Handshake in foyer.", overlay: "SEE COOL HOUSES", audio: "Agent: 'In market to buy?' Visitor: 'Just looking to see cool houses.'" },
+                    { time: "0:08–0:17", shot: "Shot 2 (Outdoor Tour): Pointing from street asphalt.", overlay: "SANTA BARBARA", audio: "Agent: 'Here's a white one, Santa Barbara style... take a look, back to work!'" },
+                    { time: "0:17–0:20", shot: "Shot 3 (Exit): Walking back inside front door.", overlay: "NICE SEEING YOU", audio: "Agent: 'Yeah, nice seeing you!' [Enters door loop]" }
+                ],
+                postProduction: ['Smooth tracking shot out front door'],
+                pinnedComment: 'When they are "just browsing" on a busy Sunday open house... 😂',
+                hashtags: '#openhouse #justbrowsing #realtorhumor #realestateagent'
+            },
+            {
+                id: 'zillow-person',
+                category: 'TECH SATIRE',
+                title: 'If Zillow Was A Person',
+                hook: "HOOK: Personifying Zillow walking down street with taped paper logo.",
+                fullReelUrl: 'https://www.instagram.com/reel/DVXamE-kTIv/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+                embedUrl: 'https://www.instagram.com/p/DVXamE-kTIv/embed/',
+                coreObjective: 'Anthropomorphic tech satire mocking volatile Zestimates and algorithms.',
+                psychology: ['Anthropomorphic Tech Satire', 'Relatable Real Estate Pain Points', 'High Engagement'],
+                setup: ['Paper Zillow sign taped on shirt', 'Smartphone', 'Neighborhood sidewalk'],
+                targetLength: '37 Seconds | Vertical 9:16',
+                bannerOverlayText: 'If Zillow was a person',
+                table: [
+                    { time: "0:00–0:07", shot: "Shot 1 (No Agent): Walking down street with sign.", overlay: "DON'T NEED AGENT", audio: "'You don't need an agent! Perfect time to buy/sell!'" },
+                    { time: "0:07–0:14", shot: "Shot 2 (Zestimate): Walking backwards gesturing.", overlay: "+$47k OVERNIGHT", audio: "'Zestimate up $47k overnight... can't explain why!'" },
+                    { time: "0:14–0:22", shot: "Shot 3 (Satellite): Low-angle walking in sun.", overlay: "TAX RECORDS", audio: "'Confident for someone who only looks at satellite images!'" },
+                    { time: "0:22–0:25", shot: "Shot 4 (Condition): Squinting shaking head.", overlay: "CONDITION?", audio: "'Condition? No... what's that?'" },
+                    { time: "0:25–0:30", shot: "Shot 5 (Dreaming): Holding smartphone.", overlay: "BALI MANSIONS", audio: "'Homes in Bali? $15 million, could be you!'" },
+                    { time: "0:30–0:37", shot: "Shot 6 (Snooping): Standing near luxury home smiling.", overlay: "SNOOP FRIENDS", audio: "'Let's look up how much friends' houses are worth!' [Loop]" }
+                ],
+                postProduction: ['Handheld backward tracking shot'],
+                pinnedComment: 'What is the most insane Zestimate you have ever seen? 📈📉',
+                hashtags: '#zillow #zestimate #realestatesatire #realtorlife'
+            },
+            {
+                id: 'make-50m',
+                category: 'GURU PARODY',
+                title: 'Make $50M A Year…It\'s That Easy',
+                hook: "HOOK: Flawed brain-rot guru math on unfinished construction site.",
+                fullReelUrl: 'https://www.instagram.com/reel/DVtOTCCgpmk/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+                embedUrl: 'https://www.instagram.com/p/DVtOTCCgpmk/embed/',
+                coreObjective: 'Guru math parody contrasting peaceful acoustic music with flawed logic.',
+                psychology: ['Guru Math Parody', 'Absurdist Flaw in Math', 'Visual Irony'],
+                setup: ['Unfinished framing construction site', 'Acoustic guitar audio track'],
+                targetLength: '12 Seconds | Vertical 9:16',
+                bannerOverlayText: 'Buy a house for $1M / Sell for $2M / 4x a month / Make $50M a year',
+                table: [
+                    { time: "0:00–0:06", shot: "Shot 1: Tracking behind man walking down wood framing corridor.", overlay: "BUY FOR $1M / SELL $2M", audio: "(Soft inspiring acoustic guitar track)" },
+                    { time: "0:06–0:12", shot: "Shot 2: Man turns around walking back past exposed studs.", overlay: "MAKE $50M A YEAR", audio: "(Guitar track loops smoothly)" }
+                ],
+                postProduction: ['Centered static white text block overlay'],
+                pinnedComment: 'Guru math at its finest! Who is ready to make $50M this year? 😂',
+                hashtags: '#gurumath #realestateinvesting #houseflipping #financialadvice'
+            },
+            {
+                id: 'seller-hacks',
+                category: 'REVERSE ADVICE',
+                title: 'If Sellers Made Home Selling Hack Videos',
+                hook: "HOOK: Advising sellers to lock rooms, display small appliances, and stare across street.",
+                fullReelUrl: 'https://www.instagram.com/reel/DVyfwdpAjA8/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+                embedUrl: 'https://www.instagram.com/p/DVyfwdpAjA8/embed/',
+                coreObjective: 'Reverse advice satire exposing disastrous home-selling habits.',
+                psychology: ['Reverse Advice Satire', 'Deadpan Pitch Delivery', 'High Shareability'],
+                setup: ['Multiple appliances', 'Dog leash', 'Dark bedroom setting'],
+                targetLength: '38 Seconds | Vertical 9:16',
+                bannerOverlayText: 'If sellers made home selling hack videos',
+                table: [
+                    { time: "0:00–0:04", shot: "Shot 1 (Counters): Appliance filled counter.", overlay: "SMALL APPLIANCES", audio: "'Display all small appliances to show counter space!'" },
+                    { time: "0:04–0:11", shot: "Shot 2 (Dark): Pitch black room closed blinds.", overlay: "ENERGY CONSCIOUS", audio: "'Don't turn on lights, energy-conscious family!'" },
+                    { time: "0:11–0:17", shot: "Shot 3 (Lock): Next to locked bedroom door.", overlay: "LOCK THE DOOR", overlay: "'Lock the door! Intrigue will have people talking.'" },
+                    { time: "0:17–0:24", shot: "Shot 4 (Photos): Photo wall with generations.", overlay: "FAMILY PHOTOS", audio: "'Leave family photos up! Add multiple generations.'" },
+                    { time: "0:24–0:28", shot: "Shot 5 (Swing): Doorframe harness swing.", overlay: "SEX SWING", audio: "'Don't take down sex swing, shows sturdy construction!'" },
+                    { time: "0:28–0:38", shot: "Shot 6 (Staring): Walking dog staring at house.", overlay: "STARE AT HOUSE", audio: "'Walk dog across street and stare entire time!' [Loop]" }
+                ],
+                postProduction: ['Rapid room-to-room handheld cuts'],
+                pinnedComment: 'Which "seller hack" have you actually seen in real life? 😅👇',
+                hashtags: '#sellerhacks #listingagent #realestatesatire #realtorlife'
+            },
+            {
+                id: 'luxury-realtors',
+                category: 'SNOB SATIRE',
+                title: 'Luxury Realtors Be Like',
+                hook: "HOOK: Scoffing 'I don't even take my Bentley out of the garage for less than $5 million.'",
+                fullReelUrl: 'https://www.instagram.com/reel/DXW06FaAlyd/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+                embedUrl: 'https://www.instagram.com/p/DXW06FaAlyd/embed/',
+                coreObjective: 'Mocking hyper-pretentious luxury realtor standards.',
+                psychology: ['Elitist Real Estate Satire', 'Deadpan Snobbery', 'High Industry Engagement'],
+                setup: ['Dark suit jacket', 'Luxury wristwatch', 'Luxury estate location'],
+                targetLength: '30 Seconds | Vertical 9:16',
+                bannerOverlayText: 'Luxury realtors be like..',
+                table: [
+                    { time: "0:00–0:05", shot: "Shot 1 ($1M Laugh): Suit-clad agent scoffing.", overlay: "BENTLEY GARAGE", audio: "'$1M house? Don't take Bentley out for under $5M.'" },
+                    { time: "0:05–0:08", shot: "Shot 2 (Garden): Looking at garden box.", overlay: "CUTE HOBBY", audio: "'Love the garden... cute hobby.'" },
+                    { time: "0:08–0:12", shot: "Shot 3 (Garage): Standing in 3-car garage.", overlay: "GARAGE FOR HELP", audio: "'Only 3-car garage? Must be for the help.'" },
+                    { time: "0:12–0:17", shot: "Shot 4 (Helipad): Paved driveway looking confused.", overlay: "WHERE IS HELIPAD", audio: "'Where's helipad? How do kids get to tennis?'" },
+                    { time: "0:17–0:21", shot: "Shot 5 (Superiority): Smirking near bar.", overlay: "BETTER THAN YOU", audio: "'Course I'm better than you... luxury real estate.'" },
+                    { time: "0:21–0:26", shot: "Shot 6 (Tardy): Walking kitchen.", overlay: "15 MINS LATE", audio: "'Always late because I'm more important.'" },
+                    { time: "0:26–0:30", shot: "Shot 7 (Outro): Inviting for martini.", overlay: "MARTINI ON ME", audio: "'First three martinis on me!' [Walks off loop]" }
+                ],
+                postProduction: ['Smooth steady tracking movement'],
+                pinnedComment: 'Tag a luxury realtor who needs to see this! 🍸 luxury real estate be like...',
+                hashtags: '#luxuryrealestate #luxuryrealtor #bentley #realestatehumor'
+            },
+            {
+                id: 'waste-your-time',
+                category: 'RELATABLE SKIT',
+                title: 'POV: Client Confirms They Plan To Waste Your Time',
+                hook: "HOOK: Agent smoothly sliding backward into house as buyer reveals credit score is 42.",
+                fullReelUrl: 'https://www.instagram.com/reel/DYPboCBubQg/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+                embedUrl: 'https://www.instagram.com/p/DYPboCBubQg/embed/',
+                coreObjective: 'Visual gag illustrating instant abandonment of unqualified prospects.',
+                psychology: ['Relatable Professional Frustration', 'Visual Gag (Slow Backward Slide)', 'High Engagement'],
+                setup: ['Doorway POV angle', '2 actors', 'Suburban new build entry'],
+                targetLength: '14 Seconds | Vertical 9:16',
+                bannerOverlayText: 'POV: when the client confirms they plan to waste your time',
+                table: [
+                    { time: "0:00–0:03", shot: "Shot 1 (Walk-Up): Walking up walkway excitedly.", overlay: "PRE-APPROVED", audio: "Agent: 'Looking forward to pre-approving you!'" },
+                    { time: "0:03–0:06", shot: "Shot 2 (Red Flag): Client stopping at door.", overlay: "BUY NEXT YEAR", audio: "Client: 'Not looking to buy until next year...'" },
+                    { time: "0:06–0:10", shot: "Shot 3 (Vanishing): Agent sliding backward into house.", overlay: "CREDIT IS 42", audio: "Client: 'Currently my credit is about a 42...'" },
+                    { time: "0:10–0:14", shot: "Shot 4 (Abandonment): Wide shot client talking alone.", overlay: "CHILD SUPPORT", audio: "Client: '...pending child support judgements.' [Loop]" }
+                ],
+                postProduction: ['Ultra-smooth backward slide tracking'],
+                pinnedComment: 'When they drop the credit score reveal at the front door... 😭',
+                hashtags: '#realtorlife #mortgagebroker #creditscore #unqualifiedbuyer'
+            },
+            {
+                id: '35th-showing',
+                category: 'RELATABLE SKIT',
+                title: 'POV: 35th Showing With The Same Client',
+                hook: "HOOK: Agent sitting on lawn bench on personal call telling client 'Code is 1234, you know the drill'.",
+                fullReelUrl: 'https://www.instagram.com/reel/DZg1c9ZoGV2/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+                embedUrl: 'https://www.instagram.com/p/DZg1c9ZoGV2/embed/',
+                coreObjective: 'Dissolving professional formalities after 35 showings with perpetual house-tourists.',
+                psychology: ['Exhausted Realtor Relationship Dynamics', 'Double Role Comedic Effect', 'High Shareability'],
+                setup: ['Lawn bench', 'Starbucks iced drink prop', 'Pool deck setting'],
+                targetLength: '45 Seconds | Vertical 9:16',
+                bannerOverlayText: 'POV: It\'s your 35th showing with the same client',
+                table: [
+                    { time: "0:00–0:13", shot: "Shot 1 (Bench): Sitting outside chatting on phone.", overlay: "CODE IS 1234", audio: "'Lockbox code 1234, open it, you know drill!'" },
+                    { time: "0:13–0:25", shot: "Shot 2 (Mirror): Looking at phone in mirror reflection.", overlay: "CHECK ONLINE", audio: "Client: 'Built when?' Agent: 'Check online, sent link.'" },
+                    { time: "0:25–0:30", shot: "Shot 3 (Pool): Sitting by pool deck holding drink.", overlay: "HURRY UP", audio: "Agent: 'Showing in 5 mins, can you hurry up?'" },
+                    { time: "0:30–0:34", shot: "Shot 4 (Locking): Locking door handing key.", overlay: "PUT KEY BACK", audio: "Agent: 'Here, put the key back.'" },
+                    { time: "0:34–0:45", shot: "Shot 5 (Unison Outro): Reciting client objections in unison.", overlay: "PRICE TOO HIGH", audio: "Both: 'Price too high, speak to husband...' Agent: 'I know girl!'" }
+                ],
+                postProduction: ['Quick cut transitions across house locations'],
+                pinnedComment: 'Who is currently on showing #35 with a client right now? 😂👋',
+                hashtags: '#35thshowing #indecisivebuyer #realtorlife #showings'
+            },
+            {
+                id: 'gen-z-realtor',
+                category: 'GENERATIONAL PARODY',
+                title: 'POV: You Hired A Gen Z Realtor',
+                hook: "HOOK: Arriving late with Starbucks, saying 'Whoever made this house... they cooked, they ATE!'",
+                fullReelUrl: 'https://www.instagram.com/reel/DSOrDOnCMM1/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+                embedUrl: 'https://www.instagram.com/p/DSOrDOnCMM1/embed/',
+                coreObjective: 'Generational workplace parody combined with full lead-generation contact card outro.',
+                psychology: ['Generational Real Estate Parody', 'Rapid Fire Micro-Interactions', 'High Conversion Lead Gen Outro'],
+                setup: ['Starbucks paper bag & iced cup', 'Designer belt', 'Full agent graphic endcard'],
+                targetLength: '1 Minute 28 Seconds | Vertical 9:16',
+                bannerOverlayText: 'Pov: you hired a Gen Z Realtor',
+                table: [
+                    { time: "0:00–0:08", shot: "Shot 1 (Starbucks): Walking up driveway with Starbucks.", overlay: "MY BAD STARBUCKS", audio: "'My bad getting Starbucks! Did you want one?'" },
+                    { time: "0:08–0:13", shot: "Shot 2 (Lockbox): Automated voice speakerphone.", overlay: "AI LOCKBOX", audio: "AI Voice: 'I understand stress...' Realtor: 'Whatever...'" },
+                    { time: "0:13–0:19", shot: "Shot 3 (Entryway): Welcoming client inside.", overlay: "OPENED DOOR", audio: "'We opened the door, come on in!'" },
+                    { time: "0:19–0:32", shot: "Shot 4 (Slang): Gesturing kitchen island.", overlay: "THEY ATE", audio: "'Whoever made this house... they cooked... THEY ATE!'" },
+                    { time: "0:32–0:39", shot: "Shot 5 (Instagram): Showing phone profile.", overlay: "FOLLOW MY IG", audio: "'Do you follow me on Instagram? Here's my IG!'" },
+                    { time: "0:39–0:50", shot: "Shot 6 (Love Island): Sectional sofa setup.", overlay: "LOVE ISLAND", audio: "'Perfect for watching Love Island! Huda posted!'" },
+                    { time: "0:50–0:56", shot: "Shot 7 (Slay Queen): Pre-approval reaction.", overlay: "SLAY QUEEN", audio: "'Pre-qualified? Slay queen, you look like a baddie!'" },
+                    { time: "0:56–1:04", shot: "Shot 8 (Shein Link): Asking about shirt.", overlay: "SEND SHEIN LINK", audio: "'Where'd you get shirt? Shein? Send link!'" },
+                    { time: "1:04–1:13", shot: "Shot 9 (Mirror Selfie): Bedroom mirror spot.", overlay: "MIRROR PICTURES", audio: "'Best place to take mirror pictures! Test it out!'" },
+                    { time: "1:13–1:26", shot: "Shot 10 (Escape): Client escaping front door.", overlay: "LOWKEY BEST PRICE", audio: "'Lowkey best price!' Client: 'Arina I must go!'" },
+                    { time: "1:26–1:28", shot: "Shot 11 (Contact Card): Full agent graphic endcard.", overlay: "ARINA POGHOSYAN", audio: "(Upbeat closing music sting)" }
+                ],
+                postProduction: ['Direct POV camera angle', 'Endcard lead-gen template graphic'],
+                pinnedComment: 'Lowkey the best price you can get... slay queen! 😂💅',
+                hashtags: '#genzrealtor #slayqueen #realestatehumor #estatesbyarina'
+            },
+            {
+                id: 'pulled-over',
+                category: 'RELATABLE SKIT',
+                title: 'POV: When Real Estate Agents Get Pulled Over',
+                hook: "HOOK: Handing officer a Sotheby's business card and real estate license instead of driver's license.",
+                fullReelUrl: 'https://www.instagram.com/reel/DZLwR3oJ-D8/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==',
+                embedUrl: 'https://www.instagram.com/p/DZLwR3oJ-D8/embed/',
+                coreObjective: 'Industry in-joke parody on multitasking and driving erratically during active listings.',
+                psychology: ['Industry In-Joke Trope', 'Physical & Expressive Comedy', 'High Engagement Potential'],
+                setup: ['Driver seat car setup', 'Sunglasses', 'Sotheby\'s business card prop'],
+                targetLength: '24 Seconds | Vertical 9:16',
+                bannerOverlayText: 'POV: When Real Estate Agents get Pulled Over',
+                table: [
+                    { time: "0:00–0:05", shot: "Shot 1 (Pull-Over): Lowering window & sunglasses.", overlay: "PULLED OVER", audio: "Officer: 'Know why I pulled you over?' Agent: (Shakes head)" },
+                    { time: "0:05–0:09", shot: "Shot 2 (Violations): Impassive agent face.", overlay: "RAN OVER FSBO SIGN", audio: "Officer: 'You ran over a FSBO sign back there...'" },
+                    { time: "0:09–0:14", shot: "Shot 3 (Multitasking): Dramatic gasp looking at email.", overlay: "MAGNET HIT CHILD", audio: "Officer: 'Typing email... car magnet hit a child...'" },
+                    { time: "0:14–0:18", shot: "Shot 4 (Deadline): Defending driving.", overlay: "HIGHEST & BEST", audio: "Officer: 'Deadline for highest and best?'" },
+                    { time: "0:18–0:24", shot: "Shot 5 (Business Card): Handing business card.", overlay: "BUSINESS CARD AS ID", audio: "Officer: 'License?' Agent: (Hands Sotheby's card) [Loop]" }
+                ],
+                postProduction: ['Medium close-up driver-side window framing'],
+                pinnedComment: 'Tag an agent who types up emails while driving to showings! 🚗💨',
+                hashtags: '#realtorproblems #pulledover #realestateagent #sothebysrealty'
             }
         ];
 
