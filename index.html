@@ -10,96 +10,18 @@
         :root {
             --bg-dark: #07090e;
             --bg-card: #111827;
-            --accent-gradient: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
             --accent-purple: #a78bfa;
             --text-main: #ffffff;
             --text-muted: #9ca3af;
             --border-color: rgba(255, 255, 255, 0.12);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-        }
-
         body {
             background-color: var(--bg-dark);
             color: var(--text-main);
-            min-height: 100vh;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             padding: 30px 20px;
-        }
-
-        header {
-            max-width: 1400px;
-            margin: 0 auto 24px auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .brand-icon {
-            width: 42px;
-            height: 42px;
-            background: var(--accent-gradient);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-        }
-
-        .brand h1 {
-            font-size: 1.5rem;
-            font-weight: 800;
-        }
-
-        .reel-control-bar {
-            max-width: 1400px;
-            margin: 0 auto 30px auto;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            padding: 16px 20px;
-            border-radius: 16px;
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .input-field {
-            flex: 1;
-            min-width: 300px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            padding: 12px 16px;
-            border-radius: 10px;
-            outline: none;
-            font-size: 0.88rem;
-        }
-
-        .btn-main {
-            background: var(--accent-gradient);
-            color: #fff;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 10px;
-            font-weight: 700;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.88rem;
+            margin: 0;
         }
 
         .reels-grid {
@@ -116,243 +38,61 @@
             background: #000;
             border-radius: 24px;
             border: 2px solid var(--border-color);
-            position: relative;
             overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
-            transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
         }
 
-        .phone-card:hover {
-            transform: translateY(-6px);
-            border-color: #ec4899;
-            box-shadow: 0 20px 40px rgba(236, 72, 153, 0.25);
-        }
-
-        .phone-top-bar {
-            padding: 12px 16px;
-            background: #000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-        }
-
-        .category-badge {
-            background: rgba(236, 72, 153, 0.18);
-            color: #ec4899;
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 0.65rem;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-
-        .iframe-wrapper {
+        .iframe-container {
             width: 100%;
-            height: 440px;
+            height: 480px;
             background: #000;
-            overflow: hidden;
             position: relative;
         }
 
-        .iframe-wrapper iframe {
+        .iframe-container iframe {
             width: 100%;
             height: 100%;
             border: none;
         }
 
-        .phone-footer-action {
-            background: var(--bg-card);
+        .phone-footer {
             padding: 16px;
+            background: var(--bg-card);
             border-top: 1px solid var(--border-color);
         }
 
-        .phone-title {
-            font-size: 0.92rem;
-            font-weight: 700;
-            line-height: 1.3;
-            color: #fff;
-        }
-
-        .phone-hook {
-            font-size: 0.75rem;
-            color: #ec4899;
-            font-weight: 600;
-            margin-top: 4px;
-        }
-
-        .open-details-btn {
-            margin-top: 12px;
-            background: rgba(167, 139, 250, 0.12);
-            color: var(--accent-purple);
-            border: 1px solid rgba(167, 139, 250, 0.3);
-            width: 100%;
-            padding: 10px;
-            border-radius: 8px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            display: flex;
+        .btn-launch {
+            display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 6px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .open-details-btn:hover {
-            background: var(--accent-purple);
-            color: #000;
-        }
-
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.94);
-            backdrop-filter: blur(12px);
-            z-index: 100;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .modal-body {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
             width: 100%;
-            max-width: 1100px;
-            height: 88vh;
-            border-radius: 24px;
-            display: flex;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .modal-phone-view {
-            width: 380px;
-            background: #000;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-right: 1px solid var(--border-color);
-            flex-shrink: 0;
-        }
-
-        .modal-sop-details {
-            flex: 1;
-            padding: 30px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 22px;
-        }
-
-        .close-modal-btn {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
+            padding: 10px;
+            background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
             color: #fff;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-        }
-
-        .sop-heading {
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--accent-purple);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 6px;
-        }
-
-        .script-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.82rem;
-            margin-top: 8px;
-            border: 1px solid var(--border-color);
+            text-decoration: none;
             border-radius: 8px;
-            overflow: hidden;
-        }
-
-        .script-table th {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 10px;
-            text-align: left;
-            color: var(--text-muted);
-        }
-
-        .script-table td {
-            padding: 10px;
-            border-top: 1px solid var(--border-color);
-            vertical-align: top;
+            font-weight: 700;
+            font-size: 0.8rem;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="brand">
-            <div class="brand-icon"><i data-lucide="video"></i></div>
-            <h1>REELS & SOP OPERATING SYSTEM</h1>
-        </div>
-    </header>
-
-    <div class="reel-control-bar">
-        <input type="text" id="addUrl" class="input-field" placeholder="Paste Instagram Reel Link (e.g. https://www.instagram.com/reel/DOUWDBcEj1Z/)...">
-        <button class="btn-main" onclick="addReelFromLink()"><i data-lucide="plus"></i> Add Reel</button>
-    </div>
-
     <div class="reels-grid" id="reelsGrid"></div>
 
-    <div class="modal-overlay" id="reelModal">
-        <div class="modal-body">
-            <button class="close-modal-btn" onclick="closeReelModal()"><i data-lucide="x"></i></button>
-            <div class="modal-phone-view" id="modalEmbedViewport"></div>
-            <div class="modal-sop-details" id="modalSopDetails"></div>
-        </div>
-    </div>
-
     <script>
-        lucide.createIcons();
-
-        let reelDatabase = [
+        const reels = [
             {
-                id: 'honest-reels',
-                category: 'SATIRE & META',
-                title: 'If Real Estate Videos Were Honest',
-                hook: "HOOK: 'It's not my listing... but I'm going to make it look like it is.'",
-                reelUrl: 'https://www.instagram.com/reel/DOUWDBcEj1Z/',
-                objective: 'Drive top-of-funnel reach, high engagement, and client trust through radical transparency, meta-humor, and seamless loop mechanics.',
-                table: [
-                    { time: "0:00-0:03", shot: "Shot 1 (Hook): Walking down driveway with open hands.", overlay: "NOT MY LISTING", audio: "It's not my listing... but I'm going to make it look like it is." },
-                    { time: "0:03-0:06", shot: "Shot 2 (Pivot): Standing in entry foyer gesturing proud.", overlay: "ALL ABOUT ME", audio: "This video isn't about the house. It's about me—well, a version that appeals to you." },
-                    { time: "0:06-0:09", shot: "Shot 3 (B-Roll 1): Hand caressing countertop.", overlay: "CARESSING COUNTERTOPS", audio: "A version that strolls aimlessly caressing countertops..." },
-                    { time: "0:09-0:12", shot: "Shot 4 (B-Roll 2): Kneeling in kitchen opening oven like expert.", overlay: "EXPERT MODE", audio: "...and pretends to be knowledgeable about technical details I know nothing about." },
-                    { time: "0:12-0:15", shot: "Shot 5 (B-Roll 3): Bathroom mirror splashing water.", overlay: "NOT HUNGOVER", audio: "...a version that doesn't look exhausted or hungover." },
-                    { time: "0:15-0:19", shot: "Shot 6 (The Stat): Sitting at kitchen island direct to lens.", overlay: "70% SOCIAL MEDIA", audio: "I spend 70% of my time on social media so you think I'm busy..." },
-                    { time: "0:19-0:22", shot: "Shot 7 (The Close): Sitting on porch chair deadpan.", overlay: "CHOICE IS CLEAR", audio: "So do you want an overly salesy guru? Hi, I'm [Name]- [Cut abruptly]" }
-                ]
+                title: "If Real Estate Videos Were Honest",
+                reelUrl: "https://www.instagram.com/reel/DOUWDBcEj1Z/"
             }
         ];
 
-        // Convert Instagram URL into direct Embed iframe source
-        function getIframeEmbedUrl(url) {
+        function getInstagramEmbedUrl(url) {
+            // Extract post ID and format clean embed link
             const match = url.match(/(?:reel|p)\/([^/?#&]+)/);
             if (match && match[1]) {
                 return `https://www.instagram.com/p/${match[1]}/embed/captioned/`;
@@ -364,113 +104,24 @@
             const grid = document.getElementById('reelsGrid');
             grid.innerHTML = '';
 
-            reelDatabase.forEach((reel, index) => {
-                const embedUrl = getIframeEmbedUrl(reel.reelUrl);
+            reels.forEach(reel => {
+                const embedUrl = getInstagramEmbedUrl(reel.reelUrl);
                 const card = document.createElement('div');
                 card.className = 'phone-card';
 
                 card.innerHTML = `
-                    <div class="phone-top-bar">
-                        <span class="category-badge">${reel.category}</span>
-                        <i data-lucide="instagram" size="16" style="color: #ec4899;"></i>
+                    <div class="iframe-container">
+                        <iframe src="${embedUrl}" loading="lazy" allowfullscreen frameborder="0"></iframe>
                     </div>
-                    
-                    <div class="iframe-wrapper">
-                        <iframe src="${embedUrl}" scrolling="no" allowtransparency="true" allowfullscreen="true" frameborder="0"></iframe>
-                    </div>
-
-                    <div class="phone-footer-action">
-                        <h3 class="phone-title">${reel.title}</h3>
-                        <p class="phone-hook">${reel.hook}</p>
-                        <button class="open-details-btn" onclick="openReelModal(${index})">
-                            <i data-lucide="sliders" size="14"></i> Open SOP Script Details
-                        </button>
+                    <div class="phone-footer">
+                        <h3 style="margin:0; font-size: 0.95rem;">${reel.title}</h3>
+                        <a href="${reel.reelUrl}" target="_blank" class="btn-launch">
+                            Open Direct in Instagram
+                        </a>
                     </div>
                 `;
                 grid.appendChild(card);
             });
-
-            lucide.createIcons();
-        }
-
-        function openReelModal(index) {
-            const reel = reelDatabase[index];
-            const embedUrl = getIframeEmbedUrl(reel.reelUrl);
-            const viewport = document.getElementById('modalEmbedViewport');
-
-            viewport.innerHTML = `
-                <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #000;">
-                    <iframe src="${embedUrl}" style="width:100%; height:100%; border:none;" scrolling="no" allowtransparency="true" allowfullscreen="true" frameborder="0"></iframe>
-                </div>
-            `;
-
-            let rows = reel.table.map((r) => `
-                <tr>
-                    <td><b>${r.time}</b></td>
-                    <td>${r.shot}</td>
-                    <td><span style="background: rgba(236, 72, 153, 0.2); color: #ec4899; padding: 2px 6px; border-radius: 4px; font-weight: 700;">${r.overlay}</span></td>
-                    <td>${r.audio}</td>
-                </tr>
-            `).join('');
-
-            document.getElementById('modalSopDetails').innerHTML = `
-                <div>
-                    <span style="color: var(--accent-purple); font-size: 0.8rem; font-weight: 700; text-transform: uppercase;">${reel.category}</span>
-                    <h2 style="font-size: 1.5rem; font-weight: 800; margin-top: 4px;">${reel.title}</h2>
-                </div>
-
-                <div>
-                    <div class="sop-heading"><i data-lucide="target" size="18"></i> Strategic Objective</div>
-                    <p style="color: var(--text-muted); font-size: 0.88rem;">${reel.objective}</p>
-                </div>
-
-                <div>
-                    <div class="sop-heading"><i data-lucide="zap" size="18"></i> Hook & Pattern Break</div>
-                    <p style="color: #ec4899; font-weight: 600; font-size: 0.88rem;">${reel.hook}</p>
-                </div>
-
-                <div>
-                    <div class="sop-heading"><i data-lucide="film" size="18"></i> Master Production Script</div>
-                    <table class="script-table">
-                        <thead>
-                            <tr>
-                                <th>Timestamp</th>
-                                <th>Visual Action</th>
-                                <th>Overlay Captions</th>
-                                <th>Audio / Dialogue</th>
-                            </tr>
-                        </thead>
-                        <tbody>${rows}</tbody>
-                    </table>
-                </div>
-            `;
-
-            document.getElementById('reelModal').style.display = 'flex';
-            lucide.createIcons();
-        }
-
-        function closeReelModal() {
-            document.getElementById('reelModal').style.display = 'none';
-        }
-
-        function addReelFromLink() {
-            const url = document.getElementById('addUrl').value.trim();
-            if (!url) return alert('Please paste an Instagram Reel link!');
-
-            reelDatabase.unshift({
-                id: `reel-${Date.now()}`,
-                category: 'NEW REEL',
-                title: 'If Real Estate Videos Were Honest',
-                hook: "HOOK: 'It's not my listing...'",
-                reelUrl: url,
-                objective: 'Custom strategy objective.',
-                table: [
-                    { time: "0:00-0:03", shot: "Hook Shot", overlay: "HOOK", audio: "Dialogue line..." }
-                ]
-            });
-
-            renderGrid();
-            document.getElementById('addUrl').value = '';
         }
 
         renderGrid();
