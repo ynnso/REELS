@@ -11,7 +11,6 @@
       --card-border: #1e2442;
       --text-main: #ffffff;
       --accent-pink: #e91e63;
-      --accent-purple: #3f51b5;
       --button-bg: #282c47;
       --input-bg: #161a33;
     }
@@ -24,7 +23,6 @@
       padding: 24px;
     }
 
-    /* HEADER */
     header {
       display: flex;
       align-items: center;
@@ -165,7 +163,7 @@
       display: inline-block;
     }
 
-    /* 9:16 VERTICAL ASPECT RATIO & PROFILE STRIP CROPPING */
+    /* FIX: HIDES INSTAGRAM HEADER & WHITE CAPTION BOX COMPLETELY */
     .video-preview-wrapper {
       width: 100%;
       aspect-ratio: 9 / 16;
@@ -176,11 +174,12 @@
 
     .video-preview-wrapper iframe {
       position: absolute;
-      /* Top offset hides Instagram header/profile bar */
-      top: -56px; 
+      /* Top offset hides the profile header */
+      top: -54px; 
       left: 0;
       width: 100%;
-      height: calc(100% + 56px);
+      /* Height calculation extends video and crops out the bottom white area */
+      height: calc(100% + 140px);
       border: none;
     }
 
@@ -190,10 +189,12 @@
       align-items: center;
       justify-content: space-between;
       gap: 12px;
+      background-color: var(--card-bg);
+      z-index: 2;
     }
 
     .reel-title {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 700;
       text-transform: uppercase;
       margin: 0;
@@ -201,16 +202,16 @@
       flex: 1;
     }
 
-    /* REPLACED BUTTON WITH '+' ICON & FIXED FUNCTION */
+    /* SOP + BUTTON FIX */
     .sop-btn {
-      min-width: 40px;
-      height: 40px;
+      min-width: 36px;
+      height: 36px;
       background-color: var(--button-bg);
       border: 1px solid var(--card-border);
       color: #fff;
       border-radius: 8px;
       font-weight: 700;
-      font-size: 20px;
+      font-size: 18px;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -285,7 +286,7 @@
   <!-- CONTROLS -->
   <div class="control-bar">
     <div class="search-container">
-      <input type="text" id="searchInput" class="search-input" placeholder="Search 32 reels, concepts, or keywords..." onkeyup="handlePredictiveSearch()">
+      <input type="text" id="searchInput" class="search-input" placeholder="Search reels, concepts, or keywords..." onkeyup="handlePredictiveSearch()">
       <div id="searchSuggestions" class="search-suggestions"></div>
     </div>
 
@@ -295,9 +296,7 @@
   </div>
 
   <!-- REELS LIBRARY GRID -->
-  <div class="reels-grid" id="reelsGrid">
-    <!-- Cards render dynamically -->
-  </div>
+  <div class="reels-grid" id="reelsGrid"></div>
 
   <!-- UPLOAD MODAL -->
   <div id="uploadModal" class="modal-overlay">
@@ -375,19 +374,19 @@
           </div>
           <div class="card-body">
             <h3 class="reel-title">${item.title}</h3>
-            <button class="sop-btn" onclick="openSOP('${item.sopDocUrl}')" title="Open Google Doc SOP">+</button>
+            <button class="sop-btn" type="button" onclick="openSOP('${item.sopDocUrl}')" title="Open Google Doc SOP">+</button>
           </div>
         `;
         grid.appendChild(card);
       });
     }
 
-    // FIXED SOP OPEN FUNCTION (Prevents random window glitches)
+    // FUNCTIONING SOP LINK HANDLER
     function openSOP(url) {
-      if (url && url !== "#" && url !== "") {
+      if (url && url !== "#" && url.trim() !== "") {
         window.open(url, '_blank');
       } else {
-        alert("No Google Doc SOP link attached to this reel yet. Click '+ Add Reel / Upload SOP' to link one!");
+        alert("No Google Doc SOP link attached to this reel yet. Use the top '+ Add Reel / Upload SOP' button to attach a link!");
       }
     }
 
