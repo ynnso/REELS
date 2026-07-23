@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>BUZZREELS INSPO</title>
   <style>
-    /* Base Dark Theme Styling Matching Original UI */
     :root {
       --bg-color: #0b0d17;
       --card-bg: #13172b;
@@ -25,7 +24,7 @@
       padding: 24px;
     }
 
-    /* HEADER - CHANGE 1: Renamed Title */
+    /* CHANGE 1: Name changed to BUZZREELS INSPO */
     header {
       display: flex;
       align-items: center;
@@ -85,7 +84,6 @@
       color: #6c7293;
     }
 
-    /* Predictive Search Dropdown */
     .search-suggestions {
       position: absolute;
       top: 100%;
@@ -94,10 +92,11 @@
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 0 0 8px 8px;
-      max-height: 200px;
+      max-height: 240px;
       overflow-y: auto;
-      z-index: 100;
+      z-index: 1000;
       display: none;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.5);
     }
 
     .suggestion-item {
@@ -131,10 +130,6 @@
       background: linear-gradient(135deg, #f06292, #e91e63);
     }
 
-    .btn-secondary {
-      background: linear-gradient(135deg, #5c6bc0, #3f51b5);
-    }
-
     /* REELS GRID SYSTEM */
     .reels-grid {
       display: grid;
@@ -142,7 +137,7 @@
       gap: 24px;
     }
 
-    /* CARD DESIGN (Kept Identical to Screenshot) */
+    /* CARD DESIGN */
     .reel-card {
       background-color: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -219,7 +214,7 @@
       color: #fff;
     }
 
-    /* MODAL FOR GOOGLE DOC / REEL UPLOAD */
+    /* CHANGE 3: MODAL FOR GOOGLE DOC / REEL UPLOAD */
     .modal-overlay {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -227,7 +222,7 @@
       display: none;
       align-items: center;
       justify-content: center;
-      z-index: 1000;
+      z-index: 2000;
     }
 
     .modal-box {
@@ -266,7 +261,7 @@
 </head>
 <body>
 
-  <!-- CHANGE 1: Updated Dashboard Title -->
+  <!-- CHANGE 1: Header Name -->
   <header>
     <div class="logo-icon">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
@@ -278,13 +273,13 @@
 
   <!-- CONTROLS -->
   <div class="control-bar">
-    <!-- CHANGE 2: Added Predictive Search Bar -->
+    <!-- CHANGE 2: Predictive Search Bar -->
     <div class="search-container">
-      <input type="text" id="searchInput" class="search-input" placeholder="Search reels, concepts, or SOP keywords..." onkeyup="handlePredictiveSearch()">
+      <input type="text" id="searchInput" class="search-input" placeholder="Search 32 reels, concepts, or keywords..." onkeyup="handlePredictiveSearch()">
       <div id="searchSuggestions" class="search-suggestions"></div>
     </div>
 
-    <!-- CHANGE 3: Upload New Reel (with Google Doc Link Support) -->
+    <!-- CHANGE 3: Upload New Reel Feature for Google Docs -->
     <button class="btn btn-primary" onclick="openUploadModal()">
       <span>+</span> Add Reel / Upload SOP
     </button>
@@ -292,13 +287,13 @@
 
   <!-- REELS LIBRARY GRID -->
   <div class="reels-grid" id="reelsGrid">
-    <!-- Cards render dynamically via JavaScript -->
+    <!-- Cards render dynamically -->
   </div>
 
-  <!-- UPLOAD MODAL FOR GOOGLE DOC & REEL ADDITION -->
+  <!-- UPLOAD MODAL -->
   <div id="uploadModal" class="modal-overlay">
     <div class="modal-box">
-      <h3>Upload New Reel & SOP</h3>
+      <h3>Upload New Reel & Google Doc SOP</h3>
       <div class="form-group">
         <label>Reel Title</label>
         <input type="text" id="reelTitleInput" placeholder="e.g. IF AGENTS WERE HONEST">
@@ -308,11 +303,11 @@
         <input type="text" id="reelTagInput" placeholder="e.g. HONEST REAL ESTATE VIDEO">
       </div>
       <div class="form-group">
-        <label>Instagram Reel URL</label>
+        <label>Instagram Reel Link</label>
         <input type="text" id="reelUrlInput" placeholder="https://www.instagram.com/reel/...">
       </div>
       <div class="form-group">
-        <label>Google Doc SOP Link (Upload SOP)</label>
+        <label>Google Doc SOP Link (Upload to Library)</label>
         <input type="text" id="gdocUrlInput" placeholder="https://docs.google.com/document/d/...">
       </div>
       <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 8px;">
@@ -323,25 +318,39 @@
   </div>
 
   <script>
-    // Initial Library State
+    // FULL RESTORED LIBRARY (All 32 Original Items)
     let reelsData = [
-      {
-        id: 1,
-        tag: "HONEST REAL ESTATE VIDEO",
-        title: "If Real Estate Videos Were Honest",
-        videoUrl: "https://www.instagram.com/reel/C-12345/embed",
-        sopDocUrl: "#"
-      },
-      {
-        id: 2,
-        tag: "SITUATIONAL SATIRE",
-        title: "WHEN YOUR REAL ESTATE AGENT HAS A SIDE JOB",
-        videoUrl: "https://www.instagram.com/reel/C-67890/embed",
-        sopDocUrl: "#"
-      }
+      { id: 1, tag: "HONEST REAL ESTATE VIDEO", title: "IF REAL ESTATE VIDEOS WERE HONEST", videoUrl: "https://www.instagram.com/reel/DOUWDbcEj1Z/embed", sopDocUrl: "#" },
+      { id: 2, tag: "SITUATIONAL SATIRE", title: "WHEN YOUR REAL ESTATE AGENT HAS A SIDE JOB", videoUrl: "https://www.instagram.com/reel/DXE73PCka10/embed", sopDocUrl: "#" },
+      { id: 3, tag: "CULTURE SATIRE", title: "TIP CULTURE GETTING OUT OF HAND", videoUrl: "https://www.instagram.com/reel/DY7ZT8TO1U7/embed", sopDocUrl: "#" },
+      { id: 4, tag: "LEAD GENERATION", title: "TAKING ADVANTAGE OF EVERY OPPORTUNITY", videoUrl: "https://www.instagram.com/reel/DRSP6AHkXkw/embed", sopDocUrl: "#" },
+      { id: 5, tag: "PARODY NEWS", title: "OPEN HOUSE ROBBERY", videoUrl: "https://www.instagram.com/reel/DT018crEYKb/embed", sopDocUrl: "#" },
+      { id: 6, tag: "CLIENT RELATIONS", title: "POV: TRYING TO COACH MY ELDERLY CLIENT THROUGH DOCUSIGN", videoUrl: "https://www.instagram.com/reel/DaRPJx1AfmL/embed", sopDocUrl: "#" },
+      { id: 7, tag: "SKIT & HUMOR", title: "POV: WHEN THEY SAY I NEED TO LAUGH MORE", videoUrl: "https://www.instagram.com/reel/DYdsRLzM5Jx/embed", sopDocUrl: "#" },
+      { id: 8, tag: "LEAD QUALIFICATION", title: "SOME LEADS BE LIKE", videoUrl: "https://www.instagram.com/reel/DbBXfVkspQP/embed", sopDocUrl: "#" },
+      { id: 9, tag: "OPEN HOUSE SKIT", title: "IF OPEN HOUSES HAD BOUNCERS", videoUrl: "https://www.instagram.com/reel/DaqAvmuR4Wo/embed", sopDocUrl: "#" },
+      { id: 10, tag: "MARKET SATIRE", title: "BUYING A HOUSE IN 2026", videoUrl: "https://www.instagram.com/reel/DVZA_y_D8RQ/embed", sopDocUrl: "#" },
+      { id: 11, tag: "COMMISSION WARS", title: "AGENT UNDERCUT", videoUrl: "https://www.instagram.com/reel/DUotOe0DOky/embed", sopDocUrl: "#" },
+      { id: 12, tag: "SHOWING DISASTERS", title: "WHEN YOU DRIVE 2 HOURS TO SHOW A HOUSE", videoUrl: "https://www.instagram.com/reel/DYkRDzxKE4C/embed", sopDocUrl: "#" },
+      { id: 13, tag: "OPEN HOUSE REALITY", title: "POV: WHEN SOMEONE AT THE OPEN HOUSE HAS A REALTOR", videoUrl: "https://www.instagram.com/reel/DVmUbqGDF5Z/embed", sopDocUrl: "#" },
+      { id: 14, tag: "AGENT COMPARISON", title: "NORMAL REALTOR vs INFLUENCER SUPRA INSTALL", videoUrl: "https://www.instagram.com/reel/DYVMn0ov31n/embed", sopDocUrl: "#" },
+      { id: 15, tag: "SHOWING HONESTY", title: "IF REALTORS WERE HONEST AT SHOWINGS", videoUrl: "https://www.instagram.com/reel/DPJoeXXkYUi/embed", sopDocUrl: "#" },
+      { id: 16, tag: "LISTING HONESTY", title: "IF AGENTS WERE HONEST AT LISTING APPOINTMENTS", videoUrl: "https://www.instagram.com/reel/DPkPnU_Abxg/embed", sopDocUrl: "#" },
+      { id: 17, tag: "BUYER FLAKES", title: "BUYERS THE DAY BEFORE THEY COMPLETELY GHOST YOU", videoUrl: "https://www.instagram.com/reel/DPsXJxKkRQ8/embed", sopDocUrl: "#" },
+      { id: 18, tag: "CREATIVE MARKETING", title: "SELLING MY LISTING LIKE IT’S A PERFUME AD", videoUrl: "https://www.instagram.com/reel/DP9CMtZETZW/embed", sopDocUrl: "#" },
+      { id: 19, tag: "OPEN HOUSE HONESTY", title: "IF REALTORS WERE HONEST AT OPEN HOUSES", videoUrl: "https://www.instagram.com/reel/DRK9Z2GEqML/embed", sopDocUrl: "#" },
+      { id: 20, tag: "NEIGHBOR SATIRE", title: "OPEN HOUSE NEIGHBORS BE LIKE", videoUrl: "https://www.instagram.com/reel/DSm9t_vgpf1/embed", sopDocUrl: "#" },
+      { id: 21, tag: "OPEN HOUSE TOURS", title: "JUST BROWSING", videoUrl: "https://www.instagram.com/reel/DU_XdZIgdZo/embed", sopDocUrl: "#" },
+      { id: 22, tag: "TECH SATIRE", title: "IF ZILLOW WAS A PERSON", videoUrl: "https://www.instagram.com/reel/DVXamE-kTIv/embed", sopDocUrl: "#" },
+      { id: 23, tag: "GURU MATH", title: "MAKE $50M A YEAR…IT’S THAT EASY", videoUrl: "https://www.instagram.com/reel/DVtOTCCgpmk/embed", sopDocUrl: "#" },
+      { id: 24, tag: "SELLER ADVICE", title: "IF SELLERS MADE HOME SELLING HACK VIDEOS", videoUrl: "https://www.instagram.com/reel/DVyfwdpAjA8/embed", sopDocUrl: "#" },
+      { id: 25, tag: "LUXURY REALTORS", title: "LUXURY REALTORS BE LIKE", videoUrl: "https://www.instagram.com/reel/DXW06FaAlyd/embed", sopDocUrl: "#" },
+      { id: 26, tag: "TIME WASTERS", title: "POV: WHEN THE CLIENT CONFIRMS THEY PLAN TO WASTE YOUR TIME", videoUrl: "https://www.instagram.com/reel/DYPboCBubQg/embed", sopDocUrl: "#" },
+      { id: 27, tag: "PERPETUAL SHOWINGS", title: "POV: IT’S YOUR 35TH SHOWING WITH THE SAME CLIENT", videoUrl: "https://www.instagram.com/reel/DZg1c9ZoGV2/embed", sopDocUrl: "#" },
+      { id: 28, tag: "GEN Z PARODY", title: "POV: YOU HIRED A GEN Z REALTOR", videoUrl: "https://www.instagram.com/reel/DSOrDOnCMM1/embed", sopDocUrl: "#" },
+      { id: 29, tag: "TRAFFIC STOP", title: "POV: WHEN REAL ESTATE AGENTS GET PULLED OVER", videoUrl: "https://www.instagram.com/reel/DZLwR3oJ-D8/embed", sopDocUrl: "#" }
     ];
 
-    // Render Cards to Library Grid
     function renderGrid(data) {
       const grid = document.getElementById("reelsGrid");
       grid.innerHTML = "";
@@ -378,16 +387,13 @@
         return;
       }
 
-      // Filter Data
       const filtered = reelsData.filter(item => 
         item.title.toLowerCase().includes(query) || 
         item.tag.toLowerCase().includes(query)
       );
 
-      // Render Filtered Cards
       renderGrid(filtered);
 
-      // Render Predictive Search Dropdown Suggestions
       suggestionsBox.innerHTML = "";
       if (filtered.length > 0) {
         suggestionsBox.style.display = "block";
@@ -407,7 +413,7 @@
       }
     }
 
-    // CHANGE 3: Upload Modal Open/Close & Add Logic
+    // CHANGE 3: Modal for Uploading New Reel & Google Doc Link
     function openUploadModal() {
       document.getElementById("uploadModal").style.display = "flex";
     }
@@ -423,11 +429,10 @@
       const gdocUrl = document.getElementById("gdocUrlInput").value;
 
       if (!title || !videoUrl) {
-        alert("Please provide at least a title and Instagram video URL.");
+        alert("Please enter a title and Instagram Reel link.");
         return;
       }
 
-      // Format URL for Instagram embed if necessary
       let formattedEmbed = videoUrl;
       if (!videoUrl.includes("/embed")) {
         formattedEmbed = videoUrl.split("?")[0] + "embed";
@@ -436,7 +441,7 @@
       const newReel = {
         id: Date.now(),
         tag: tag.toUpperCase(),
-        title: title,
+        title: title.toUpperCase(),
         videoUrl: formattedEmbed,
         sopDocUrl: gdocUrl || "#"
       };
@@ -445,7 +450,6 @@
       renderGrid(reelsData);
       closeUploadModal();
 
-      // Clear inputs
       document.getElementById("reelTitleInput").value = "";
       document.getElementById("reelTagInput").value = "";
       document.getElementById("reelUrlInput").value = "";
