@@ -226,7 +226,7 @@
       transform: scale(1.05);
     }
 
-    /* MODAL FOR GOOGLE DOC / REEL UPLOAD */
+    /* MODAL FOR GOOGLE DOC / REEL UPLOAD / SOP VIEW */
     .modal-overlay {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
@@ -243,7 +243,9 @@
       border-radius: 12px;
       padding: 24px;
       width: 100%;
-      max-width: 480px;
+      max-width: 600px;
+      max-height: 85vh;
+      overflow-y: auto;
       display: flex;
       flex-direction: column;
       gap: 16px;
@@ -268,6 +270,17 @@
       border-radius: 6px;
       padding: 10px;
       color: #fff;
+    }
+
+    .sop-content {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #d1d5db;
+      white-space: pre-wrap;
+      background: var(--input-bg);
+      padding: 16px;
+      border-radius: 8px;
+      border: 1px solid var(--card-border);
     }
   </style>
 </head>
@@ -325,37 +338,174 @@
     </div>
   </div>
 
+  <!-- SOP DISPLAY MODAL -->
+  <div id="sopModal" class="modal-overlay">
+    <div class="modal-box">
+      <h3 id="sopModalTitle">Standard Operating Procedure</h3>
+      <div id="sopModalBody" class="sop-content"></div>
+      <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 8px;">
+        <button class="btn btn-primary" onclick="closeSOPModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     let reelsData = [
-      { id: 1, tag: "HONEST REAL ESTATE VIDEO", title: "IF REAL ESTATE VIDEOS WERE HONEST", videoUrl: "https://www.instagram.com/reel/DOUWDbcEj1Z/embed", sopDocUrl: "" },
-      { id: 2, tag: "SITUATIONAL SATIRE", title: "WHEN YOUR REAL ESTATE AGENT HAS A SIDE JOB", videoUrl: "https://www.instagram.com/reel/DXE73PCka10/embed", sopDocUrl: "" },
-      { id: 3, tag: "CULTURE SATIRE", title: "TIP CULTURE GETTING OUT OF HAND", videoUrl: "https://www.instagram.com/reel/DY7ZT8TO1U7/embed", sopDocUrl: "" },
-      { id: 4, tag: "LEAD GENERATION", title: "TAKING ADVANTAGE OF EVERY OPPORTUNITY", videoUrl: "https://www.instagram.com/reel/DRSP6AHkXkw/embed", sopDocUrl: "" },
-      { id: 5, tag: "PARODY NEWS", title: "OPEN HOUSE ROBBERY", videoUrl: "https://www.instagram.com/reel/DT018crEYKb/embed", sopDocUrl: "" },
-      { id: 6, tag: "CLIENT RELATIONS", title: "POV: TRYING TO COACH MY ELDERLY CLIENT THROUGH DOCUSIGN", videoUrl: "https://www.instagram.com/reel/DaRPJx1AfmL/embed", sopDocUrl: "" },
-      { id: 7, tag: "SKIT & HUMOR", title: "POV: WHEN THEY SAY I NEED TO LAUGH MORE", videoUrl: "https://www.instagram.com/reel/DYdsRLzM5Jx/embed", sopDocUrl: "" },
-      { id: 8, tag: "LEAD QUALIFICATION", title: "SOME LEADS BE LIKE", videoUrl: "https://www.instagram.com/reel/DbBXfVkspQP/embed", sopDocUrl: "" },
-      { id: 9, tag: "OPEN HOUSE SKIT", title: "IF OPEN HOUSES HAD BOUNCERS", videoUrl: "https://www.instagram.com/reel/DaqAvmuR4Wo/embed", sopDocUrl: "" },
-      { id: 10, tag: "MARKET SATIRE", title: "BUYING A HOUSE IN 2026", videoUrl: "https://www.instagram.com/reel/DVZA_y_D8RQ/embed", sopDocUrl: "" },
-      { id: 11, tag: "COMMISSION WARS", title: "AGENT UNDERCUT", videoUrl: "https://www.instagram.com/reel/DUotOe0DOky/embed", sopDocUrl: "" },
-      { id: 12, tag: "SHOWING DISASTERS", title: "WHEN YOU DRIVE 2 HOURS TO SHOW A HOUSE", videoUrl: "https://www.instagram.com/reel/DYkRDzxKE4C/embed", sopDocUrl: "" },
-      { id: 13, tag: "OPEN HOUSE REALITY", title: "POV: WHEN SOMEONE AT THE OPEN HOUSE HAS A REALTOR", videoUrl: "https://www.instagram.com/reel/DVmUbqGDF5Z/embed", sopDocUrl: "" },
-      { id: 14, tag: "AGENT COMPARISON", title: "NORMAL REALTOR vs INFLUENCER SUPRA INSTALL", videoUrl: "https://www.instagram.com/reel/DYVMn0ov31n/embed", sopDocUrl: "" },
-      { id: 15, tag: "SHOWING HONESTY", title: "IF REALTORS WERE HONEST AT SHOWINGS", videoUrl: "https://www.instagram.com/reel/DPJoeXXkYUi/embed", sopDocUrl: "" },
-      { id: 16, tag: "LISTING HONESTY", title: "IF AGENTS WERE HONEST AT LISTING APPOINTMENTS", videoUrl: "https://www.instagram.com/reel/DPkPnU_Abxg/embed", sopDocUrl: "" },
-      { id: 17, tag: "BUYER FLAKES", title: "BUYERS THE DAY BEFORE THEY COMPLETELY GHOST YOU", videoUrl: "https://www.instagram.com/reel/DPsXJxKkRQ8/embed", sopDocUrl: "" },
-      { id: 18, tag: "CREATIVE MARKETING", title: "SELLING MY LISTING LIKE IT’S A PERFUME AD", videoUrl: "https://www.instagram.com/reel/DP9CMtZETZW/embed", sopDocUrl: "" },
-      { id: 19, tag: "OPEN HOUSE HONESTY", title: "IF REALTORS WERE HONEST AT OPEN HOUSES", videoUrl: "https://www.instagram.com/reel/DRK9Z2GEqML/embed", sopDocUrl: "" },
-      { id: 20, tag: "NEIGHBOR SATIRE", title: "OPEN HOUSE NEIGHBORS BE LIKE", videoUrl: "https://www.instagram.com/reel/DSm9t_vgpf1/embed", sopDocUrl: "" },
-      { id: 21, tag: "OPEN HOUSE TOURS", title: "JUST BROWSING", videoUrl: "https://www.instagram.com/reel/DU_XdZIgdZo/embed", sopDocUrl: "" },
-      { id: 22, tag: "TECH SATIRE", title: "IF ZILLOW WAS A PERSON", videoUrl: "https://www.instagram.com/reel/DVXamE-kTIv/embed", sopDocUrl: "" },
-      { id: 23, tag: "GURU MATH", title: "MAKE $50M A YEAR…IT’S THAT EASY", videoUrl: "https://www.instagram.com/reel/DVtOTCCgpmk/embed", sopDocUrl: "" },
-      { id: 24, tag: "SELLER ADVICE", title: "IF SELLERS MADE HOME SELLING HACK VIDEOS", videoUrl: "https://www.instagram.com/reel/DVyfwdpAjA8/embed", sopDocUrl: "" },
-      { id: 25, tag: "LUXURY REALTORS", title: "LUXURY REALTORS BE LIKE", videoUrl: "https://www.instagram.com/reel/DXW06FaAlyd/embed", sopDocUrl: "" },
-      { id: 26, tag: "TIME WASTERS", title: "POV: WHEN THE CLIENT CONFIRMS THEY PLAN TO WASTE YOUR TIME", videoUrl: "https://www.instagram.com/reel/DYPboCBubQg/embed", sopDocUrl: "" },
-      { id: 27, tag: "PERPETUAL SHOWINGS", title: "POV: IT’S YOUR 35TH SHOWING WITH THE SAME CLIENT", videoUrl: "https://www.instagram.com/reel/DZg1c9ZoGV2/embed", sopDocUrl: "" },
-      { id: 28, tag: "GEN Z PARODY", title: "POV: YOU HIRED A GEN Z REALTOR", videoUrl: "https://www.instagram.com/reel/DSOrDOnCMM1/embed", sopDocUrl: "" },
-      { id: 29, tag: "TRAFFIC STOP", title: "POV: WHEN REAL ESTATE AGENTS GET PULLED OVER", videoUrl: "https://www.instagram.com/reel/DZLwR3oJ-D8/embed", sopDocUrl: "" }
+      { 
+        id: 1, 
+        tag: "HONEST REAL ESTATE VIDEO", 
+        title: "IF REAL ESTATE VIDEOS WERE HONEST", 
+        videoUrl: "https://www.instagram.com/reel/DOUWDbcEj1Z/embed", 
+        sopDocUrl: "",
+        sopText: `🎬 SOP: "If Real Estate Videos Were Honest"\n\nCore Objective: Drive top-of-funnel reach, high engagement, and client trust through radical transparency, meta-humor, and seamless loop mechanics.\n\n1. Algorithmic & Psychological Breakdown:\n- Subversive Meta-Humor: Breaks the fourth wall by admitting industry tropes.\n- Persistent Visual Anchor: A fixed top banner maintains context.\n- Rapid Pattern Breaks: Visual switches every 3 seconds prevent drop-off.\n\n2. Script & Action Breakdown:\n0:00–0:03 - "It's not my listing... but I'm going to make it look like it is."\n0:03–0:06 - "This video isn't about the house. It's about me—well, a version that appeals to you."\n0:06–0:09 - "A version that strolls aimlessly caressing countertops..."\n0:09–0:12 - "...and pretends to be knowledgeable about technical details I know nothing about."\n0:12–0:15 - "...a version that doesn't look exhausted or hungover."\n0:15–0:19 - "I spend 70% of my time on social media so you think I'm busy..."\n0:19–0:22 - "So do you want an overly salesy guru, or a guru who's overly salesy? Hi, I'm [Name]—"`
+      },
+      { 
+        id: 2, 
+        tag: "SITUATIONAL SATIRE", 
+        title: "WHEN YOUR REAL ESTATE AGENT HAS A SIDE JOB", 
+        videoUrl: "https://www.instagram.com/reel/DXE73PCka10/embed", 
+        sopDocUrl: "",
+        sopText: `🎬 SOP: "When You're a Real Estate Agent with a Side Job"\n\n1. Concept Breakdown:\n- Frame inside an Uber/Lyft ride to create immediate comedic tension.\n- POV from back seat looking over driver's shoulder.\n\n2. Script Breakdown:\n0:00–0:06 - Driver: "Hey, welcome in!" Passenger: "Heading home." Driver: "You own or rent?"\n0:06–0:14 - Driver: "Need to make a quick stop... it's on the way, don't worry."\n0:14–0:22 - Driver: "I think you'll like this one! 3-bed, 2.5-bath under 3,000 sq ft."\n0:22–0:36 - Driver: "Have you been keeping up with interest rates?"\n0:36–0:48 - Driver: "Look at this one right here—4 beds, 3 baths, fully updated!"\n0:48–1:11 - Passenger: "Just let me out." (Door slams, loop resets)`
+      },
+      { 
+        id: 3, 
+        tag: "CULTURE SATIRE", 
+        title: "TIP CULTURE GETTING OUT OF HAND", 
+        videoUrl: "https://www.instagram.com/reel/DY7ZT8TO1U7/embed", 
+        sopDocUrl: "",
+        sopText: `🎬 SOP: "Tip Culture is Getting Out of Hand"\n\n1. Strategic Analysis:\n- Rides cultural rage waves around tip fatigue combined with real estate transactions.\n- Uses iPad prop showing 18% ($153,000) tip option on an $850k home.\n\n2. Script Breakdown:\n0:00–0:03 - Agent: "Just sign out on the screen real quick."\n0:03–0:06 - [Screen Insert: 18% ($153k) | 20% ($170k) | 22% ($187k)]\n0:06–0:10 - Buyer (Inner Monologue): "Tips at an open house?! This is getting out of control!"\n0:10–0:15 - Agent (Inner Monologue): "Stay cool bro..."\n0:15–0:19 - Buyer (Inner Monologue): "18% is $153,000!"\n0:19–0:24 - Agent (Inner Monologue): "You removed the 'no tip' button..."\n0:24–0:27 - Buyer: "Okay, all set!" (Stomps away into seamless loop)`
+      },
+      { 
+        id: 4, 
+        tag: "LEAD GENERATION", 
+        title: "TAKING ADVANTAGE OF EVERY OPPORTUNITY", 
+        videoUrl: "https://www.instagram.com/reel/DRSP6AHkXkw/embed", 
+        sopDocUrl: "",
+        sopText: `🎬 SOP: "Taking Advantage at Every Opportunity"\n\n1. Strategic Analysis:\n- Sudden shift from helpful driveway guide to aggressive real estate pitch.\n- High-velocity pitch creates immediate pattern break.\n\n2. Script Breakdown:\n0:00–0:03 - Agent waves hands: "Keep coming! You're good, you're good! Stop!"\n0:03–0:06 - Agent: "Hey! I'm Blake Shults with ARC Realty."\n0:06–0:12 - Agent: "Are you looking to buy or sell a house in Bluff Park? I'm a Hoover native!"\n0:12–0:17 - Agent stuffs card into window frame as car backs away/rolls window up.`
+      },
+      { 
+        id: 5, 
+        tag: "PARODY NEWS", 
+        title: "OPEN HOUSE ROBBERY", 
+        videoUrl: "https://www.instagram.com/reel/DT018crEYKb/embed", 
+        sopDocUrl: "",
+        sopText: `🎬 SOP: "Open House Robbery"\n\n1. Strategic Analysis:\n- Opens with fake B&W news security footage and AI anchor commentary.\n- Subverts robbery into getting the robber under contract.\n\n2. Script Breakdown:\n0:00–0:16 - Anchor: "Footage emerged showing a robbery taking an unexpected turn..."\n0:17–0:26 - Agent Interview: "I told him, 'All I've got is this beautiful 3-bedroom, 2-bath!'"\n0:26–0:38 - Agent (VO): "We took a tour inside and put it under contract right then and there."\n0:38–0:42 - Anchor Outro loops seamlessly back to start.`
+      },
+      { 
+        id: 6, 
+        tag: "CLIENT RELATIONS", 
+        title: "POV: TRYING TO COACH MY ELDERLY CLIENT THROUGH DOCUSIGN", 
+        videoUrl: "https://www.instagram.com/reel/DaRPJx1AfmL/embed", 
+        sopDocUrl: "",
+        sopText: `🎬 SOP: "Coaching Elderly Client Through DocuSign"\n\n1. Strategic Analysis:\n- Visualizing workplace frustration by lying upside down on the floor.\n\n2. Script Breakdown:\n0:00–0:03 - Agent: "Are you on the computer?"\n0:03–0:09 - Client: "Yes I am, but I'm having trouble... I had a computer for 10 years..."\n0:09–0:13 - Audio loops directly back to "Are you on the computer?"`
+      },
+      { 
+        id: 7, 
+        tag: "SKIT & HUMOR", 
+        title: "POV: WHEN THEY SAY I NEED TO LAUGH MORE", 
+        videoUrl: "https://www.instagram.com/reel/DYdsRLzM5Jx/embed", 
+        sopDocUrl: "",
+        sopText: `🎬 SOP: "When They Say I Need To Laugh More"\n\n1. Strategic Analysis:\n- Juxtaposes advice to "laugh more" with an inappropriate real-life scenario.\n\n2. Script Breakdown:\n0:00–0:05 - Peer: "Loosen up a little bit man... laugh a little bit." Agent: "I got you."\n0:05–0:08 - Agent: "So is this your first house?"\n0:08–0:10 - Client: "No, I recently got a divorce."\n0:10–0:11 - Frozen deadpan reaction cut.`
+      },
+      { 
+        id: 8, 
+        tag: "LEAD QUALIFICATION", 
+        title: "SOME LEADS BE LIKE", 
+        videoUrl: "https://www.instagram.com/reel/DbBXfVkspQP/embed", 
+        sopDocUrl: "",
+        sopText: `🎬 SOP: "Some Leads Be Like"\n\n1. Strategic Analysis:\n- Split-screen escalation from empty lot to luxury mansion, then rapid downgrade to mobile home when realistic budget drops.\n\n2. Script Breakdown:\n0:00–0:17 - Client lists dream demands (5 beds, pool, lake view).\n0:17–0:32 - Client drops budget bomb: "100% financing, max budget $150k."\n0:32–0:33 - Agent lowers phone in total disbelief.`
+      },
+      { 
+        id: 9, 
+        tag: "OPEN HOUSE SKIT", 
+        title: "IF OPEN HOUSES HAD BOUNCERS", 
+        videoUrl: "https://www.instagram.com/reel/DaqAvmuR4Wo/embed", 
+        sopDocUrl: "",
+        sopText: `🎬 SOP: "If Open Houses Had Bouncers"\n\n1. Strategic Analysis:\n- Treating open house entries like an exclusive nightclub bouncer check-in.\n\n2. Script Breakdown:\n0:00–0:05 - Bouncer: "Whoa, what are you here for?"\n0:05–0:14 - Bouncer checks pre-approval letter like an ID.\n0:14–0:21 - Bouncer inspects details (budget, closing days).\n0:21–0:28 - Buyer: "I'm working with an agent." Bouncer: "Get her out of here!"`
+      },
+      { 
+        id: 10, 
+        tag: "MARKET SATIRE", 
+        title: "BUYING A HOUSE IN 2026", 
+        videoUrl: "https://www.instagram.com/reel/DVZA_y_D8RQ/embed", 
+        sopDocUrl: "",
+        sopText: `🎬 SOP: "Buying A House In 2026"\n\n1. Strategic Analysis:\n- Exaggerating current market absurdity (910 sq ft for $2.5M, outhouses, red flag disclosures).\n\n2. Script Breakdown:\n0:00–0:09 - "910 sq ft, asking $2.5M. A $3M offer might get it."\n0:09–0:20 - "2.5 baths, both outhouses... rustic charm!"\n0:20–0:35 - "4 bedrooms, one under the stairs (Harry Potter style)."\n0:35–0:47 - Casual listing of major issues: flooding, radon, leaky roof.\n0:47–0:58 - "Highest and best in 15 mins... and they're taking the doorknobs."`
+      },
+      { 
+        id: 11, 
+        tag: "COMMISSION WARS", 
+        title: "AGENT UNDERCUT", 
+        videoUrl: "https://www.instagram.com/reel/DUotOe0DOky/embed", 
+        sopDocUrl: "",
+        sopText: `🎬 SOP: "Agent Undercut"\n\n1. Strategic Analysis:\n- Physical comedy escalation when seller mentions cheap discount competitor.\n\n2. Script Breakdown:\n0:00–0:03 - Listing Agent: "We'll do it for 8%."\n0:03–0:08 - Seller: "Realtor down the street said she'd do 5%!"\n0:08–0:12 - Listing Agent spots competitor inside office: "Who are you?"\n0:12–0:17 - Competitor: "I'm the realtor down the street!" (Agent vaults over desk)`
+      },
+      { 
+        id: 12, 
+        tag: "SHOWING DISASTERS", 
+        title: "WHEN YOU DRIVE 2 HOURS TO SHOW A HOUSE", 
+        videoUrl: "https://www.instagram.com/reel/DYkRDzxKE4C/embed", 
+        sopDocUrl: "",
+        sopText: `🎬 SOP: "When You Drive 2 Hours to Show a House"\n\n1. Strategic Analysis:\n- Highlights unqualified buyer mismatches and Zillow-estimate delusions.\n\n2. Script Breakdown:\n0:00–0:04 - Arrive at $4.5M luxury home.\n0:04–0:10 - Buyer confuses $4.5 Million with $450 Thousand.\n0:10–0:17 - Agent: "Bro, you work at Walmart!" Buyer: "I got a raise!"\n0:17–0:26 - Agent walks off in total defeat while buyer yells about co-signers.`
+      },
+      { 
+        id: 13, 
+        tag: "OPEN HOUSE REALITY", 
+        title: "POV: WHEN SOMEONE AT THE OPEN HOUSE HAS A REALTOR", 
+        videoUrl: "https://www.instagram.com/reel/DVmUbqGDF5Z/embed", 
+        sopDocUrl: "",
+        sopText: `🎬 SOP: "When Someone At The Open House Has A Realtor"\n\n1. Strategic Analysis:\n- Instant mood reversal from super welcoming to snatching back snacks.\n\n2. Script Breakdown:\n0:00–0:04 - Welcoming guest with water and cheesecake.\n0:04–0:06 - Handing over the sign-in sheet.\n0:06–0:08 - Visitor: "I'm actually working with an agent."\n0:08–0:12 - Host snatches food back: "Aww no... okay bye!"`
+      },
+      { 
+        id: 14, 
+        tag: "AGENT COMPARISON", 
+        title: "NORMAL REALTOR vs INFLUENCER SUPRA INSTALL", 
+        videoUrl: "https://www.instagram.com/reel/DYVMn0ov31n/embed", 
+        sopDocUrl: "",
+        sopText: `🎬 SOP: "Normal Realtor vs Influencer Supra Install"\n\n1. Strategic Analysis:\n- Parodies vlog tropes (fit check, ASMR lockbox sounds, dramatic intros).\n\n2. Script Breakdown:\n0:00–0:05 - Normal Realtor: Silent, quick lockbox placement.\n0:05–0:24 - Influencer: "Hey besties!" + Full Outfit/Fit Check.\n0:24–0:32 - ASMR lockbox clicking effects.\n0:32–0:54 - Influencer: "I don't think AI can do that!"`
+      },
+      { 
+        id: 15, 
+        tag: "SHOWING HONESTY", 
+        title: "IF REALTORS WERE HONEST AT SHOWINGS", 
+        videoUrl: "https://www.instagram.com/reel/DPJoeXXkYUi/embed", 
+        sopDocUrl: "",
+        sopText: `🎬 SOP: "If Realtors Were Honest At Showings"\n\n1. Strategic Analysis:\n- Unfiltered internal monologue about overpriced homes, bad neighbors, and buyer cars.\n\n2. Script Breakdown:\n0:00–0:05 - "Based on the car pulled up, I'm not sure you can afford this."\n0:05–0:09 - "First time search? Complete waste of my time."\n0:13–0:18 - "Significantly overpriced, but I didn't want to lose the listing."\n0:40–0:46 - "I'm having a really shitty year... please buy this house."`
+      },
+      { 
+        id: 16, 
+        tag: "LISTING HONESTY", 
+        title: "IF AGENTS WERE HONEST AT LISTING APPOINTMENTS", 
+        videoUrl: "https://www.instagram.com/reel/DPkPnU_Abxg/embed", 
+        sopDocUrl: "",
+        sopText: `🎬 SOP: "If Agents Were Honest At Listing Appointments"\n\n1. Strategic Analysis:\n- Parodies the gap between polished pitches and actual agent thoughts on pricing/commissions.\n\n2. Script Breakdown:\n0:00–0:05 - "I only have $600 in my bank account, perfect timing."\n0:05–0:13 - "Marketing plan? I'm gonna throw it on MLS and probably forget it."\n0:20–0:29 - "Commission depends on how much of a pain in the ass you're gonna be."`
+      },
+      { 
+        id: 17, 
+        tag: "BUYER FLAKES", 
+        title: "BUYERS THE DAY BEFORE THEY COMPLETELY GHOST YOU", 
+        videoUrl: "https://www.instagram.com/reel/DPsXJxKkRQ8/embed", 
+        sopDocUrl: "",
+        sopText: `🎬 SOP: "Buyers The Day Before They Ghost You"\n\n1. Strategic Analysis:\n- Over-the-top excitement immediately preceding total ghosting.\n\n2. Script Breakdown:\n0:00–0:04 - "I don't usually fall in love with a house this quickly..."\n0:08–0:13 - "Don't go showing this house to anyone else. This one's mine."\n0:23–0:29 - "I'll be sitting by my email ready to sign!" (Slams door)`
+      },
+      { 
+        id: 18, 
+        tag: "CREATIVE MARKETING", 
+        title: "SELLING MY LISTING LIKE IT’S A PERFUME AD", 
+        videoUrl: "https://www.instagram.com/reel/DP9CMtZETZW/embed", 
+        sopDocUrl: "",
+        sopText: `🎬 SOP: "Selling My Listing Like It's A Perfume Ad"\n\n1. Strategic Analysis:\n- Black & white, slow-motion, whispered poetry satirizing luxury cologne ads.\n\n2. Script Breakdown:\n0:00–0:05 - "For those who dream of homeownership..."\n0:08–0:11 - "Take a chance. Come see my new listing..."\n0:25–0:30 - Whispered outro: "Gail... by Michael D'Elena."`
+      },
+      { id: 19, tag: "OPEN HOUSE HONESTY", title: "IF REALTORS WERE HONEST AT OPEN HOUSES", videoUrl: "https://www.instagram.com/reel/DRK9Z2GEqML/embed", sopDocUrl: "", sopText: "🎬 SOP: If Realtors Were Honest At Open Houses\n\n1. Direct transparency on unrepresented leads and snack-hungry neighbors." },
+      { id: 20, tag: "NEIGHBOR SATIRE", title: "OPEN HOUSE NEIGHBORS BE LIKE", videoUrl: "https://www.instagram.com/reel/DSm9t_vgpf1/embed", sopDocUrl: "", sopText: "🎬 SOP: Open House Neighbors Be Like\n\n1. Highlight nosy neighbors visiting purely for gossip and price checks." },
+      { id: 21, tag: "OPEN HOUSE TOURS", title: "JUST BROWSING", videoUrl: "https://www.instagram.com/reel/DU_XdZIgdZo/embed", sopDocUrl: "", sopText: "🎬 SOP: Just Browsing\n\n1. Satirize visitors who spend 45 minutes walking through without any intention to buy." },
+      { id: 22, tag: "TECH SATIRE", title: "IF ZILLOW WAS A PERSON", videoUrl: "https://www.instagram.com/reel/DVXamE-kTIv/embed", sopDocUrl: "", sopText: "🎬 SOP: If Zillow Was A Person\n\n1. Personify Zestimates giving wildly inaccurate home valuations." },
+      { id: 23, tag: "GURU MATH", title: "MAKE $50M A YEAR…IT’S THAT EASY", videoUrl: "https://www.instagram.com/reel/DVtOTCCgpmk/embed", sopDocUrl: "", sopText: "🎬 SOP: Make $50M A Year... It's That Easy\n\n1. Parody real estate 'gurus' giving unrealistic revenue projections." },
+      { id: 24, tag: "SELLER ADVICE", title: "IF SELLERS MADE HOME SELLING HACK VIDEOS", videoUrl: "https://www.instagram.com/reel/DVyfwdpAjA8/embed", sopDocUrl: "", sopText: "🎬 SOP: If Sellers Made Home Selling Hack Videos\n\n1. Comedic breakdown of DIY seller fixes." },
+      { id: 25, tag: "LUXURY REALTORS", title: "LUXURY REALTORS BE LIKE", videoUrl: "https://www.instagram.com/reel/DXW06FaAlyd/embed", sopDocUrl: "", sopText: "🎬 SOP: Luxury Realtors Be Like\n\n1. Exaggerated luxury agent flexes and high-end lifestyle tropes." },
+      { id: 26, tag: "TIME WASTERS", title: "POV: WHEN THE CLIENT CONFIRMS THEY PLAN TO WASTE YOUR TIME", videoUrl: "https://www.instagram.com/reel/DYPboCBubQg/embed", sopDocUrl: "", sopText: "🎬 SOP: Client Confirms They Plan To Waste Your Time\n\n1. Humorous reaction to tire-kicker buyers." },
+      { id: 27, tag: "PERPETUAL SHOWINGS", title: "POV: IT’S YOUR 35TH SHOWING WITH THE SAME CLIENT", videoUrl: "https://www.instagram.com/reel/DZg1c9ZoGV2/embed", sopDocUrl: "", sopText: "🎬 SOP: 35th Showing With The Same Client\n\n1. Visual fatigue and exhaustion from endless home tours." },
+      { id: 28, tag: "GEN Z PARODY", title: "POV: YOU HIRED A GEN Z REALTOR", videoUrl: "https://www.instagram.com/reel/DSOrDOnCMM1/embed", sopDocUrl: "", sopText: "🎬 SOP: You Hired A Gen Z Realtor\n\n1. Slang-heavy listing presentations and TikTok trends applied to real estate." },
+      { id: 29, tag: "TRAFFIC STOP", title: "POV: WHEN REAL ESTATE AGENTS GET PULLED OVER", videoUrl: "https://www.instagram.com/reel/DZLwR3oJ-D8/embed", sopDocUrl: "", sopText: "🎬 SOP: When Real Estate Agents Get Pulled Over\n\n1. Turning a traffic stop into an impromptu listing pitch." }
     ];
 
     function renderGrid(data) {
@@ -374,25 +524,35 @@
           </div>
           <div class="card-body">
             <h3 class="reel-title">${item.title}</h3>
-            <button class="sop-btn" type="button" onclick="openSOP(${item.id})" title="Open/Add Google Doc SOP">+</button>
+            <button class="sop-btn" type="button" onclick="openSOP(${item.id})" title="Open SOP">+</button>
           </div>
         `;
         grid.appendChild(card);
       });
     }
 
-    // SOP CLICK LOGIC: Opens link if exists; prompts to set link if empty
+    // SOP CLICK LOGIC: Opens modal view for embedded SOP text or external link
     function openSOP(id) {
       const item = reelsData.find(r => r.id === id);
-      if (item && item.sopDocUrl && item.sopDocUrl.trim() !== "") {
+      if (!item) return;
+
+      if (item.sopDocUrl && item.sopDocUrl.trim() !== "") {
         window.open(item.sopDocUrl, '_blank');
+      } else if (item.sopText) {
+        document.getElementById("sopModalTitle").innerText = item.title;
+        document.getElementById("sopModalBody").innerText = item.sopText;
+        document.getElementById("sopModal").style.display = "flex";
       } else {
-        const newUrl = prompt(`Attach Google Doc SOP Link for: "${item ? item.title : 'Reel'}"`);
+        const newUrl = prompt(`Attach Google Doc SOP Link for: "${item.title}"`);
         if (newUrl && newUrl.trim() !== "") {
-          if (item) item.sopDocUrl = newUrl.trim();
-          alert("SOP link saved! Clicking '+' will now open your Google Doc.");
+          item.sopDocUrl = newUrl.trim();
+          alert("SOP link saved!");
         }
       }
+    }
+
+    function closeSOPModal() {
+      document.getElementById("sopModal").style.display = "none";
     }
 
     function handlePredictiveSearch() {
@@ -460,7 +620,8 @@
         tag: tag.toUpperCase(),
         title: title.toUpperCase(),
         videoUrl: formattedEmbed,
-        sopDocUrl: gdocUrl || ""
+        sopDocUrl: gdocUrl || "",
+        sopText: "Standard Operating Procedure available via URL link."
       };
 
       reelsData.unshift(newReel);
