@@ -30,6 +30,9 @@
       align-items: center;
       gap: 12px;
       margin-bottom: 24px;
+      cursor: pointer;
+      user-select: none;
+      width: fit-content;
     }
 
     .logo-icon {
@@ -460,7 +463,7 @@
 <body>
 
   <!-- HEADER -->
-  <header>
+  <header onclick="goHome()">
     <div class="logo-icon">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
         <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/>
@@ -681,6 +684,14 @@
     ];
 
     let currentSOPData = null;
+
+    function goHome() {
+      document.getElementById("searchInput").value = "";
+      document.getElementById("searchSuggestions").style.display = "none";
+      renderGrid(reelsData);
+      closeSOPModal();
+      closeUploadModal();
+    }
 
     function renderGrid(data) {
       const grid = document.getElementById("reelsGrid");
