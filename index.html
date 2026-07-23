@@ -11,6 +11,7 @@
       --card-border: #1e2442;
       --text-main: #ffffff;
       --accent-pink: #e91e63;
+      --accent-purple: #a855f7;
       --button-bg: #282c47;
       --input-bg: #161a33;
     }
@@ -119,13 +120,25 @@
       cursor: pointer;
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 8px;
       color: #fff;
       white-space: nowrap;
+      text-decoration: none;
     }
 
     .btn-primary {
       background: linear-gradient(135deg, #f06292, #e91e63);
+    }
+
+    .btn-copy {
+      background: linear-gradient(135deg, #ec4899, #e91e63);
+      width: 100%;
+      padding: 14px;
+      font-size: 15px;
+      font-weight: 700;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(233, 30, 99, 0.3);
     }
 
     /* REELS GRID SYSTEM */
@@ -164,7 +177,6 @@
       display: inline-block;
     }
 
-    /* PERFECT 9:16 CROP & SCALE - ELIMINATES WHITE BOX & BLACK EDGES */
     .video-preview-wrapper {
       width: 100%;
       aspect-ratio: 9 / 16;
@@ -179,7 +191,6 @@
       left: 50%;
       width: 440px;
       height: 780px;
-      /* Zooming in physically crops out Instagram headers, white bottom boxes, and side bars */
       transform: translate(-50%, -51%) scale(1.36);
       border: none;
     }
@@ -203,7 +214,6 @@
       flex: 1;
     }
 
-    /* SOP + BUTTON STYLING */
     .sop-btn {
       min-width: 38px;
       height: 38px;
@@ -226,21 +236,23 @@
       transform: scale(1.05);
     }
 
-    /* MODAL FOR GOOGLE DOC / REEL UPLOAD / SOP VIEW */
+    /* MODAL SYSTEM OVERHAUL */
     .modal-overlay {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.8);
+      background: rgba(5, 7, 15, 0.85);
+      backdrop-filter: blur(8px);
       display: none;
       align-items: center;
       justify-content: center;
       z-index: 2000;
+      padding: 20px;
     }
 
     .modal-box {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
-      border-radius: 12px;
+      border-radius: 16px;
       padding: 24px;
       width: 100%;
       max-width: 600px;
@@ -249,9 +261,167 @@
       display: flex;
       flex-direction: column;
       gap: 16px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
     }
 
-    .modal-box h3 { margin: 0; }
+    /* RICH SOP SPLIT-SCREEN LAYOUT */
+    .sop-modal-box {
+      max-width: 1100px;
+      width: 95vw;
+      height: 90vh;
+      max-height: 90vh;
+      padding: 0;
+      overflow: hidden;
+      display: flex;
+      flex-direction: row;
+      position: relative;
+    }
+
+    .close-modal-btn {
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      background: transparent;
+      border: none;
+      color: #a0aec0;
+      font-size: 24px;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    .close-modal-btn:hover {
+      color: #fff;
+    }
+
+    .sop-left-panel {
+      flex: 0 0 380px;
+      background: #080a12;
+      border-right: 1px solid var(--card-border);
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      box-sizing: border-box;
+      gap: 16px;
+    }
+
+    .sop-left-panel .video-preview-wrapper {
+      border-radius: 12px;
+      flex: 1;
+      max-height: 580px;
+    }
+
+    .sop-right-panel {
+      flex: 1;
+      padding: 32px 40px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .sop-header h2 {
+      font-size: 28px;
+      font-weight: 800;
+      margin: 8px 0 4px 0;
+      letter-spacing: -0.5px;
+    }
+
+    .sop-header .hook-text {
+      color: #94a3b8;
+      font-size: 14px;
+      margin: 0;
+    }
+
+    /* RICH SOP CONTENT TYPOGRAPHY & SECTIONS */
+    .sop-section {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .sop-section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 18px;
+      font-weight: 700;
+      color: #c084fc;
+    }
+
+    .sop-section-title svg {
+      width: 20px;
+      height: 20px;
+      fill: #c084fc;
+    }
+
+    .sop-body-text {
+      color: #cbd5e1;
+      font-size: 14px;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .sop-list {
+      margin: 0;
+      padding-left: 20px;
+      color: #cbd5e1;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .sop-list li {
+      margin-bottom: 6px;
+    }
+
+    /* SCRIPT TABLE DESIGN */
+    .script-table-container {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      background: var(--input-bg);
+    }
+
+    .script-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 13px;
+    }
+
+    .script-table th {
+      background: #111428;
+      padding: 12px 14px;
+      color: #94a3b8;
+      font-weight: 600;
+      border-bottom: 1px solid var(--card-border);
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+    }
+
+    .script-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      color: #e2e8f0;
+      vertical-align: top;
+      line-height: 1.4;
+    }
+
+    .script-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .time-col {
+      white-space: nowrap;
+      font-weight: 700;
+      color: #a855f7;
+    }
+
+    .overlay-col {
+      font-weight: 700;
+      color: #f472b6;
+    }
 
     .form-group {
       display: flex;
@@ -272,15 +442,18 @@
       color: #fff;
     }
 
-    .sop-content {
-      font-size: 14px;
-      line-height: 1.6;
-      color: #d1d5db;
-      white-space: pre-wrap;
-      background: var(--input-bg);
-      padding: 16px;
-      border-radius: 8px;
-      border: 1px solid var(--card-border);
+    @media (max-width: 850px) {
+      .sop-modal-box {
+        flex-direction: column;
+        overflow-y: auto;
+        height: 95vh;
+      }
+      .sop-left-panel {
+        flex: none;
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--card-border);
+      }
     }
   </style>
 </head>
@@ -314,7 +487,7 @@
   <!-- UPLOAD MODAL -->
   <div id="uploadModal" class="modal-overlay">
     <div class="modal-box">
-      <h3>Upload New Reel & Google Doc SOP</h3>
+      <h3 style="margin: 0;">Upload New Reel & Google Doc SOP</h3>
       <div class="form-group">
         <label>Reel Title</label>
         <input type="text" id="reelTitleInput" placeholder="e.g. IF AGENTS WERE HONEST">
@@ -338,13 +511,104 @@
     </div>
   </div>
 
-  <!-- SOP DISPLAY MODAL -->
+  <!-- RICH SOP DISPLAY MODAL -->
   <div id="sopModal" class="modal-overlay">
-    <div class="modal-box">
-      <h3 id="sopModalTitle">Standard Operating Procedure</h3>
-      <div id="sopModalBody" class="sop-content"></div>
-      <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 8px;">
-        <button class="btn btn-primary" onclick="closeSOPModal()">Close</button>
+    <div class="sop-modal-box">
+      <button class="close-modal-btn" onclick="closeSOPModal()">&times;</button>
+      
+      <!-- LEFT PANEL: VIDEO PREVIEW + INSTAGRAM DIRECT LINK -->
+      <div class="sop-left-panel">
+        <div class="video-preview-wrapper" id="sopVideoContainer"></div>
+        <a id="sopDirectBtn" href="#" target="_blank" class="btn btn-primary" style="width: 100%; border-radius: 8px;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 6px;"><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg>
+          Open Direct on Instagram
+        </a>
+      </div>
+
+      <!-- RIGHT PANEL: RICH FORMATTED SOP -->
+      <div class="sop-right-panel">
+        <div class="sop-header">
+          <span class="tag-badge" id="sopTagBadge">SATIRE & META</span>
+          <h2 id="sopTitle">If Real Estate Videos Were Honest</h2>
+          <p class="hook-text" id="sopHook">HOOK: 'It's not my listing... but I'm going to make it look like it is.'</p>
+        </div>
+
+        <!-- SECTION 1: CORE STRATEGIC OBJECTIVE -->
+        <div class="sop-section">
+          <div class="sop-section-title">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm0-14c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/></svg>
+            Core Strategic Objective
+          </div>
+          <p class="sop-body-text" id="sopObjective">Drive top-of-funnel reach, high engagement, and client trust through radical transparency, meta-humor, and seamless loop mechanics.</p>
+        </div>
+
+        <!-- SECTION 2: PSYCHOLOGY & HOOK MECHANICS -->
+        <div class="sop-section">
+          <div class="sop-section-title">
+            <svg viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 21l3.68-.97C9.37 20.66 10.65 21 12 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm0 16c-1.22 0-2.4-.33-3.44-.92l-.25-.14-2.18.57.58-2.12-.16-.26C5.95 15.11 5.5 13.6 5.5 12c0-3.58 2.92-6.5 6.5-6.5s6.5 2.92 6.5 6.5-2.92 6.5-6.5 6.5z"/></svg>
+            Psychology & Hook Mechanics
+          </div>
+          <ul class="sop-list" id="sopPsychology">
+            <li><b>Subversive Meta-Humor:</b> Breaks the fourth wall by admitting industry tropes.</li>
+            <li><b>Persistent Visual Anchor:</b> Fixed top banner maintains context for silent scrollers.</li>
+            <li><b>Rapid Pattern Breaks:</b> Visual switches every 3 seconds prevent viewer fatigue.</li>
+          </ul>
+        </div>
+
+        <!-- SECTION 3: ON-SITE SETUP & SPECS -->
+        <div class="sop-section">
+          <div class="sop-section-title">
+            <svg viewBox="0 0 24 24"><path d="M3 17v2h6v-2H3zM3 5v2h10V5H3zm10 16v-2h8v-2h-8v-2h-2v6h2zM7 9v2H3v2h4v2h2V9H7zm14 4v-2H11v2h10zm-6-4h2V7h4V5h-4V3h-2v6z"/></svg>
+            On-Site Setup & Specs
+          </div>
+          <p class="sop-body-text" style="color: #a855f7; font-weight: 700;" id="sopSpecs">Format: 22 Seconds | Aspect Ratio: 9:16 Vertical (1080x1920)</p>
+          <ul class="sop-list" id="sopSetupList">
+            <li><b>Location Strategy:</b> High-end property with diverse visual areas.</li>
+            <li><b>Audio Requirements:</b> Wireless lapel microphone for voice-isolated audio.</li>
+          </ul>
+        </div>
+
+        <!-- SECTION 4: SCRIPT TABLE BREAKDOWN -->
+        <div class="sop-section">
+          <div class="sop-section-title">
+            <svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>
+            Scene-by-Scene Script Breakdown
+          </div>
+          <div class="script-table-container">
+            <table class="script-table">
+              <thead>
+                <tr>
+                  <th>Time</th>
+                  <th>Shot / Action</th>
+                  <th>Overlay Text</th>
+                  <th>Audio / Voice</th>
+                </tr>
+              </thead>
+              <tbody id="sopScriptTableBody">
+                <!-- Injected JS Data -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- SECTION 5: POST PRODUCTION & ENGAGEMENT -->
+        <div class="sop-section">
+          <div class="sop-section-title">
+            <svg viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+            Post-Production & Engagement Strategy
+          </div>
+          <ul class="sop-list" id="sopPostList">
+            <li><b>Edits:</b> Tight Jump-Cuts, -22dB Audio Mix, Seamless Infinite Loop.</li>
+            <li><b>Pinned Comment:</b> "Be honest: How many real estate videos have you swiped past today? 😂👇"</li>
+          </ul>
+        </div>
+
+        <!-- ACTION BUTTON -->
+        <button class="btn btn-copy" onclick="copySOPToClipboard()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+          Copy SOP to Clipboard
+        </button>
+
       </div>
     </div>
   </div>
@@ -353,160 +617,70 @@
     let reelsData = [
       { 
         id: 1, 
-        tag: "HONEST REAL ESTATE VIDEO", 
-        title: "IF REAL ESTATE VIDEOS WERE HONEST", 
+        tag: "SATIRE & META", 
+        title: "If Real Estate Videos Were Honest", 
+        hook: "HOOK: 'It's not my listing... but I'm going to make it look like it is.'",
         videoUrl: "https://www.instagram.com/reel/DOUWDbcEj1Z/embed", 
-        sopDocUrl: "",
-        sopText: `🎬 SOP: "If Real Estate Videos Were Honest"\n\nCore Objective: Drive top-of-funnel reach, high engagement, and client trust through radical transparency, meta-humor, and seamless loop mechanics.\n\n1. Algorithmic & Psychological Breakdown:\n- Subversive Meta-Humor: Breaks the fourth wall by admitting industry tropes.\n- Persistent Visual Anchor: A fixed top banner maintains context.\n- Rapid Pattern Breaks: Visual switches every 3 seconds prevent drop-off.\n\n2. Script & Action Breakdown:\n0:00–0:03 - "It's not my listing... but I'm going to make it look like it is."\n0:03–0:06 - "This video isn't about the house. It's about me—well, a version that appeals to you."\n0:06–0:09 - "A version that strolls aimlessly caressing countertops..."\n0:09–0:12 - "...and pretends to be knowledgeable about technical details I know nothing about."\n0:12–0:15 - "...a version that doesn't look exhausted or hungover."\n0:15–0:19 - "I spend 70% of my time on social media so you think I'm busy..."\n0:19–0:22 - "So do you want an overly salesy guru, or a guru who's overly salesy? Hi, I'm [Name]—"`
+        directUrl: "https://www.instagram.com/reel/DOUWDbcEj1Z/",
+        objective: "Drive top-of-funnel reach, high engagement, and client trust through radical transparency, meta-humor, and seamless loop mechanics.",
+        psychology: [
+          "<b>Subversive Meta-Humor:</b> Breaks the fourth wall by admitting industry tropes (borrowing listings, performative B-roll).",
+          "<b>Persistent Visual Anchor:</b> Fixed top banner maintains context for silent scrollers.",
+          "<b>Rapid Pattern Breaks:</b> Visual switches every 3 seconds prevent viewer fatigue.",
+          "<b>Infinite Audio Loop:</b> Cutting abruptly on your name at 0:22 feeds directly back into Shot 1."
+        ],
+        specs: "Format: 22 Seconds | Aspect Ratio: 9:16 Vertical (1080x1920)",
+        setup: [
+          "<b>Location Strategy:</b> High-end property with diverse visual areas.",
+          "<b>Audio Requirements:</b> Wireless lapel microphone for voice-isolated audio.",
+          "<b>Visual Styling:</b> Top banner (White box, black bold text: 'If real estate videos were honest')."
+        ],
+        script: [
+          { time: "0:00–0:03", shot: "Shot 1 (Hook): Medium-wide shot walking down driveway.", overlay: "NOT MY LISTING", audio: "It's not my listing... but I'm going to make it look like it is." },
+          { time: "0:03–0:06", shot: "Shot 2 (Pivot): Standing in foyer gesturing proud.", overlay: "ALL ABOUT ME", audio: "This video isn't about the house. It's about me—well, a version that appeals to you." },
+          { time: "0:06–0:09", shot: "Shot 3 (B-Roll 1): Hand slowly gliding over countertop.", overlay: "CARESSING COUNTERTOPS", audio: "A version that strolls aimlessly caressing countertops..." },
+          { time: "0:09–0:12", shot: "Shot 4 (B-Roll 2): Kneeling in kitchen opening oven door.", overlay: "EXPERT MODE", audio: "...and pretends to be knowledgeable about technical details I know nothing about." },
+          { time: "0:12–0:15", shot: "Shot 5 (B-Roll 3): Mirror shot. Splashing water on face.", overlay: "NOT HUNGOVER", audio: "...a version that doesn't look exhausted or hungover." },
+          { time: "0:15–0:19", shot: "Shot 6 (The Stat): Sitting at island talking into lens.", overlay: "70% SOCIAL MEDIA", audio: "I spend 70% of my time on social media so you think I'm busy..." },
+          { time: "0:19–0:22", shot: "Shot 7 (The Close): Sitting on porch chair leaning in.", overlay: "CHOICE IS CLEAR", audio: "So do you want an overly salesy guru, or a guru who's overly salesy? Hi, I'm [Name]—" }
+        ],
+        post: [
+          "<b>Post Notes:</b> Tight jump cuts, text overlays centered top, audio mixed at -22dB.",
+          "<b>Pinned Comment:</b> 'Be honest: How many real estate videos have you swiped past today? 😂👇'",
+          "<b>Hashtags:</b> #realestatehumor #realestatetips #realestateagent #realtorlife #homebuyingtips"
+        ]
       },
       { 
         id: 2, 
         tag: "SITUATIONAL SATIRE", 
-        title: "WHEN YOUR REAL ESTATE AGENT HAS A SIDE JOB", 
+        title: "When Your Real Estate Agent Has A Side Job", 
+        hook: "HOOK: 'Hey, welcome in! Heading home?'",
         videoUrl: "https://www.instagram.com/reel/DXE73PCka10/embed", 
-        sopDocUrl: "",
-        sopText: `🎬 SOP: "When You're a Real Estate Agent with a Side Job"\n\n1. Concept Breakdown:\n- Frame inside an Uber/Lyft ride to create immediate comedic tension.\n- POV from back seat looking over driver's shoulder.\n\n2. Script Breakdown:\n0:00–0:06 - Driver: "Hey, welcome in!" Passenger: "Heading home." Driver: "You own or rent?"\n0:06–0:14 - Driver: "Need to make a quick stop... it's on the way, don't worry."\n0:14–0:22 - Driver: "I think you'll like this one! 3-bed, 2.5-bath under 3,000 sq ft."\n0:22–0:36 - Driver: "Have you been keeping up with interest rates?"\n0:36–0:48 - Driver: "Look at this one right here—4 beds, 3 baths, fully updated!"\n0:48–1:11 - Passenger: "Just let me out." (Door slams, loop resets)`
-      },
-      { 
-        id: 3, 
-        tag: "CULTURE SATIRE", 
-        title: "TIP CULTURE GETTING OUT OF HAND", 
-        videoUrl: "https://www.instagram.com/reel/DY7ZT8TO1U7/embed", 
-        sopDocUrl: "",
-        sopText: `🎬 SOP: "Tip Culture is Getting Out of Hand"\n\n1. Strategic Analysis:\n- Rides cultural rage waves around tip fatigue combined with real estate transactions.\n- Uses iPad prop showing 18% ($153,000) tip option on an $850k home.\n\n2. Script Breakdown:\n0:00–0:03 - Agent: "Just sign out on the screen real quick."\n0:03–0:06 - [Screen Insert: 18% ($153k) | 20% ($170k) | 22% ($187k)]\n0:06–0:10 - Buyer (Inner Monologue): "Tips at an open house?! This is getting out of control!"\n0:10–0:15 - Agent (Inner Monologue): "Stay cool bro..."\n0:15–0:19 - Buyer (Inner Monologue): "18% is $153,000!"\n0:19–0:24 - Agent (Inner Monologue): "You removed the 'no tip' button..."\n0:24–0:27 - Buyer: "Okay, all set!" (Stomps away into seamless loop)`
-      },
-      { 
-        id: 4, 
-        tag: "LEAD GENERATION", 
-        title: "TAKING ADVANTAGE OF EVERY OPPORTUNITY", 
-        videoUrl: "https://www.instagram.com/reel/DRSP6AHkXkw/embed", 
-        sopDocUrl: "",
-        sopText: `🎬 SOP: "Taking Advantage at Every Opportunity"\n\n1. Strategic Analysis:\n- Sudden shift from helpful driveway guide to aggressive real estate pitch.\n- High-velocity pitch creates immediate pattern break.\n\n2. Script Breakdown:\n0:00–0:03 - Agent waves hands: "Keep coming! You're good, you're good! Stop!"\n0:03–0:06 - Agent: "Hey! I'm Blake Shults with ARC Realty."\n0:06–0:12 - Agent: "Are you looking to buy or sell a house in Bluff Park? I'm a Hoover native!"\n0:12–0:17 - Agent stuffs card into window frame as car backs away/rolls window up.`
-      },
-      { 
-        id: 5, 
-        tag: "PARODY NEWS", 
-        title: "OPEN HOUSE ROBBERY", 
-        videoUrl: "https://www.instagram.com/reel/DT018crEYKb/embed", 
-        sopDocUrl: "",
-        sopText: `🎬 SOP: "Open House Robbery"\n\n1. Strategic Analysis:\n- Opens with fake B&W news security footage and AI anchor commentary.\n- Subverts robbery into getting the robber under contract.\n\n2. Script Breakdown:\n0:00–0:16 - Anchor: "Footage emerged showing a robbery taking an unexpected turn..."\n0:17–0:26 - Agent Interview: "I told him, 'All I've got is this beautiful 3-bedroom, 2-bath!'"\n0:26–0:38 - Agent (VO): "We took a tour inside and put it under contract right then and there."\n0:38–0:42 - Anchor Outro loops seamlessly back to start.`
-      },
-      { 
-        id: 6, 
-        tag: "CLIENT RELATIONS", 
-        title: "POV: TRYING TO COACH MY ELDERLY CLIENT THROUGH DOCUSIGN", 
-        videoUrl: "https://www.instagram.com/reel/DaRPJx1AfmL/embed", 
-        sopDocUrl: "",
-        sopText: `🎬 SOP: "Coaching Elderly Client Through DocuSign"\n\n1. Strategic Analysis:\n- Visualizing workplace frustration by lying upside down on the floor.\n\n2. Script Breakdown:\n0:00–0:03 - Agent: "Are you on the computer?"\n0:03–0:09 - Client: "Yes I am, but I'm having trouble... I had a computer for 10 years..."\n0:09–0:13 - Audio loops directly back to "Are you on the computer?"`
-      },
-      { 
-        id: 7, 
-        tag: "SKIT & HUMOR", 
-        title: "POV: WHEN THEY SAY I NEED TO LAUGH MORE", 
-        videoUrl: "https://www.instagram.com/reel/DYdsRLzM5Jx/embed", 
-        sopDocUrl: "",
-        sopText: `🎬 SOP: "When They Say I Need To Laugh More"\n\n1. Strategic Analysis:\n- Juxtaposes advice to "laugh more" with an inappropriate real-life scenario.\n\n2. Script Breakdown:\n0:00–0:05 - Peer: "Loosen up a little bit man... laugh a little bit." Agent: "I got you."\n0:05–0:08 - Agent: "So is this your first house?"\n0:08–0:10 - Client: "No, I recently got a divorce."\n0:10–0:11 - Frozen deadpan reaction cut.`
-      },
-      { 
-        id: 8, 
-        tag: "LEAD QUALIFICATION", 
-        title: "SOME LEADS BE LIKE", 
-        videoUrl: "https://www.instagram.com/reel/DbBXfVkspQP/embed", 
-        sopDocUrl: "",
-        sopText: `🎬 SOP: "Some Leads Be Like"\n\n1. Strategic Analysis:\n- Split-screen escalation from empty lot to luxury mansion, then rapid downgrade to mobile home when realistic budget drops.\n\n2. Script Breakdown:\n0:00–0:17 - Client lists dream demands (5 beds, pool, lake view).\n0:17–0:32 - Client drops budget bomb: "100% financing, max budget $150k."\n0:32–0:33 - Agent lowers phone in total disbelief.`
-      },
-      { 
-        id: 9, 
-        tag: "OPEN HOUSE SKIT", 
-        title: "IF OPEN HOUSES HAD BOUNCERS", 
-        videoUrl: "https://www.instagram.com/reel/DaqAvmuR4Wo/embed", 
-        sopDocUrl: "",
-        sopText: `🎬 SOP: "If Open Houses Had Bouncers"\n\n1. Strategic Analysis:\n- Treating open house entries like an exclusive nightclub bouncer check-in.\n\n2. Script Breakdown:\n0:00–0:05 - Bouncer: "Whoa, what are you here for?"\n0:05–0:14 - Bouncer checks pre-approval letter like an ID.\n0:14–0:21 - Bouncer inspects details (budget, closing days).\n0:21–0:28 - Buyer: "I'm working with an agent." Bouncer: "Get her out of here!"`
-      },
-      { 
-        id: 10, 
-        tag: "MARKET SATIRE", 
-        title: "BUYING A HOUSE IN 2026", 
-        videoUrl: "https://www.instagram.com/reel/DVZA_y_D8RQ/embed", 
-        sopDocUrl: "",
-        sopText: `🎬 SOP: "Buying A House In 2026"\n\n1. Strategic Analysis:\n- Exaggerating current market absurdity (910 sq ft for $2.5M, outhouses, red flag disclosures).\n\n2. Script Breakdown:\n0:00–0:09 - "910 sq ft, asking $2.5M. A $3M offer might get it."\n0:09–0:20 - "2.5 baths, both outhouses... rustic charm!"\n0:20–0:35 - "4 bedrooms, one under the stairs (Harry Potter style)."\n0:35–0:47 - Casual listing of major issues: flooding, radon, leaky roof.\n0:47–0:58 - "Highest and best in 15 mins... and they're taking the doorknobs."`
-      },
-      { 
-        id: 11, 
-        tag: "COMMISSION WARS", 
-        title: "AGENT UNDERCUT", 
-        videoUrl: "https://www.instagram.com/reel/DUotOe0DOky/embed", 
-        sopDocUrl: "",
-        sopText: `🎬 SOP: "Agent Undercut"\n\n1. Strategic Analysis:\n- Physical comedy escalation when seller mentions cheap discount competitor.\n\n2. Script Breakdown:\n0:00–0:03 - Listing Agent: "We'll do it for 8%."\n0:03–0:08 - Seller: "Realtor down the street said she'd do 5%!"\n0:08–0:12 - Listing Agent spots competitor inside office: "Who are you?"\n0:12–0:17 - Competitor: "I'm the realtor down the street!" (Agent vaults over desk)`
-      },
-      { 
-        id: 12, 
-        tag: "SHOWING DISASTERS", 
-        title: "WHEN YOU DRIVE 2 HOURS TO SHOW A HOUSE", 
-        videoUrl: "https://www.instagram.com/reel/DYkRDzxKE4C/embed", 
-        sopDocUrl: "",
-        sopText: `🎬 SOP: "When You Drive 2 Hours to Show a House"\n\n1. Strategic Analysis:\n- Highlights unqualified buyer mismatches and Zillow-estimate delusions.\n\n2. Script Breakdown:\n0:00–0:04 - Arrive at $4.5M luxury home.\n0:04–0:10 - Buyer confuses $4.5 Million with $450 Thousand.\n0:10–0:17 - Agent: "Bro, you work at Walmart!" Buyer: "I got a raise!"\n0:17–0:26 - Agent walks off in total defeat while buyer yells about co-signers.`
-      },
-      { 
-        id: 13, 
-        tag: "OPEN HOUSE REALITY", 
-        title: "POV: WHEN SOMEONE AT THE OPEN HOUSE HAS A REALTOR", 
-        videoUrl: "https://www.instagram.com/reel/DVmUbqGDF5Z/embed", 
-        sopDocUrl: "",
-        sopText: `🎬 SOP: "When Someone At The Open House Has A Realtor"\n\n1. Strategic Analysis:\n- Instant mood reversal from super welcoming to snatching back snacks.\n\n2. Script Breakdown:\n0:00–0:04 - Welcoming guest with water and cheesecake.\n0:04–0:06 - Handing over the sign-in sheet.\n0:06–0:08 - Visitor: "I'm actually working with an agent."\n0:08–0:12 - Host snatches food back: "Aww no... okay bye!"`
-      },
-      { 
-        id: 14, 
-        tag: "AGENT COMPARISON", 
-        title: "NORMAL REALTOR vs INFLUENCER SUPRA INSTALL", 
-        videoUrl: "https://www.instagram.com/reel/DYVMn0ov31n/embed", 
-        sopDocUrl: "",
-        sopText: `🎬 SOP: "Normal Realtor vs Influencer Supra Install"\n\n1. Strategic Analysis:\n- Parodies vlog tropes (fit check, ASMR lockbox sounds, dramatic intros).\n\n2. Script Breakdown:\n0:00–0:05 - Normal Realtor: Silent, quick lockbox placement.\n0:05–0:24 - Influencer: "Hey besties!" + Full Outfit/Fit Check.\n0:24–0:32 - ASMR lockbox clicking effects.\n0:32–0:54 - Influencer: "I don't think AI can do that!"`
-      },
-      { 
-        id: 15, 
-        tag: "SHOWING HONESTY", 
-        title: "IF REALTORS WERE HONEST AT SHOWINGS", 
-        videoUrl: "https://www.instagram.com/reel/DPJoeXXkYUi/embed", 
-        sopDocUrl: "",
-        sopText: `🎬 SOP: "If Realtors Were Honest At Showings"\n\n1. Strategic Analysis:\n- Unfiltered internal monologue about overpriced homes, bad neighbors, and buyer cars.\n\n2. Script Breakdown:\n0:00–0:05 - "Based on the car pulled up, I'm not sure you can afford this."\n0:05–0:09 - "First time search? Complete waste of my time."\n0:13–0:18 - "Significantly overpriced, but I didn't want to lose the listing."\n0:40–0:46 - "I'm having a really shitty year... please buy this house."`
-      },
-      { 
-        id: 16, 
-        tag: "LISTING HONESTY", 
-        title: "IF AGENTS WERE HONEST AT LISTING APPOINTMENTS", 
-        videoUrl: "https://www.instagram.com/reel/DPkPnU_Abxg/embed", 
-        sopDocUrl: "",
-        sopText: `🎬 SOP: "If Agents Were Honest At Listing Appointments"\n\n1. Strategic Analysis:\n- Parodies the gap between polished pitches and actual agent thoughts on pricing/commissions.\n\n2. Script Breakdown:\n0:00–0:05 - "I only have $600 in my bank account, perfect timing."\n0:05–0:13 - "Marketing plan? I'm gonna throw it on MLS and probably forget it."\n0:20–0:29 - "Commission depends on how much of a pain in the ass you're gonna be."`
-      },
-      { 
-        id: 17, 
-        tag: "BUYER FLAKES", 
-        title: "BUYERS THE DAY BEFORE THEY COMPLETELY GHOST YOU", 
-        videoUrl: "https://www.instagram.com/reel/DPsXJxKkRQ8/embed", 
-        sopDocUrl: "",
-        sopText: `🎬 SOP: "Buyers The Day Before They Ghost You"\n\n1. Strategic Analysis:\n- Over-the-top excitement immediately preceding total ghosting.\n\n2. Script Breakdown:\n0:00–0:04 - "I don't usually fall in love with a house this quickly..."\n0:08–0:13 - "Don't go showing this house to anyone else. This one's mine."\n0:23–0:29 - "I'll be sitting by my email ready to sign!" (Slams door)`
-      },
-      { 
-        id: 18, 
-        tag: "CREATIVE MARKETING", 
-        title: "SELLING MY LISTING LIKE IT’S A PERFUME AD", 
-        videoUrl: "https://www.instagram.com/reel/DP9CMtZETZW/embed", 
-        sopDocUrl: "",
-        sopText: `🎬 SOP: "Selling My Listing Like It's A Perfume Ad"\n\n1. Strategic Analysis:\n- Black & white, slow-motion, whispered poetry satirizing luxury cologne ads.\n\n2. Script Breakdown:\n0:00–0:05 - "For those who dream of homeownership..."\n0:08–0:11 - "Take a chance. Come see my new listing..."\n0:25–0:30 - Whispered outro: "Gail... by Michael D'Elena."`
-      },
-      { id: 19, tag: "OPEN HOUSE HONESTY", title: "IF REALTORS WERE HONEST AT OPEN HOUSES", videoUrl: "https://www.instagram.com/reel/DRK9Z2GEqML/embed", sopDocUrl: "", sopText: "🎬 SOP: If Realtors Were Honest At Open Houses\n\n1. Direct transparency on unrepresented leads and snack-hungry neighbors." },
-      { id: 20, tag: "NEIGHBOR SATIRE", title: "OPEN HOUSE NEIGHBORS BE LIKE", videoUrl: "https://www.instagram.com/reel/DSm9t_vgpf1/embed", sopDocUrl: "", sopText: "🎬 SOP: Open House Neighbors Be Like\n\n1. Highlight nosy neighbors visiting purely for gossip and price checks." },
-      { id: 21, tag: "OPEN HOUSE TOURS", title: "JUST BROWSING", videoUrl: "https://www.instagram.com/reel/DU_XdZIgdZo/embed", sopDocUrl: "", sopText: "🎬 SOP: Just Browsing\n\n1. Satirize visitors who spend 45 minutes walking through without any intention to buy." },
-      { id: 22, tag: "TECH SATIRE", title: "IF ZILLOW WAS A PERSON", videoUrl: "https://www.instagram.com/reel/DVXamE-kTIv/embed", sopDocUrl: "", sopText: "🎬 SOP: If Zillow Was A Person\n\n1. Personify Zestimates giving wildly inaccurate home valuations." },
-      { id: 23, tag: "GURU MATH", title: "MAKE $50M A YEAR…IT’S THAT EASY", videoUrl: "https://www.instagram.com/reel/DVtOTCCgpmk/embed", sopDocUrl: "", sopText: "🎬 SOP: Make $50M A Year... It's That Easy\n\n1. Parody real estate 'gurus' giving unrealistic revenue projections." },
-      { id: 24, tag: "SELLER ADVICE", title: "IF SELLERS MADE HOME SELLING HACK VIDEOS", videoUrl: "https://www.instagram.com/reel/DVyfwdpAjA8/embed", sopDocUrl: "", sopText: "🎬 SOP: If Sellers Made Home Selling Hack Videos\n\n1. Comedic breakdown of DIY seller fixes." },
-      { id: 25, tag: "LUXURY REALTORS", title: "LUXURY REALTORS BE LIKE", videoUrl: "https://www.instagram.com/reel/DXW06FaAlyd/embed", sopDocUrl: "", sopText: "🎬 SOP: Luxury Realtors Be Like\n\n1. Exaggerated luxury agent flexes and high-end lifestyle tropes." },
-      { id: 26, tag: "TIME WASTERS", title: "POV: WHEN THE CLIENT CONFIRMS THEY PLAN TO WASTE YOUR TIME", videoUrl: "https://www.instagram.com/reel/DYPboCBubQg/embed", sopDocUrl: "", sopText: "🎬 SOP: Client Confirms They Plan To Waste Your Time\n\n1. Humorous reaction to tire-kicker buyers." },
-      { id: 27, tag: "PERPETUAL SHOWINGS", title: "POV: IT’S YOUR 35TH SHOWING WITH THE SAME CLIENT", videoUrl: "https://www.instagram.com/reel/DZg1c9ZoGV2/embed", sopDocUrl: "", sopText: "🎬 SOP: 35th Showing With The Same Client\n\n1. Visual fatigue and exhaustion from endless home tours." },
-      { id: 28, tag: "GEN Z PARODY", title: "POV: YOU HIRED A GEN Z REALTOR", videoUrl: "https://www.instagram.com/reel/DSOrDOnCMM1/embed", sopDocUrl: "", sopText: "🎬 SOP: You Hired A Gen Z Realtor\n\n1. Slang-heavy listing presentations and TikTok trends applied to real estate." },
-      { id: 29, tag: "TRAFFIC STOP", title: "POV: WHEN REAL ESTATE AGENTS GET PULLED OVER", videoUrl: "https://www.instagram.com/reel/DZLwR3oJ-D8/embed", sopDocUrl: "", sopText: "🎬 SOP: When Real Estate Agents Get Pulled Over\n\n1. Turning a traffic stop into an impromptu listing pitch." }
+        directUrl: "https://www.instagram.com/reel/DXE73PCka10/",
+        objective: "Capture immediate comedic attention by framing an impromptu property pitch inside an Uber ride.",
+        psychology: [
+          "<b>Immersive POV:</b> Backseat angle creates relatable claustrophobia and forced captivity.",
+          "<b>Unexpected Pitch:</b> Shifts from casual rideshare driver to aggressive home seller."
+        ],
+        specs: "Format: 48 Seconds | Aspect Ratio: 9:16 Vertical",
+        setup: [
+          "<b>Location:</b> Inside a parked or safely driven vehicle with phone mount.",
+          "<b>Props:</b> Steering wheel mount, fake listing flyers on passenger seat."
+        ],
+        script: [
+          { time: "0:00–0:06", shot: "POV Backseat: Driver turns around.", overlay: "UBER RIDE", audio: "Hey, welcome in! Heading home? You own or rent?" },
+          { time: "0:06–0:14", shot: "Driver looks in rearview mirror.", overlay: "QUICK DETOUR", audio: "Need to make a quick stop... it's on the way, don't worry." },
+          { time: "0:14–0:22", shot: "Pulling up to a residential house.", overlay: "EXCLUSIVE LISTING", audio: "I think you'll like this one! 3-bed, 2.5-bath under 3,000 sq ft." },
+          { time: "0:22–0:36", shot: "Driver handing back listing sheet.", overlay: "INTEREST RATES", audio: "Have you been keeping up with interest rates?" }
+        ],
+        post: [
+          "<b>Pinned Comment:</b> '5 stars if you buy the house? ⭐️'",
+          "<b>Hashtags:</b> #realtorhumor #sidehustle #realestatemarketing"
+        ]
+      }
     ];
+
+    let currentSOPData = null;
 
     function renderGrid(data) {
       const grid = document.getElementById("reelsGrid");
@@ -531,28 +705,64 @@
       });
     }
 
-    // SOP CLICK LOGIC: Opens modal view for embedded SOP text or external link
     function openSOP(id) {
       const item = reelsData.find(r => r.id === id);
       if (!item) return;
 
-      if (item.sopDocUrl && item.sopDocUrl.trim() !== "") {
-        window.open(item.sopDocUrl, '_blank');
-      } else if (item.sopText) {
-        document.getElementById("sopModalTitle").innerText = item.title;
-        document.getElementById("sopModalBody").innerText = item.sopText;
-        document.getElementById("sopModal").style.display = "flex";
-      } else {
-        const newUrl = prompt(`Attach Google Doc SOP Link for: "${item.title}"`);
-        if (newUrl && newUrl.trim() !== "") {
-          item.sopDocUrl = newUrl.trim();
-          alert("SOP link saved!");
-        }
+      currentSOPData = item;
+
+      // Inject Left Panel
+      document.getElementById("sopVideoContainer").innerHTML = `<iframe src="${item.videoUrl}" allowtransparency="true" frameborder="0" scrolling="no"></iframe>`;
+      document.getElementById("sopDirectBtn").href = item.directUrl || item.videoUrl;
+
+      // Inject Right Panel Content
+      document.getElementById("sopTagBadge").innerText = item.tag;
+      document.getElementById("sopTitle").innerText = item.title;
+      document.getElementById("sopHook").innerText = item.hook || "";
+      document.getElementById("sopObjective").innerText = item.objective || "N/A";
+      document.getElementById("sopSpecs").innerText = item.specs || "";
+
+      // Render Psychology List
+      const psychContainer = document.getElementById("sopPsychology");
+      psychContainer.innerHTML = (item.psychology || []).map(p => `<li>${p}</li>`).join("");
+
+      // Render Setup List
+      const setupContainer = document.getElementById("sopSetupList");
+      setupContainer.innerHTML = (item.setup || []).map(s => `<li>${s}</li>`).join("");
+
+      // Render Script Table
+      const tableBody = document.getElementById("sopScriptTableBody");
+      tableBody.innerHTML = "";
+      if (item.script && item.script.length > 0) {
+        item.script.forEach(row => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td class="time-col">${row.time}</td>
+            <td>${row.shot}</td>
+            <td class="overlay-col">${row.overlay}</td>
+            <td>${row.audio}</td>
+          `;
+          tableBody.appendChild(tr);
+        });
       }
+
+      // Render Post List
+      const postContainer = document.getElementById("sopPostList");
+      postContainer.innerHTML = (item.post || []).map(p => `<li>${p}</li>`).join("");
+
+      document.getElementById("sopModal").style.display = "flex";
     }
 
     function closeSOPModal() {
       document.getElementById("sopModal").style.display = "none";
+    }
+
+    function copySOPToClipboard() {
+      if (!currentSOPData) return;
+      const textToCopy = `🎬 SOP: "${currentSOPData.title}"\n\nObjective:\n${currentSOPData.objective}\n\nSpecs:\n${currentSOPData.specs}`;
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        alert("SOP copied to clipboard!");
+      });
     }
 
     function handlePredictiveSearch() {
@@ -603,7 +813,6 @@
       const title = document.getElementById("reelTitleInput").value;
       const tag = document.getElementById("reelTagInput").value || "NEW REEL";
       const videoUrl = document.getElementById("reelUrlInput").value;
-      const gdocUrl = document.getElementById("gdocUrlInput").value;
 
       if (!title || !videoUrl) {
         alert("Please enter a title and Instagram Reel link.");
@@ -618,20 +827,21 @@
       const newReel = {
         id: Date.now(),
         tag: tag.toUpperCase(),
-        title: title.toUpperCase(),
+        title: title,
+        hook: "HOOK: Custom Uploaded Hook",
         videoUrl: formattedEmbed,
-        sopDocUrl: gdocUrl || "",
-        sopText: "Standard Operating Procedure available via URL link."
+        directUrl: videoUrl,
+        objective: "Custom objective added via upload modal.",
+        psychology: ["<b>Custom Hook:</b> User created SOP item."],
+        specs: "Format: 9:16 Vertical",
+        setup: ["<b>Location:</b> Standard venue."],
+        script: [{ time: "0:00–0:10", shot: "Scene 1", overlay: "TEXT OVERLAY", audio: "Custom Audio Line" }],
+        post: ["<b>Edit:</b> Standard Reel Edit"]
       };
 
       reelsData.unshift(newReel);
       renderGrid(reelsData);
       closeUploadModal();
-
-      document.getElementById("reelTitleInput").value = "";
-      document.getElementById("reelTagInput").value = "";
-      document.getElementById("reelUrlInput").value = "";
-      document.getElementById("gdocUrlInput").value = "";
     }
 
     renderGrid(reelsData);
