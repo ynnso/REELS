@@ -23,6 +23,7 @@
       padding: 24px;
     }
 
+    /* HEADER */
     header {
       display: flex;
       align-items: center;
@@ -130,7 +131,7 @@
     /* REELS GRID SYSTEM */
     .reels-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 24px;
     }
 
@@ -163,7 +164,7 @@
       display: inline-block;
     }
 
-    /* FIX: HIDES INSTAGRAM HEADER & WHITE CAPTION BOX COMPLETELY */
+    /* PERFECT 9:16 CROP & SCALE - ELIMINATES WHITE BOX & BLACK EDGES */
     .video-preview-wrapper {
       width: 100%;
       aspect-ratio: 9 / 16;
@@ -174,17 +175,17 @@
 
     .video-preview-wrapper iframe {
       position: absolute;
-      /* Top offset hides the profile header */
-      top: -54px; 
-      left: 0;
-      width: 100%;
-      /* Height calculation extends video and crops out the bottom white area */
-      height: calc(100% + 140px);
+      top: 50%;
+      left: 50%;
+      width: 440px;
+      height: 780px;
+      /* Zooming in physically crops out Instagram headers, white bottom boxes, and side bars */
+      transform: translate(-50%, -51%) scale(1.36);
       border: none;
     }
 
     .card-body {
-      padding: 16px;
+      padding: 14px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -202,21 +203,20 @@
       flex: 1;
     }
 
-    /* SOP + BUTTON FIX */
+    /* SOP + BUTTON STYLING */
     .sop-btn {
-      min-width: 36px;
-      height: 36px;
+      min-width: 38px;
+      height: 38px;
       background-color: var(--button-bg);
       border: 1px solid var(--card-border);
       color: #fff;
       border-radius: 8px;
       font-weight: 700;
-      font-size: 18px;
+      font-size: 20px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      text-decoration: none;
       transition: background-color 0.2s, transform 0.1s;
     }
 
@@ -374,19 +374,24 @@
           </div>
           <div class="card-body">
             <h3 class="reel-title">${item.title}</h3>
-            <button class="sop-btn" type="button" onclick="openSOP('${item.sopDocUrl}')" title="Open Google Doc SOP">+</button>
+            <button class="sop-btn" type="button" onclick="openSOP(${item.id})" title="Open/Add Google Doc SOP">+</button>
           </div>
         `;
         grid.appendChild(card);
       });
     }
 
-    // FUNCTIONING SOP LINK HANDLER
-    function openSOP(url) {
-      if (url && url !== "#" && url.trim() !== "") {
-        window.open(url, '_blank');
+    // SOP CLICK LOGIC: Opens link if exists; prompts to set link if empty
+    function openSOP(id) {
+      const item = reelsData.find(r => r.id === id);
+      if (item && item.sopDocUrl && item.sopDocUrl.trim() !== "") {
+        window.open(item.sopDocUrl, '_blank');
       } else {
-        alert("No Google Doc SOP link attached to this reel yet. Use the top '+ Add Reel / Upload SOP' button to attach a link!");
+        const newUrl = prompt(`Attach Google Doc SOP Link for: "${item ? item.title : 'Reel'}"`);
+        if (newUrl && newUrl.trim() !== "") {
+          if (item) item.sopDocUrl = newUrl.trim();
+          alert("SOP link saved! Clicking '+' will now open your Google Doc.");
+        }
       }
     }
 
